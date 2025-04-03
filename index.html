@@ -16,9 +16,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       background: linear-gradient(to right, #e0f7fa, #ffffff);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header {
+      text-align: center;
+      margin-top: 20px;
+    }
+    header img {
+      max-width: 200px;
+      height: auto;
     }
     form {
       width: 100%;
@@ -29,9 +37,15 @@
       border-radius: 10px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <header>
+    <img src="#2crew.png" alt="2Crew Logo">
+  </header>
   <button id="startBtn">Get an Instant Quote</button>
   <form id="cleanupForm" style="display:none">
     <!-- Step 1 -->
@@ -241,4 +255,5 @@
   </script>
 </body>
 </html>
+
 
