@@ -1,28 +1,33 @@
+/* ========== Global Reset ========== */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  overflow-x: hidden;
+}
+
+body {
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+}
 
 /* ========== Navigation Styles ========== */
-
-body.quote-form {
-  padding: 0 !important;
-}
-
-body.quote-form form {
-  margin-top: 40px;
-}
-
-form {
-  margin-top: 40px; /* add spacing *below* the nav */
-}
 nav {
   width: 100%;
   background-color: #00796b;
-  padding: 10px 20px;
+  padding: 20px 0 10px 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 999;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
+  margin-left: 20px;
 }
 
 .dropbtn {
@@ -38,11 +43,11 @@ nav {
 .dropdown-content {
   display: none;
   position: absolute;
-  right: 0;
+  left: 0;
   background-color: white;
-  min-width: 160px;
+  min-width: 180px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 1000;
 }
 
 .dropdown-content a {
@@ -56,39 +61,85 @@ nav {
   background-color: #f1f1f1;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown.show .dropdown-content {
   display: block;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #e0f7fa, #ffffff);
-  padding: 40px;
-  color: #333;
+/* ============================
+   Homepage Styles (index.html)
+   ============================ */
+body.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-#startBtn {
-  padding: 15px 30px;
-  font-size: 18px;
-  background: #00796b;
+body.homepage header {
+  margin-top: 40px;
+}
+
+body.homepage header img {
+  width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+  display: block;
+}
+
+body.homepage h1 {
+  font-size: 2.5rem;
+  color: #00796b;
+  margin-top: 20px;
+}
+
+body.homepage p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 20px;
+  color: #444;
+}
+
+body.homepage .cta-button {
+  display: inline-block;
+  background-color: #00796b;
   color: white;
-  border: none;
+  text-decoration: none;
+  padding: 15px 30px;
   border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+  font-size: 1.1rem;
+  margin-top: 30px;
+  transition: background-color 0.3s ease;
 }
 
-#startBtn:hover {
-  background: #004d40;
+body.homepage .cta-button:hover {
+  background-color: #004d40;
 }
 
-form {
+/* ============================
+   Quote Form Styles
+   ============================ */
+body.quote-form header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+body.quote-form header img {
+  width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.quote-form form {
   background: #ffffff;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   max-width: 600px;
-  margin: 0 auto;
+  margin: 40px auto;
 }
 
 .form-step {
@@ -170,71 +221,21 @@ button:hover {
   border-radius: 8px;
   font-size: 16px;
 }
-/* ============================
-   Homepage Styles (index.html)
-   ============================ */
 
-body.homepage {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #e0f7fa, #ffffff);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 50px 20px;
-}
-
-body.homepage header img {
-  width: 300px !important;
-  height: auto;
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-body.homepage h1 {
-  font-size: 2.5rem;
-  color: #00796b;
-}
-
-body.homepage p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 20px auto;
-  color: #444;
-}
-
-body.homepage .cta-button {
-  display: inline-block;
-  background-color: #00796b;
-  color: white;
-  text-decoration: none;
+/* Utility Classes */
+#startBtn {
   padding: 15px 30px;
+  font-size: 18px;
+  background: #00796b;
+  color: white;
+  border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
-  margin-top: 30px;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-body.homepage .cta-button:hover {
-  background-color: #004d40;
-}
-
-body.quote-form header {
-  text-align: center;
-  margin-top: 20px;
-}
-
-body.quote-form header img {
-  width: 300px !important;
-  height: auto;
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+#startBtn:hover {
+  background: #004d40;
 }
 
 
