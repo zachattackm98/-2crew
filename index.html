@@ -79,9 +79,9 @@
     <div class="form-step">
       <h3>Choose a Plan</h3>
       <label><input type="radio" name="plan" value="1 clean/week - $20.00" required> 1 clean/week - $20.00</label><br>
-      <label><input type="radio" name="plan" value="2 cleans/week - $15.00"> 2 cleans/week - $15.00</label><br>
-      <label><input type="radio" name="plan" value="3 cleans/week - $15.00"> 3 cleans/week - $15.00</label><br>
-      <label><input type="radio" name="plan" value="Every other week - $35.00"> Every other week - $35.00</label>
+      <label><input type="radio" name="plan" value="2 cleans/week - $15.00" required> 2 cleans/week - $15.00</label><br>
+      <label><input type="radio" name="plan" value="3 cleans/week - $15.00" required> 3 cleans/week - $15.00</label><br>
+      <label><input type="radio" name="plan" value="Every other week - $35.00" required> Every other week - $35.00</label>
       <div class="buttons">
         <button type="button" onclick="prevStep()">Back</button>
         <button type="button" onclick="nextStep()">Next</button>
@@ -111,7 +111,7 @@
         <option>Right</option>
       </select><br>
       <label>Comments:</label><br>
-      <textarea name="accessComments"></textarea><br>
+      <textarea name="accessComments" required></textarea><br>
       <label>Community gate code?</label><br>
       <select name="communityGate" id="communityGate" required onchange="toggleInput(this, 'communityCode')">
         <option value="">Select</option>
@@ -153,9 +153,9 @@
         <option>Right</option>
       </select><br>
       <label>Comments:</label><br>
-      <textarea name="trashComments"></textarea><br>
+      <textarea name="trashComments" required></textarea><br>
       <label>Additional Info:</label><br>
-      <textarea name="extraInfo"></textarea>
+      <textarea name="extraInfo" required></textarea>
       <div class="buttons">
         <button type="button" onclick="prevStep()">Back</button>
         <button type="button" onclick="nextStep()">Next</button>
@@ -204,6 +204,11 @@
     function toggleInput(select, inputId) {
       const input = document.getElementById(inputId);
       input.classList.toggle("hidden", select.value !== "yes");
+      if (select.value === "yes") {
+        input.setAttribute("required", "required");
+      } else {
+        input.removeAttribute("required");
+      }
     }
 
     document.getElementById("startBtn").addEventListener("click", () => {
