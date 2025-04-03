@@ -8,7 +8,7 @@ body, html {
 /* Let the nav stretch across the page */
 .main-nav {
   width: 100vw; /* forces full viewport width */
-  background-color: #333;
+  background-color: #00796b;
   color: white;
   padding: 10px 20px;
   box-sizing: border-box;
