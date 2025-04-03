@@ -158,16 +158,19 @@
       </div>
     </div>
   </form>
-
-  <script src="dropdown.js"></script>
-  <script src="form.js" defer></script>
-  <script>
+<script>
   fetch('navbar.html')
     .then(res => res.text())
     .then(data => {
       document.getElementById('nav-placeholder').innerHTML = data;
+
+      // 🔥 Load dropdown logic AFTER navbar is inserted
+      const script = document.createElement('script');
+      script.src = 'dropdown.js';
+      document.body.appendChild(script);
     });
 </script>
+<script src="form.js" defer></script>
 </body>
 </html>
 
