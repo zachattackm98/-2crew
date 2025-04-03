@@ -161,6 +161,13 @@
 
   <script src="dropdown.js"></script>
   <script src="form.js" defer></script>
+  <script>
+  fetch('navbar.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('nav-placeholder').innerHTML = data;
+    });
+</script>
 </body>
 </html>
 
