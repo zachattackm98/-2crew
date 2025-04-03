@@ -2,53 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pet E-Waste Removal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Cleanup Instant Quote</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-    }
-    .form-step {
-      display: none;
-    }
-    .form-step.active {
-      display: block;
-    }
-    .buttons {
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 5px;
-      border: none;
-      background-color: #4CAF50;
-      color: white;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    .progress {
-      margin-bottom: 20px;
-    }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    .buttons { margin-top: 20px; }
+    button { padding: 10px 20px; margin: 5px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .hidden { display: none; }
+    .diagram { margin: 20px 0; padding: 10px; background: #eee; text-align: center; font-size: 18px; }
   </style>
 </head>
 <body>
 
-  <h2>🐾 Pet E-Waste Removal Request</h2>
-  <div class="progress">Step <span id="stepNum">1</span> of 4</div>
+  <button id="startBtn">Get an Instant Quote</button>
 
-  <form id="eWasteForm">
+  <form id="cleanupForm">
+
     <!-- Step 1 -->
-    <div class="form-step active">
-      <label for="ownerName">Your Name:</label><br>
-      <input type="text" id="ownerName" name="ownerName" required><br><br>
-      
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
-      
+    <div class="form-step">
+      <h3>Contact Info</h3>
+      <label>Full Name:</label><br><input type="text" name="name" required><br>
+      <label>Phone Number:</label><br><input type="tel" name="phone" required><br>
+      <label>Email:</label><br><input type="email" name="email" required><br>
+      <label>Address:</label><br><input type="text" name="address" id="address" required><br>
       <div class="buttons">
         <button type="button" onclick="nextStep()">Next</button>
       </div>
@@ -56,18 +34,27 @@
 
     <!-- Step 2 -->
     <div class="form-step">
-      <label for="deviceType">What kind of pet e-waste?</label><br>
-      <select id="deviceType" name="deviceType" required>
-        <option value="">Select one</option>
-        <option value="gps">GPS Collar</option>
-        <option value="feeder">Auto Feeder</option>
-        <option value="cam">Pet Camera</option>
-        <option value="other">Other</option>
-      </select><br><br>
-
-      <label for="quantity">How many?</label><br>
-      <input type="number" id="quantity" name="quantity" min="1" required><br><br>
-
+      <h3>Pet & Yard Info</h3>
+      <label>How many dogs?</label><br>
+      <select name="dogs" required>
+        <option value="">Select</option>
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+      </select><br>
+      <label>Yard size:</label><br>
+      <select name="yardSize" required>
+        <option value="">Select</option>
+        <option>1/2 acre or less</option>
+        <option>1/2 acre or more</option>
+      </select><br>
+      <label>Last cleaned:</label><br>
+      <select name="lastClean" required>
+        <option value="">Select</option>
+        <option>Less than 1 week</option>
+        <option>Less than 2 weeks</option>
+        <option>Less than a month</option>
+        <option>1 to 3 months</option>
+        <option>More than 3 months</option>
+      </select>
       <div class="buttons">
         <button type="button" onclick="prevStep()">Back</button>
         <button type="button" onclick="nextStep()">Next</button>
@@ -76,12 +63,11 @@
 
     <!-- Step 3 -->
     <div class="form-step">
-      <label for="pickupDate">Preferred Pickup Date:</label><br>
-      <input type="date" id="pickupDate" name="pickupDate" required><br><br>
-
-      <label for="address">Pickup Address:</label><br>
-      <textarea id="address" name="address" rows="4" required></textarea><br><br>
-
+      <h3>Choose a Plan</h3>
+      <label><input type="radio" name="plan" value="1 clean/week - $20.00" required> 1 clean/week - $20.00</label><br>
+      <label><input type="radio" name="plan" value="2 cleans/week - $15.00"> 2 cleans/week - $15.00</label><br>
+      <label><input type="radio" name="plan" value="3 cleans/week - $15.00"> 3 cleans/week - $15.00</label><br>
+      <label><input type="radio" name="plan" value="Every other week - $35.00"> Every other week - $35.00</label>
       <div class="buttons">
         <button type="button" onclick="prevStep()">Back</button>
         <button type="button" onclick="nextStep()">Next</button>
@@ -90,9 +76,87 @@
 
     <!-- Step 4 -->
     <div class="form-step">
-      <h3>Review & Submit</h3>
-      <p>Make sure everything looks good before submitting your e-waste removal request!</p>
+      <h3>Schedule Pickup</h3>
+      <label>Select a Date:</label><br>
+      <input type="date" name="date" required>
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Back</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
 
+    <!-- Step 5 -->
+    <div class="form-step">
+      <h3>Yard Access Info</h3>
+      <div class="diagram">[ House Diagram Placeholder ]</div>
+      <label>Yard access location:</label><br>
+      <select name="accessLocation" required>
+        <option value="">Select</option>
+        <option>Left</option>
+        <option>Back</option>
+        <option>Right</option>
+      </select><br>
+      <label>Comments:</label><br>
+      <textarea name="accessComments"></textarea><br>
+      <label>Community gate code?</label><br>
+      <select name="communityGate" id="communityGate" required onchange="toggleInput(this, 'communityCode')">
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select><br>
+      <input type="text" id="communityCode" name="communityCode" placeholder="Enter community code" class="hidden"><br>
+
+      <label>House gate code?</label><br>
+      <select name="houseGate" id="houseGate" required onchange="toggleInput(this, 'houseCode')">
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select><br>
+      <input type="text" id="houseCode" name="houseCode" placeholder="Enter house code" class="hidden"><br>
+
+      <label>Is it safe to enter your yard with your dog?</label><br>
+      <select name="dogSafety" required>
+        <option value="">Select</option>
+        <option>Yes, my dog is friendly</option>
+        <option>No, my dog must be inside</option>
+      </select>
+
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Back</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="form-step">
+      <h3>Trash Can Location</h3>
+      <div class="diagram">[ Trash Can Diagram Placeholder ]</div>
+      <label>Location:</label><br>
+      <select name="trashLocation" required>
+        <option value="">Select</option>
+        <option>Left</option>
+        <option>Back</option>
+        <option>Right</option>
+      </select><br>
+      <label>Comments:</label><br>
+      <textarea name="trashComments"></textarea><br>
+      <label>Additional Info:</label><br>
+      <textarea name="extraInfo"></textarea>
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Back</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="form-step">
+      <h3>Review & Payment</h3>
+      <p><strong>Summary:</strong></p>
+      <p id="summary"></p>
+      <label>Credit Card Info (placeholder):</label><br>
+      <input type="text" placeholder="Card Number" required><br>
+      <input type="text" placeholder="MM/YY" required><br>
+      <input type="text" placeholder="CVC" required><br>
       <div class="buttons">
         <button type="button" onclick="prevStep()">Back</button>
         <button type="submit">Submit</button>
@@ -102,14 +166,10 @@
 
   <script>
     const steps = document.querySelectorAll(".form-step");
-    const stepNum = document.getElementById("stepNum");
     let currentStep = 0;
 
-    function showStep(n) {
-      steps.forEach((step, i) => {
-        step.classList.toggle("active", i === n);
-      });
-      stepNum.textContent = n + 1;
+    function showStep(index) {
+      steps.forEach((step, i) => step.classList.toggle("active", i === index));
     }
 
     function nextStep() {
@@ -126,12 +186,20 @@
       }
     }
 
-    document.getElementById("eWasteForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("Thanks for doing your part to keep Fluffy's broken tech out of the landfill 💚 We'll be in touch soon!");
-      this.reset();
-      currentStep = 0;
+    function toggleInput(select, inputId) {
+      const input = document.getElementById(inputId);
+      input.classList.toggle("hidden", select.value !== "yes");
+    }
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.getElementById("startBtn").style.display = "none";
+      document.getElementById("cleanupForm").style.display = "block";
       showStep(currentStep);
+    });
+
+    document.getElementById("cleanupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Form submitted! Thank you for scheduling your pet cleanup.");
     });
 
     showStep(currentStep);
