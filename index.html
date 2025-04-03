@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pet E-Waste Removal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    .form-step {
+      display: none;
+    }
+    .form-step.active {
+      display: block;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .progress {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🐾 Pet E-Waste Removal Request</h2>
+  <div class="progress">Step <span id="stepNum">1</span> of 4</div>
+
+  <form id="eWasteForm">
+    <!-- Step 1 -->
+    <div class="form-step active">
+      <label for="ownerName">Your Name:</label><br>
+      <input type="text" id="ownerName" name="ownerName" required><br><br>
+      
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+      
+      <div class="buttons">
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="form-step">
+      <label for="deviceType">What kind of pet e-waste?</label><br>
+      <select id="deviceType" name="deviceType" required>
+        <option value="">Select one</option>
+        <option value="gps">GPS Collar</option>
+        <option value="feeder">Auto Feeder</option>
+        <option value="cam">Pet Camera</option>
+        <option value="other">Other</option>
+      </select><br><br>
+
+      <label for="quantity">How many?</label><br>
+      <input type="number" id="quantity" name="quantity" min="1" required><br><br>
+
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Back</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="form-step">
+      <label for="pickupDate">Preferred Pickup Date:</label><br>
+      <input type="date" id="pickupDate" name="pickupDate" required><br><br>
+
+      <label for="address">Pickup Address:</label><br>
+      <textarea id="address" name="address" rows="4" required></textarea><br><br>
+
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Back</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="form-step">
+      <h3>Review & Submit</h3>
+      <p>Make sure everything looks good before submitting your e-waste removal request!</p>
+
+      <div class="buttons">
+        <button type="button" onclick="prevStep()">Back</button>
+        <button type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    const steps = document.querySelectorAll(".form-step");
+    const stepNum = document.getElementById("stepNum");
+    let currentStep = 0;
+
+    function showStep(n) {
+      steps.forEach((step, i) => {
+        step.classList.toggle("active", i === n);
+      });
+      stepNum.textContent = n + 1;
+    }
+
+    function nextStep() {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    }
+
+    document.getElementById("eWasteForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Thanks for doing your part to keep Fluffy's broken tech out of the landfill 💚 We'll be in touch soon!");
+      this.reset();
+      currentStep = 0;
+      showStep(currentStep);
+    });
+
+    showStep(currentStep);
+  </script>
+</body>
+</html>
