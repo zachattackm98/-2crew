@@ -5,51 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Cleanup Instant Quote</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      background: linear-gradient(to right, #e0f7fa, #ffffff);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    header {
-      text-align: center;
-      margin-top: 20px;
-    }
-    header img {
-      max-width: 200px;
-      height: auto;
-    }
-    form {
-      width: 100%;
-      max-width: 700px;
-      background: white;
-      padding: 40px;
-      margin: 20px;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
 </head>
-<body>
-  <body class="quote-form">
+<body class="quote-form">
   <header>
     <img src="2crew.png" alt="2Crew Logo">
   </header>
- <form id="cleanupForm">
+
+  <form id="cleanupForm">
     <!-- Step 1 -->
-    <div class="form-step">
+    <div class="form-step active">
       <h3>Contact Info</h3>
       <label>Full Name:</label><br><input type="text" name="name" required><br>
       <label>Phone Number:</label><br><input type="tel" name="phone" required><br>
@@ -93,9 +57,9 @@
     <div class="form-step">
       <h3>Choose a Plan</h3>
       <label><input type="radio" name="plan" value="1 clean/week - $20.00" required> 1 clean/week - $20.00</label><br>
-      <label><input type="radio" name="plan" value="2 cleans/week - $15.00" required> 2 cleans/week - $15.00</label><br>
-      <label><input type="radio" name="plan" value="3 cleans/week - $15.00" required> 3 cleans/week - $15.00</label><br>
-      <label><input type="radio" name="plan" value="Every other week - $35.00" required> Every other week - $35.00</label>
+      <label><input type="radio" name="plan" value="2 cleans/week - $15.00"> 2 cleans/week - $15.00</label><br>
+      <label><input type="radio" name="plan" value="3 cleans/week - $15.00"> 3 cleans/week - $15.00</label><br>
+      <label><input type="radio" name="plan" value="Every other week - $35.00"> Every other week - $35.00</label>
       <div class="buttons">
         <button type="button" onclick="prevStep()">Back</button>
         <button type="button" onclick="nextStep()">Next</button>
@@ -223,7 +187,7 @@
       } else {
         input.removeAttribute("required");
       }
-    });
+    }
 
     document.getElementById("cleanupForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -249,4 +213,5 @@
   </script>
 </body>
 </html>
+
 
