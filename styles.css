@@ -1,21 +1,11 @@
-/* Ensure the nav wrapper stretches fully */
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
 /* Let the nav stretch across the page */
 .main-nav {
-  width: 100vw; /* forces full viewport width */
+   width: 100%;
   background-color: #00796b;
-  color: white;
   padding: 10px 20px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 999; /* keep it above other stuff if needed */
+  display: flex;
+  justify-content: flex-end;
 }
-
 
 /* ========== Navigation Styles ========== */
 nav {
