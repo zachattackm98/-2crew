@@ -5,52 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Cleanup Instant Quote</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .dropdown-content {
-      display: none;
-    }
-    .dropdown.show .dropdown-content {
-      display: block;
-    }
-  </style>
 </head>
 <body class="quote-form">
-  <nav>
-    <div class="dropdown" id="dropdownMenu">
-      <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
-      <div class="dropdown-content">
-        <a href="quote.html">Book Our Service</a>
-        <a href="about.html">About Us</a>
-        <a href="pricing.html">Pricing</a>
-      </div>
-    </div>
-  </nav>
+  <!-- External Nav Bar -->
+  <div id="nav-placeholder"></div>
 
   <header>
     <img src="2crew.png" alt="2Crew Logo">
   </header>
- 
-  <form id="cleanupForm">
-    <!-- form content would go here -->
-  </form>
 
-  <script>
-    function toggleDropdown() {
-      document.getElementById("dropdownMenu").classList.toggle("show");
-    }
-
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown");
-        for (let i = 0; i < dropdowns.length; i++) {
-          let openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-  </script>
   <form id="cleanupForm">
     <!-- Step 1 -->
     <div class="form-step active">
@@ -196,76 +159,13 @@
     </div>
   </form>
 
+  <script src="dropdown.js"></script>
   <script>
-    const steps = document.querySelectorAll(".form-step");
-    let currentStep = 0;
-
-    function showStep(index) {
-      steps.forEach((step, i) => step.classList.toggle("active", i === index));
-      if (index === steps.length - 1) fillSummary();
-    }
-
-    function nextStep() {
-      if (currentStep < steps.length - 1) {
-        currentStep++;
-        showStep(currentStep);
-      }
-    }
-
-    function prevStep() {
-      if (currentStep > 0) {
-        currentStep--;
-        showStep(currentStep);
-      }
-    }
-
-    function toggleInput(select, inputId) {
-      const input = document.getElementById(inputId);
-      input.classList.toggle("hidden", select.value !== "yes");
-      if (select.value === "yes") {
-        input.setAttribute("required", "required");
-      } else {
-        input.removeAttribute("required");
-      }
-    }
-
-    document.getElementById("cleanupForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("Form submitted! Thank you for scheduling your pet cleanup.");
-    });
-
-    function fillSummary() {
-      const form = document.getElementById("cleanupForm");
-      const formData = new FormData(form);
-      const ignoredFields = ["card", "", null];
-      let summaryHtml = '<ul>';
-      for (let [key, value] of formData.entries()) {
-        if (value && !ignoredFields.includes(key)) {
-          const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
-          summaryHtml += `<li><strong>${label}:</strong> ${value}</li>`;
-        }
-      }
-      summaryHtml += '</ul>';
-      document.getElementById("summary").innerHTML = summaryHtml;
-    }
-
-    showStep(currentStep);
-    function toggleDropdown() {
-      document.getElementById("dropdownMenu").classList.toggle("show");
-    }
-
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown");
-        for (let i = 0; i < dropdowns.length; i++) {
-          let openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-  </script>
-</body>
-</html>
+    // Load external navbar
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('nav-placeholder').innerHTML = data;
+      });
+ <script/>
 
