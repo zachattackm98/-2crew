@@ -162,4 +162,15 @@ header img {
   margin-bottom: 20px;
   align-items: center;
 }
+body.quote-form header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+body.quote-form header img {
+  max-width: 180px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
 
