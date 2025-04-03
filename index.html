@@ -5,11 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to 2Crew Pet Cleanup</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .dropdown-content {
+      display: none;
+    }
+    .dropdown.show .dropdown-content {
+      display: block;
+    }
+  </style>
 </head>
 <body class="homepage">
   <nav>
-    <div class="dropdown">
-      <button class="dropbtn">Menu ▾</button>
+    <div class="dropdown" id="dropdownMenu">
+      <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
       <div class="dropdown-content">
         <a href="quote.html">Book Our Service</a>
         <a href="about.html">About Us</a>
@@ -27,6 +35,24 @@
   </p>
 
   <a href="quote.html" class="cta-button">Get an Instant Quote</a>
+
+  <script>
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+          let openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
 </body>
 </html>
 
