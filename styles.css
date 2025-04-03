@@ -108,3 +108,51 @@ button:hover {
   border-radius: 8px;
   font-size: 16px;
 }
+/* ============================
+   Homepage Styles (index.html)
+   ============================ */
+
+body.homepage {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+body.homepage header img {
+  max-width: 180px;
+  margin-bottom: 20px;
+}
+
+body.homepage h1 {
+  font-size: 2.5rem;
+  color: #00796b;
+}
+
+body.homepage p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 20px auto;
+  color: #444;
+}
+
+body.homepage .cta-button {
+  display: inline-block;
+  background-color: #00796b;
+  color: white;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  margin-top: 30px;
+  transition: background-color 0.3s ease;
+}
+
+body.homepage .cta-button:hover {
+  background-color: #004d40;
+}
+
