@@ -4,14 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Cleanup Instant Quote</title>
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    form {
+      width: 100%;
+      max-width: 700px;
+      background: white;
+      padding: 40px;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body>
-
   <button id="startBtn">Get an Instant Quote</button>
-
-  <form id="cleanupForm">
-
+  <form id="cleanupForm" style="display:none">
     <!-- Step 1 -->
     <div class="form-step">
       <h3>Contact Info</h3>
@@ -144,7 +166,7 @@
     <div class="form-step">
       <h3>Review & Payment</h3>
       <p><strong>Summary:</strong></p>
-      <p id="summary"></p>
+      <div id="summary"></div>
       <label>Credit Card Info (placeholder):</label><br>
       <input type="text" placeholder="Card Number" required><br>
       <input type="text" placeholder="MM/YY" required><br>
@@ -162,6 +184,7 @@
 
     function showStep(index) {
       steps.forEach((step, i) => step.classList.toggle("active", i === index));
+      if (index === steps.length - 1) fillSummary();
     }
 
     function nextStep() {
@@ -194,7 +217,23 @@
       alert("Form submitted! Thank you for scheduling your pet cleanup.");
     });
 
+    function fillSummary() {
+      const form = document.getElementById("cleanupForm");
+      const formData = new FormData(form);
+      const ignoredFields = ["card", "", null];
+      let summaryHtml = '<ul>';
+      for (let [key, value] of formData.entries()) {
+        if (value && !ignoredFields.includes(key)) {
+          const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
+          summaryHtml += `<li><strong>${label}:</strong> ${value}</li>`;
+        }
+      }
+      summaryHtml += '</ul>';
+      document.getElementById("summary").innerHTML = summaryHtml;
+    }
+
     showStep(currentStep);
   </script>
 </body>
 </html>
+
