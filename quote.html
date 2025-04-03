@@ -5,12 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Cleanup Instant Quote</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .dropdown-content {
+      display: none;
+    }
+    .dropdown.show .dropdown-content {
+      display: block;
+    }
+  </style>
 </head>
 <body class="quote-form">
+  <nav>
+    <div class="dropdown" id="dropdownMenu">
+      <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
+      <div class="dropdown-content">
+        <a href="quote.html">Book Our Service</a>
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+    </div>
+  </nav>
+
   <header>
     <img src="2crew.png" alt="2Crew Logo">
   </header>
+ 
+  <form id="cleanupForm">
+    <!-- form content would go here -->
+  </form>
 
+  <script>
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+          let openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
   <form id="cleanupForm">
     <!-- Step 1 -->
     <div class="form-step active">
@@ -210,8 +252,22 @@
     }
 
     showStep(currentStep);
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+          let openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
   </script>
 </body>
 </html>
-
 
