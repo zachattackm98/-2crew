@@ -173,8 +173,14 @@ body.homepage {
 }
 
 body.homepage header img {
-  max-width: 180px;
+  width: 300px !important;
+  height: auto;
   margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 }
 
 body.homepage h1 {
@@ -204,12 +210,7 @@ body.homepage .cta-button {
 body.homepage .cta-button:hover {
   background-color: #004d40;
 }
-/* Apply to all header logos */
-header img {
-  width: 300px;
-  height: auto;
-  margin-bottom: 20px;
-  align-items: center;
+
 }
 body.quote-form header {
   text-align: center;
@@ -217,9 +218,13 @@ body.quote-form header {
 }
 
 body.quote-form header img {
-  width: 100%;
+  width: 300px !important;
   height: auto;
   margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 
