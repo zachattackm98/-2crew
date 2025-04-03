@@ -6,6 +6,14 @@
   justify-content: flex-end;
 }
 /* ========== Navigation Styles ========== */
+
+body.quote-form {
+  padding-top: 0;
+}
+
+form {
+  margin-top: 40px; /* add spacing *below* the nav */
+}
 nav {
   width: 100%;
   background-color: #00796b;
