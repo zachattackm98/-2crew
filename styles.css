@@ -206,7 +206,7 @@ body.homepage .cta-button:hover {
 }
 /* Apply to all header logos */
 header img {
-  max-width: 225px;
+  width: 300px;
   height: auto;
   margin-bottom: 20px;
   align-items: center;
@@ -217,7 +217,7 @@ body.quote-form header {
 }
 
 body.quote-form header img {
-  max-width: 225px;
+  width: 100%;
   height: auto;
   margin-bottom: 20px;
 }
