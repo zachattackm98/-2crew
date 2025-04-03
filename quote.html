@@ -5,10 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Cleanup Instant Quote</title>
   <link rel="stylesheet" href="styles.css">
+ <style>
+    .dropdown-content {
+      display: none;
+    }
+    .dropdown.show .dropdown-content {
+      display: block;
+    }
+  </style>
 </head>
 <body class="quote-form">
-  <!-- External Nav Bar -->
-  <div id="nav-placeholder" class="navbar-container"></div>
+  <nav>
+    <div class="dropdown" id="dropdownMenu">
+      <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
+      <div class="dropdown-content">
+        <a href="quote.html">Book Our Service</a>
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+         <a href="service.html">Service Area</a>
+      </div>
+    </div>
+  </nav>
 
   <header>
     <img src="2crew.png" alt="2Crew Logo">
@@ -158,19 +175,23 @@
       </div>
     </div>
   </form>
-<script>
-  fetch('navbar.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('nav-placeholder').innerHTML = data;
+ <script>
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
 
-      // 🔥 Load dropdown logic AFTER navbar is inserted
-      const script = document.createElement('script');
-      script.src = 'dropdown.js';
-      document.body.appendChild(script);
-    });
-</script>
-<script src="form.js" defer></script>
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+          let openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
 </body>
 </html>
 
