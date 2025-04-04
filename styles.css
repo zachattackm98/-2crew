@@ -14,10 +14,6 @@ nav {
 
 /* ========== Navigation Styles ========== */
 
-body.quote-form {
-  padding: 0 !important;
-}
-
 body.quote-form form {
   margin-top: 40px;
 }
