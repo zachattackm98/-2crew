@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Cleanup Instant Quote</title>
   <link rel="stylesheet" href="styles.css">
- <style>
+  <style>
     .dropdown-content {
       display: none;
     }
@@ -15,20 +15,18 @@
   </style>
 </head>
 <body class="quote-form">
-<div class="dropdown" id="dropdownMenu">
-        <div class="nav-container">
-     <nav class="main-nav">
-        <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
-        <div class="dropdown-content">
-          <a href="quote.html">Book Our Service</a>
-          <a href="about.html">About Us</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="service.html">Service Area</a>
-          <a href="index.html">Home</a>
-        </div>
+  <nav>
+    <div class="dropdown" id="dropdownMenu">
+      <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
+      <div class="dropdown-content">
+        <a href="quote.html">Book Our Service</a>
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="service.html">Service Area</a>
+        <a href="index.html">Home</a>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 
   <header>
     <img src="2crew.png" alt="2Crew Logo">
@@ -178,8 +176,9 @@
       </div>
     </div>
   </form>
+
   <script src="form.js" defer></script>
- <script>
+  <script>
     function toggleDropdown() {
       document.getElementById("dropdownMenu").classList.toggle("show");
     }
