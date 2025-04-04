@@ -1,7 +1,15 @@
+nav {
+  background-color: #00796b;
+  padding: 10px 0; /* vertical spacing only */
+}
+
 .nav-container {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px; /* horizontal padding inside container */
+  display: flex;
+  justify-content: flex-end; /* push menu to the right */
+  align-items: center; /* vertical centering */
 }
 
 /* ========== Navigation Styles ========== */
