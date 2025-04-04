@@ -5,14 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pet Cleanup Instant Quote</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .dropdown-content {
-      display: none;
-    }
-    .dropdown.show .dropdown-content {
-      display: block;
-    }
-  </style>
+  <script src="dropdown.js" defer></script> <!-- Include the dropdown.js file -->
 </head>
 <body class="quote-form">
   <nav>
@@ -178,23 +171,6 @@
   </form>
 
   <script src="form.js" defer></script>
-  <script>
-    function toggleDropdown() {
-      document.getElementById("dropdownMenu").classList.toggle("show");
-    }
-
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown");
-        for (let i = 0; i < dropdowns.length; i++) {
-          let openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-  </script>
 </body>
 </html>
 
