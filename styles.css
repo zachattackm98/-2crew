@@ -163,6 +163,7 @@ body {
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s;
+    margin-bottom: 30px !important;
 }
 
 .btn:hover {
