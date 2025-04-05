@@ -1013,23 +1013,24 @@ textarea.form-control {
     .service-image {
         height: 250px;
     }
-
-/* Improved Section Divider Styles */
+    
+/* Section Divider Styles */
 .section-divider {
     position: relative;
     height: 80px;
     margin: 30px 0 50px;
-    text-align: center;
-    clear: both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .section-divider::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
+    left: 0;
+    width: 100%;
     height: 1px;
     background-color: var(--gray-light);
     z-index: 1;
@@ -1037,27 +1038,58 @@ textarea.form-control {
 
 .section-divider-content {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 2;
     width: 60px;
     height: 60px;
     background-color: var(--light);
     border-radius: 50%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .section-divider-icon {
     font-size: 25px;
     color: var(--primary);
 }
+.section-divider {
+    position: relative;
+    height: 80px;
+    margin: 30px 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
-/* Make sure divider works on all screen sizes */
-@media (max-width: 768px) {
-    .section-divider::before {
-        width: 90%;
-    }
+.section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--gray-light);
+    z-index: 1;
+}
+
+.section-divider-content {
+    position: relative;
+    z-index: 2;
+    width: 60px;
+    height: 60px;
+    background-color: var(--light);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-divider-icon {
+    font-size: 25px;
+    color: var(--primary);
 }
     
 @media (max-width: 992px) {
