@@ -1,176 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pet Cleanup Instant Quote</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="dropdown.js" defer></script> <!-- Include the dropdown.js file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get an Instant Quote | 2Crew Pet Cleanup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="quote-form">
-  <nav>
-    <div class="dropdown" id="dropdownMenu">
-      <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
-      <div class="dropdown-content">
-        <a href="quote.html">Book Our Service</a>
-        <a href="about.html">About Us</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="service.html">Service Area</a>
-        <a href="index.html">Home</a>
-      </div>
-    </div>
-  </nav>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="2crew.png" alt="2Crew Pet Cleanup Logo">
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                <li class="nav-item"><a href="service.html" class="nav-link">Service Area</a></li>
+                <li class="nav-item"><a href="quote.html" class="nav-link cta">Book Our Service</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
 
-  <header>
-    <img src="2crew.png" alt="2Crew Logo">
-  </header>
+    <!-- Quote Form Section -->
+    <section class="section quote-section">
+        <div class="container">
+            <h2 class="section-title">Get Your Instant Quote</h2>
+            <p class="section-subtitle">FREE initial cleanup with regular scheduled service!</p>
+            
+            <!-- Form Container -->
+            <div class="form-container animate">
+                <div class="form-progress">
+                    <div class="progress-step" data-step="1">1</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="2">2</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="3">3</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="4">4</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="5">5</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="6">6</div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="7">7</div>
+                </div>
+                
+                <form id="cleanupForm">
+                    <!-- Step 1 -->
+                    <div class="form-step active" data-step="1">
+                        <h3>Contact Info</h3>
+                        <div class="form-group">
+                            <label for="name">Full Name:</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number:</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" name="address" class="form-control" required>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
 
-  <form id="cleanupForm">
-    <!-- Step 1 -->
-    <div class="form-step active">
-      <h3>Contact Info</h3>
-      <label>Full Name:</label><br><input type="text" name="name" required><br>
-      <label>Phone Number:</label><br><input type="tel" name="phone" required><br>
-      <label>Email:</label><br><input type="email" name="email" required><br>
-      <label>Address:</label><br><input type="text" name="address" id="address" required><br>
-      <div class="buttons">
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-    </div>
+                    <!-- Step 2 -->
+                    <div class="form-step" data-step="2">
+                        <h3>Pet & Yard Info</h3>
+                        <div class="form-group">
+                            <label for="dogs">How many dogs?</label>
+                            <select id="dogs" name="dogs" class="form-control" required>
+                                <option value="">Select</option>
+                                <option>1</option><option>2</option><option>3</option>
+                                <option>4</option><option>5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="yardSize">Yard size:</label>
+                            <select id="yardSize" name="yardSize" class="form-control" required>
+                                <option value="">Select</option>
+                                <option>1/2 acre or less</option>
+                                <option>1/2 acre or more</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastClean">Last cleaned:</label>
+                            <select id="lastClean" name="lastClean" class="form-control" required>
+                                <option value="">Select</option>
+                                <option>Less than 1 week</option>
+                                <option>Less than 2 weeks</option>
+                                <option>Less than a month</option>
+                                <option>1 to 3 months</option>
+                                <option>More than 3 months</option>
+                            </select>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+                            <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
 
-    <!-- Step 2 -->
-    <div class="form-step">
-      <h3>Pet & Yard Info</h3>
-      <label>How many dogs?</label><br>
-      <select name="dogs" required>
-        <option value="">Select</option>
-        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-      </select><br>
-      <label>Yard size:</label><br>
-      <select name="yardSize" required>
-        <option value="">Select</option>
-        <option>1/2 acre or less</option>
-        <option>1/2 acre or more</option>
-      </select><br>
-      <label>Last cleaned:</label><br>
-      <select name="lastClean" required>
-        <option value="">Select</option>
-        <option>Less than 1 week</option>
-        <option>Less than 2 weeks</option>
-        <option>Less than a month</option>
-        <option>1 to 3 months</option>
-        <option>More than 3 months</option>
-      </select>
-      <div class="buttons">
-        <button type="button" onclick="prevStep()">Back</button>
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-    </div>
+                    <!-- Step 3 -->
+                    <div class="form-step" data-step="3">
+                        <h3>Choose a Plan</h3>
+                        <div class="plan-options">
+                            <label class="plan-card">
+                                <input type="radio" name="plan" value="1 clean/week - $20.00" required>
+                                <div class="plan-card-content">
+                                    <h4>Weekly Service</h4>
+                                    <p class="plan-price">$20.00</p>
+                                    <p class="plan-desc">1 cleanup per week</p>
+                                </div>
+                            </label>
+                            
+                            <label class="plan-card">
+                                <input type="radio" name="plan" value="2 cleans/week - $15.00">
+                                <div class="plan-card-content">
+                                    <h4>Twice Weekly</h4>
+                                    <p class="plan-price">$15.00</p>
+                                    <p class="plan-desc">2 cleanups per week</p>
+                                </div>
+                            </label>
+                            
+                            <label class="plan-card">
+                                <input type="radio" name="plan" value="3 cleans/week - $15.00">
+                                <div class="plan-card-content">
+                                    <h4>Thrice Weekly</h4>
+                                    <p class="plan-price">$15.00</p>
+                                    <p class="plan-desc">3 cleanups per week</p>
+                                </div>
+                            </label>
+                            
+                            <label class="plan-card">
+                                <input type="radio" name="plan" value="Every other week - $35.00">
+                                <div class="plan-card-content">
+                                    <h4>Bi-Weekly</h4>
+                                    <p class="plan-price">$35.00</p>
+                                    <p class="plan-desc">Every other week</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+                            <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
 
-    <!-- Step 3 -->
-    <div class="form-step">
-      <h3>Choose a Plan</h3>
-      <label><input type="radio" name="plan" value="1 clean/week - $20.00" required> 1 clean/week - $20.00</label><br>
-      <label><input type="radio" name="plan" value="2 cleans/week - $15.00"> 2 cleans/week - $15.00</label><br>
-      <label><input type="radio" name="plan" value="3 cleans/week - $15.00"> 3 cleans/week - $15.00</label><br>
-      <label><input type="radio" name="plan" value="Every other week - $35.00"> Every other week - $35.00</label>
-      <div class="buttons">
-        <button type="button" onclick="prevStep()">Back</button>
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-    </div>
+                    <!-- Step 4 -->
+                    <div class="form-step" data-step="4">
+                        <h3>Schedule Pickup</h3>
+                        <div class="form-group">
+                            <label for="date">Select a Date:</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+                            <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
 
-    <!-- Step 4 -->
-    <div class="form-step">
-      <h3>Schedule Pickup</h3>
-      <label>Select a Date:</label><br>
-      <input type="date" name="date" required>
-      <div class="buttons">
-        <button type="button" onclick="prevStep()">Back</button>
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-    </div>
+                    <!-- Step 5 -->
+                    <div class="form-step" data-step="5">
+                        <h3>Yard Access Info</h3>
+                        <div class="yard-diagram">
+                            <div class="yard-img"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="accessLocation">Yard access location:</label>
+                            <select id="accessLocation" name="accessLocation" class="form-control" required>
+                                <option value="">Select</option>
+                                <option>Left</option>
+                                <option>Back</option>
+                                <option>Right</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="accessComments">Comments:</label>
+                            <textarea id="accessComments" name="accessComments" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="communityGate">Community gate code?</label>
+                            <select id="communityGate" name="communityGate" class="form-control" required onchange="toggleInput(this, 'communityCode')">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="communityCode" name="communityCode" placeholder="Enter community code" class="form-control hidden">
+                        </div>
+                        <div class="form-group">
+                            <label for="houseGate">House gate code?</label>
+                            <select id="houseGate" name="houseGate" class="form-control" required onchange="toggleInput(this, 'houseCode')">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="houseCode" name="houseCode" placeholder="Enter house code" class="form-control hidden">
+                        </div>
+                        <div class="form-group">
+                            <label for="dogSafety">Is it safe to enter your yard with your dog?</label>
+                            <select id="dogSafety" name="dogSafety" class="form-control" required>
+                                <option value="">Select</option>
+                                <option>Yes, my dog is friendly</option>
+                                <option>No, my dog must be inside</option>
+                            </select>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+                            <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
 
-    <!-- Step 5 -->
-    <div class="form-step">
-      <h3>Yard Access Info</h3>
-      <div class="diagram">[ House Diagram Placeholder ]</div>
-      <label>Yard access location:</label><br>
-      <select name="accessLocation" required>
-        <option value="">Select</option>
-        <option>Left</option>
-        <option>Back</option>
-        <option>Right</option>
-      </select><br>
-      <label>Comments:</label><br>
-      <textarea name="accessComments" required></textarea><br>
-      <label>Community gate code?</label><br>
-      <select name="communityGate" id="communityGate" required onchange="toggleInput(this, 'communityCode')">
-        <option value="">Select</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select><br>
-      <input type="text" id="communityCode" name="communityCode" placeholder="Enter community code" class="hidden"><br>
+                    <!-- Step 6 -->
+                    <div class="form-step" data-step="6">
+                        <h3>Trash Can Location</h3>
+                        <div class="yard-diagram">
+                            <div class="trash-img"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="trashLocation">Location:</label>
+                            <select id="trashLocation" name="trashLocation" class="form-control" required>
+                                <option value="">Select</option>
+                                <option>Left</option>
+                                <option>Back</option>
+                                <option>Right</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="trashComments">Comments:</label>
+                            <textarea id="trashComments" name="trashComments" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="extraInfo">Additional Info:</label>
+                            <textarea id="extraInfo" name="extraInfo" class="form-control" required></textarea>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+                            <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
 
-      <label>House gate code?</label><br>
-      <select name="houseGate" id="houseGate" required onchange="toggleInput(this, 'houseCode')">
-        <option value="">Select</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select><br>
-      <input type="text" id="houseCode" name="houseCode" placeholder="Enter house code" class="hidden"><br>
+                    <!-- Step 7 -->
+                    <div class="form-step" data-step="7">
+                        <h3>Review & Payment</h3>
+                        <div class="summary-container">
+                            <p><strong>Service Summary:</strong></p>
+                            <div id="summary" class="summary-content"></div>
+                        </div>
+                        <div class="payment-section">
+                            <h4>Payment Details</h4>
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number:</label>
+                                <input type="text" id="cardNumber" name="cardNumber" placeholder="Card Number" class="form-control" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <label for="expiry">Expiration Date:</label>
+                                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" class="form-control" required>
+                                </div>
+                                <div class="form-group half">
+                                    <label for="cvc">CVC:</label>
+                                    <input type="text" id="cvc" name="cvc" placeholder="CVC" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+                            <button type="submit" class="submit-btn">Book Now</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 
-      <label>Is it safe to enter your yard with your dog?</label><br>
-      <select name="dogSafety" required>
-        <option value="">Select</option>
-        <option>Yes, my dog is friendly</option>
-        <option>No, my dog must be inside</option>
-      </select>
+    <!-- Testimonials -->
+    <section id="testimonials" class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonial-container">
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"I love how easy it was to schedule service. The form was straightforward and I had my first cleanup scheduled within minutes!"</p>
+                        <p class="testimonial-author">- Robert J., Denver</p>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"The online booking process couldn't be simpler. I appreciate the detailed questions so they know exactly what to expect at my property."</p>
+                        <p class="testimonial-author">- Amanda L., Boulder</p>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"After struggling with other services, 2Crew's straightforward booking process was a breath of fresh air. Highly recommend!"</p>
+                        <p class="testimonial-author">- David H., Lakewood</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="buttons">
-        <button type="button" onclick="prevStep()">Back</button>
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service.html">Service Area</a></li>
+                        <li><a href="quote.html">Book Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Residential Service</a></li>
+                        <li><a href="#">One-Time Cleanups</a></li>
+                        <li><a href="#">Weekly Service</a></li>
+                        <li><a href="#">Bi-Weekly Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Areas</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Denver</a></li>
+                        <li><a href="#">Boulder</a></li>
+                        <li><a href="#">Lakewood</a></li>
+                        <li><a href="#">See All Areas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+1234567890">Call Us</a></li>
+                        <li><a href="mailto:info@2crewpetcleanup.com">Email Us</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copy">
+                <p>&copy; 2025 2Crew Pet Cleanup. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Step 6 -->
-    <div class="form-step">
-      <h3>Trash Can Location</h3>
-      <div class="diagram">[ Trash Can Diagram Placeholder ]</div>
-      <label>Location:</label><br>
-      <select name="trashLocation" required>
-        <option value="">Select</option>
-        <option>Left</option>
-        <option>Back</option>
-        <option>Right</option>
-      </select><br>
-      <label>Comments:</label><br>
-      <textarea name="trashComments" required></textarea><br>
-      <label>Additional Info:</label><br>
-      <textarea name="extraInfo" required></textarea>
-      <div class="buttons">
-        <button type="button" onclick="prevStep()">Back</button>
-        <button type="button" onclick="nextStep()">Next</button>
-      </div>
-    </div>
-
-    <!-- Step 7 -->
-    <div class="form-step">
-      <h3>Review & Payment</h3>
-      <p><strong>Summary:</strong></p>
-      <div id="summary"></div>
-      <label>Credit Card Info (placeholder):</label><br>
-      <input type="text" placeholder="Card Number" required><br>
-      <input type="text" placeholder="MM/YY" required><br>
-      <input type="text" placeholder="CVC" required><br>
-      <div class="buttons">
-        <button type="button" onclick="prevStep()">Back</button>
-        <button type="submit">Submit</button>
-      </div>
-    </div>
-  </form>
-
-  <script src="form.js" defer></script>
+    <script src="script.js"></script>
+    <script src="form.js"></script>
 </body>
 </html>
-
