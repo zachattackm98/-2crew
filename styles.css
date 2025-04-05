@@ -992,28 +992,6 @@ textarea.form-control {
     margin-bottom: 20px;
 }
     
-/* Responsive styles for the accordion */
-@media (max-width: 768px) {
-    .accordion-item {
-        width: 100%; /* Full width on smaller screens */
-    }
-}
-
-/* Responsive Styles */
-@media (max-width: 992px) {
-    .service-row {
-        flex-direction: column;
-    }
-    
-    .service-image,
-    .service-content {
-        width: 100%;
-    }
-    
-    .service-image {
-        height: 250px;
-    }
-
 /* Section Divider Styles */
 .section-divider {
     position: relative;
@@ -1053,6 +1031,30 @@ textarea.form-control {
     font-size: 25px;
     color: var(--primary);
 }
+
+/* Right before the final media query */
+
+}/* Responsive styles for the accordion */
+@media (max-width: 768px) {
+    .accordion-item {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .service-row {
+        flex-direction: column;
+    }
+    
+    .service-image,
+    .service-content {
+        width: 100%;
+    }
+    
+    .service-image {
+        height: 250px;
+    }
     
 @media (max-width: 992px) {
     .nav-menu {
