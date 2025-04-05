@@ -183,23 +183,14 @@ body {
 
 .hero-background {
     position: absolute;
-    top: 0;
+    top: -50px; /* Extra space for movement */
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -50px; /* Extra space for movement */
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('anthony-duran-XFLY0Yp3Gow-unsplash.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     z-index: -1;
-}
-
-/* Alternate solution for mobile devices */
-@media (max-width: 768px) {
-    .hero-background {
-        /* On mobile, disable fixed attachment for better performance */
-        background-attachment: scroll;
-    }
 }
 
 .hero-content {
