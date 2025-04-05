@@ -95,3 +95,28 @@ if (testimonialContainer) {
     testimonialContainer.addEventListener('mouseenter', stopAutoScroll);
     testimonialContainer.addEventListener('mouseleave', startAutoScroll);
 }
+
+// Add this to your existing script.js file
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all accordion headers
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    
+    // Add click event listener to each header
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            // Toggle active class on the parent accordion item
+            const accordionItem = this.parentElement;
+            accordionItem.classList.toggle('active');
+            
+            // Optional: Close other accordion items when one is opened
+            // Comment this section out if you want multiple items to be open at once
+            const allAccordionItems = document.querySelectorAll('.accordion-item');
+            allAccordionItems.forEach(item => {
+                if (item !== accordionItem) {
+                    item.classList.remove('active');
+                }
+            });
+        });
+    });
+});
