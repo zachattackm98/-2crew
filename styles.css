@@ -14,17 +14,6 @@ nav {
 
 /* ========== Navigation Styles ========== */
 
-body.quote-form form {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #e0f7fa, #ffffff);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 50px 20px;
-}
-
 form {
   margin-top: 40px; /* add spacing *below* the nav */
 }
