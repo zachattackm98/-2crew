@@ -1,206 +1,3 @@
-/* What to Expect Section Styles */
-.what-to-expect-section {
-    background-color: #f4f4f4;
-    padding: 60px 0;
-}
-
-.expect-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    position: relative;
-}
-
-.expect-item {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
-}
-
-.expect-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #1a5f7a;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-}
-
-.expect-item:hover::before,
-.expect-item.active::before {
-    opacity: 1;
-}
-
-.expect-header {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-}
-
-.expect-item:hover .expect-header,
-.expect-item.active .expect-header {
-    color: White;
-}
-
-.expect-check {
-    margin-right: 10px;
-    color: #4CAF50;
-    font-weight: bold;
-    position: relative;
-    z-index: 2;
-}
-
-.expect-item:hover .expect-check,
-.expect-item.active .expect-check {
-    color: white;
-}
-
-.expect-text {
-    flex-grow: 1;
-    font-weight: 600;
-    position: relative;
-    z-index: 2;
-    color: var(--dark)
-}
-
-.expect-toggle {
-    font-size: 20px;
-    font-weight: bold;
-    position: relative;
-    z-index: 2;
-}
-
-.expect-dropdown-container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    z-index: 0;
-    transition: all 0.3s ease;
-    max-height: 0;
-    overflow: hidden;
-    background-color: transparent;
-}
-
-.expect-dropdown {
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 0 15px;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-}
-
-.expect-item.active .expect-dropdown-container {
-    max-height: 300px;
-    padding-top: 10px;
-}
-
-.expect-item.active .expect-dropdown {
-    padding: 15px;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.expect-dropdown p {
-    color: #666;
-}
-
-.expect-item.active .expect-toggle,
-.expect-item:hover .expect-toggle {
-    transform: rotate(45deg);
-}
-
-@media (max-width: 992px) {
-    .expect-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 576px) {
-    .expect-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Services Section Styles */
-.services-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-.services-header h1 {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 10px;
-}
-.services-header h2 {
-    font-size: 1.8rem;
-    color: var(--gray);
-    margin-bottom: 15px;
-}
-.services-header p {
-    max-width: 800px;
-    margin: 0 auto;
-    color: var(--gray);
-}
-.services-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-.service-row {
-    display: flex;
-    align-items: stretch;
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.service-row:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-.service-image {
-    width: 40%;
-    flex-shrink: 0;
-}
-.service-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-.service-row:hover .service-image img {
-    transform: scale(1.05);
-}
-.service-content {
-    width: 60%;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.service-content h3 {
-    color: var(--primary);
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-}
-.service-content p {
-    color: var(--gray);
-}
-
 :root {
     --primary: #00796b;
     --primary-dark: #004d40;
@@ -573,6 +370,209 @@ body {
      margin-bottom: 5px;
     font-size: 1.2rem;
     color: var(--dark);
+}
+
+/* What to Expect Section Styles */
+.what-to-expect-section {
+    background-color: #f4f4f4;
+    padding: 60px 0;
+}
+
+.expect-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    position: relative;
+}
+
+.expect-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.expect-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1a5f7a;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.expect-item:hover::before,
+.expect-item.active::before {
+    opacity: 1;
+}
+
+.expect-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.expect-item:hover .expect-header,
+.expect-item.active .expect-header {
+    color: White;
+}
+
+.expect-check {
+    margin-right: 10px;
+    color: #4CAF50;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+.expect-item:hover .expect-check,
+.expect-item.active .expect-check {
+    color: white;
+}
+
+.expect-text {
+    flex-grow: 1;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+    color: var(--dark)
+}
+
+.expect-toggle {
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+.expect-dropdown-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 0;
+    transition: all 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.expect-dropdown {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 0 15px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.expect-item.active .expect-dropdown-container {
+    max-height: 300px;
+    padding-top: 10px;
+}
+
+.expect-item.active .expect-dropdown {
+    padding: 15px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.expect-dropdown p {
+    color: #666;
+}
+
+.expect-item.active .expect-toggle,
+.expect-item:hover .expect-toggle {
+    transform: rotate(45deg);
+}
+
+@media (max-width: 992px) {
+    .expect-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .expect-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Services Section Styles */
+.services-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.services-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+.services-header h2 {
+    font-size: 1.8rem;
+    color: var(--gray);
+    margin-bottom: 15px;
+}
+.services-header p {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--gray);
+}
+.services-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.service-row {
+    display: flex;
+    align-items: stretch;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.service-row:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.service-image {
+    width: 40%;
+    flex-shrink: 0;
+}
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.service-row:hover .service-image img {
+    transform: scale(1.05);
+}
+.service-content {
+    width: 60%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.service-content h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+.service-content p {
+    color: var(--gray);
 }
 
 /* Testimonials */
