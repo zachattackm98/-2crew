@@ -364,7 +364,27 @@
             </div>
         </div>
     </footer>
-
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM loaded");
+    
+    // Check form elements
+    const form = document.getElementById("cleanupForm");
+    console.log("Form found:", !!form);
+    
+    const formSteps = document.querySelectorAll(".form-step");
+    console.log("Form steps found:", formSteps.length);
+    
+    const activeSteps = document.querySelectorAll(".form-step.active");
+    console.log("Active steps found:", activeSteps.length);
+    
+    // Try to force first step visible
+    if (formSteps.length > 0 && activeSteps.length === 0) {
+      console.log("Forcing first step visible");
+      formSteps[0].classList.add("active");
+    }
+  });
+</script>
     <script src="script.js"></script>
     <script src="form.js"></script>
 </body>
