@@ -1,42 +1,35 @@
 body.quote-form form {
-   margin: 0;
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   background: linear-gradient(to right, #e0f7fa, #ffffff);
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   text-align: center;
-   padding: 0px 20px;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0px 20px;
 }
 
 body.quote-form header {
   text-align: center;
-  margin: 30px auto 0 auto; /* Top margin gives spacing under nav */
-  padding-top: 20px; /* Optional: subtle top padding for breathing room */
+  margin: 30px auto 0 auto;
+  padding-top: 20px;
 }
 
 nav {
+  width: 100%;
   background-color: #00796b;
-  padding: 10px 0; /* vertical spacing only */
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px; /* horizontal padding inside container */
-  display: flex;
-  justify-content: flex-end; /* push menu to the right */
-  align-items: center; /* vertical centering */
-}
-
-/* ========== Navigation Styles ========== */
-
-nav {
-  width: 100%;
-  background-color: #00796b;
-  padding: 10px 20px;
+  padding: 0 20px;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .dropdown {
@@ -112,8 +105,7 @@ form {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   max-width: 90%;
   width: 800px;
-  margin-top: 40px;
-  margin: 0 auto;
+  margin: 40px auto 0;
 }
 
 .form-step {
@@ -170,6 +162,8 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+  display: block;
+  margin: 0 auto;
 }
 
 button:hover {
@@ -195,6 +189,7 @@ button:hover {
   border-radius: 8px;
   font-size: 16px;
 }
+
 /* ============================
    Homepage Styles (index.html)
    ============================ */
@@ -218,7 +213,6 @@ body.homepage header img {
   margin-left: auto;
   margin-right: auto;
 }
-
 
 body.homepage h1 {
   font-size: 2.5rem;
@@ -255,4 +249,5 @@ body.quote-form header img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
 }
