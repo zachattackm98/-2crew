@@ -1,3 +1,40 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const expectItems = document.querySelectorAll('.expect-item');
+
+    expectItems.forEach(item => {
+        const header = item.querySelector('.expect-header');
+        
+        // Modify HTML structure if not already done in HTML
+        const dropdownContent = item.querySelector('.expect-dropdown');
+        const dropdownContainer = document.createElement('div');
+        dropdownContainer.classList.add('expect-dropdown-container');
+        item.appendChild(dropdownContainer);
+        dropdownContainer.appendChild(dropdownContent);
+
+        header.addEventListener('click', () => {
+            // Close other open items
+            expectItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+
+            // Toggle current item
+            item.classList.toggle('active');
+        });
+
+        // Hover effect
+        item.addEventListener('mouseenter', () => {
+            // Remove active state from other items when hovering
+            expectItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+        });
+    });
+});
+
 // Mobile Navigation Functionality
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-menu");
