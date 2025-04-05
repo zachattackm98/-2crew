@@ -120,7 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-// Add this to the BOTTOM of your script.js file
+
+// Add this to the BOTTOM of your script.js file (replace any previous parallax code)
 document.addEventListener('DOMContentLoaded', function() {
     const heroBackground = document.querySelector('.hero-background');
     
@@ -147,9 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         function updateParallax() {
-            // Small factor for subtle effect (smaller = more subtle)
+            // Use a positive factor for the background to move DOWN when scrolling down
+            // (smaller value = more subtle effect)
             const factor = 0.3;
-            const yPos = -(lastScrollY * factor);
+            const yPos = (lastScrollY * factor);
             
             // Use translate3d for hardware acceleration
             heroBackground.style.transform = `translate3d(0, ${yPos}px, 0)`;
