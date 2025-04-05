@@ -1,3 +1,136 @@
+/* What to Expect Section Styles */
+.what-to-expect-section {
+    background-color: #f4f4f4;
+    padding: 60px 0;
+}
+
+.expect-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    position: relative;
+}
+
+.expect-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.expect-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1a5f7a;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.expect-item:hover::before,
+.expect-item.active::before {
+    opacity: 1;
+}
+
+.expect-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.expect-item:hover .expect-header,
+.expect-item.active .expect-header {
+    color: white;
+}
+
+.expect-check {
+    margin-right: 10px;
+    color: #4CAF50;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+.expect-item:hover .expect-check,
+.expect-item.active .expect-check {
+    color: white;
+}
+
+.expect-text {
+    flex-grow: 1;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+}
+
+.expect-toggle {
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+.expect-dropdown-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 0;
+    transition: all 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.expect-dropdown {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 0 15px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.expect-item.active .expect-dropdown-container {
+    max-height: 300px;
+    padding-top: 10px;
+}
+
+.expect-item.active .expect-dropdown {
+    padding: 15px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.expect-dropdown p {
+    color: #666;
+}
+
+.expect-item.active .expect-toggle,
+.expect-item:hover .expect-toggle {
+    transform: rotate(45deg);
+}
+
+@media (max-width: 992px) {
+    .expect-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+@media (max-width: 576px) {
+    .expect-grid {
+        grid-template-columns: 1fr;
+    }
+
 /* Services Section Styles */
 .services-header {
     text-align: center;
