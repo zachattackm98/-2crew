@@ -1014,54 +1014,50 @@ textarea.form-control {
         height: 250px;
     }
 
-    /* Section Divider Styles */
+/* Improved Section Divider Styles */
 .section-divider {
     position: relative;
-    height: 4rem;
-    margin-bottom: 2rem;
-    overflow: hidden;
+    height: 80px;
+    margin: 30px 0 50px;
+    text-align: center;
+    clear: both;
 }
 
 .section-divider::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: 0;
-    right: 0;
-    height: 2px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 1px;
     background-color: var(--gray-light);
+    z-index: 1;
 }
 
 .section-divider-content {
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    margin: 0 auto;
+    width: 60px;
+    height: 60px;
     background-color: var(--light);
     border-radius: 50%;
-    border: 2px solid var(--gray-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 .section-divider-icon {
-    font-size: 1.5rem;
+    font-size: 25px;
     color: var(--primary);
 }
 
-/* Alternative color version for darker backgrounds */
-.section-divider.alt-color::before {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.section-divider.alt-color .section-divider-content {
-    background-color: var(--primary);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.section-divider.alt-color .section-divider-icon {
-    color: white;
+/* Make sure divider works on all screen sizes */
+@media (max-width: 768px) {
+    .section-divider::before {
+        width: 90%;
+    }
 }
     
 @media (max-width: 992px) {
