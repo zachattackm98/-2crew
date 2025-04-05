@@ -879,11 +879,16 @@ textarea.form-control {
 
 /* Accordion Styles for What to Expect Section */
 .accordion-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
 }
 
 .accordion-item {
+    width: calc(50% - 10px); /* Two columns with a small gap */
     margin-bottom: 15px;
     border-radius: 10px;
     overflow: hidden;
@@ -961,8 +966,9 @@ textarea.form-control {
 }
 
 .features-summary {
+    width: 100%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     text-align: center;
     color: var(--gray);
     line-height: 1.8;
@@ -970,6 +976,13 @@ textarea.form-control {
 
 .features-summary p {
     margin-bottom: 20px;
+}
+
+/* Responsive styles for the accordion */
+@media (max-width: 768px) {
+    .accordion-item {
+        width: 100%; /* Full width on smaller screens */
+    }
 }
 
 /* Responsive Styles */
