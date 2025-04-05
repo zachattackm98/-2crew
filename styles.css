@@ -991,28 +991,6 @@ textarea.form-control {
 .features-summary p {
     margin-bottom: 20px;
 }
-
-/* Responsive styles for the accordion */
-@media (max-width: 768px) {
-    .accordion-item {
-        width: 100%; /* Full width on smaller screens */
-    }
-}
-
-/* Responsive Styles */
-@media (max-width: 992px) {
-    .service-row {
-        flex-direction: column;
-    }
-    
-    .service-image,
-    .service-content {
-        width: 100%;
-    }
-    
-    .service-image {
-        height: 250px;
-    }
     
 /* Section Divider Styles */
 .section-divider {
@@ -1135,3 +1113,24 @@ textarea.form-control {
         width: 100%;
     }
 }
+/* Responsive styles for the accordion */
+@media (max-width: 768px) {
+    .accordion-item {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .service-row {
+        flex-direction: column;
+    }
+    
+    .service-image,
+    .service-content {
+        width: 100%;
+    }
+    
+    .service-image {
+        height: 250px;
+    }
