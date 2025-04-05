@@ -881,14 +881,11 @@ textarea.form-control {
 .accordion-container {
     max-width: 1200px;
     margin: 0 auto 40px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 15px;
+    width: 100%;
 }
 
 .accordion-item {
-    width: calc(50% - 10px); /* Two columns with a small gap */
+    width: 100%;
     margin-bottom: 15px;
     border-radius: 10px;
     overflow: hidden;
