@@ -1,5 +1,12 @@
-body.quote-form {
-  padding: 0 20px; /* remove vertical padding */
+body.quote-form form {
+   margin: 0;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   background: linear-gradient(to right, #e0f7fa, #ffffff);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   padding: 0px 20px;
 }
 
 body.quote-form header {
