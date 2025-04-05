@@ -190,10 +190,8 @@ body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('anthony-duran-XFLY0Yp3Gow-unsplash.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Re-added for parallax effect */
+    background-attachment: fixed;
     z-index: -1;
-    transform: translateZ(0); /* For hardware acceleration */
-    will-change: transform; /* Hint to browser to optimize */
 }
 
 /* Alternate solution for mobile devices */
@@ -201,13 +199,6 @@ body {
     .hero-background {
         /* On mobile, disable fixed attachment for better performance */
         background-attachment: scroll;
-        /* Use transform to create a subtle parallax without fixed attachment */
-        animation: subtle-parallax 8s ease-in-out infinite alternate;
-    }
-    
-    @keyframes subtle-parallax {
-        from { transform: translateY(0); }
-        to { transform: translateY(-10px); }
     }
 }
 
