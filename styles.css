@@ -1033,7 +1033,7 @@ textarea.form-control {
 
 /* Right before the final media query */
 
-}/* Responsive styles for the accordion */
+/* Responsive styles for the accordion */
 @media (max-width: 768px) {
     .accordion-item {
         width: 100%; /* Full width on smaller screens */
@@ -1054,8 +1054,7 @@ textarea.form-control {
     .service-image {
         height: 250px;
     }
-    
-@media (max-width: 992px) {
+
     .nav-menu {
         position: fixed;
         left: -100%;
@@ -1135,4 +1134,3 @@ textarea.form-control {
     .back-btn, .next-btn, .submit-btn {
         width: 100%;
     }
-}
