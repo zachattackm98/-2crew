@@ -1,61 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to 2Crew Pet Cleanup</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .dropdown-content {
-      display: none;
-    }
-    .dropdown.show .dropdown-content {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2Crew Pet Cleanup | Colorado's Local Pet Waste Pros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="homepage">
-  <nav>
-    <div class="dropdown" id="dropdownMenu">
-      <button class="dropbtn" onclick="toggleDropdown()">Menu ▾</button>
-      <div class="dropdown-content">
-        <a href="quote.html">Book Our Service</a>
-        <a href="about.html">About Us</a>
-        <a href="pricing.html">Pricing</a>
-         <a href="service.html">Service Area</a>
-        <a href="index.html">Home</a>
-      </div>
-    </div>
-  </nav>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="2crew.png" alt="2Crew Pet Cleanup Logo">
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                <li class="nav-item"><a href="service.html" class="nav-link">Service Area</a></li>
+                <li class="nav-item"><a href="quote.html" class="nav-link cta">Book Our Service</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
 
-  <header>
-    <img src="2crew.png" alt="2Crew Logo">
-  </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Want a POOP FREE Yard?</h1>
+            <p>We're two brothers born and raised in Colorado, turning poop into purpose. 2Crew Pet Cleanup is your trusted local service for keeping your yard clean, safe, and stink-free.</p>
+            <div class="hero-badges animate">
+                <span class="badge">FREE Initial Cleanup with Regular Service</span>
+                <span class="badge">100% Satisfaction Guaranteed</span>
+            </div>
+            <a href="quote.html" class="btn">Get an Instant Quote</a>
+        </div>
+    </section>
 
-  <h1>Colorado’s Local Pet Waste Pros</h1>
-  <p>
-    We’re two brothers born and raised in Colorado, turning poop into purpose. 2Crew Pet Cleanup is your trusted local service for keeping your yard clean, safe, and stink-free. Fast, reliable, and affordable — let us handle the mess so you can enjoy your space.
-  </p>
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">What Should You Expect?</h2>
+            <div class="info-cards">
+                <div class="card animate">
+                    <div class="card-header">
+                        <h3>No Contracts</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>No contracts, no commitments, and never a cancellation fee. Enjoy a carefree experience from beginning to end.</p>
+                    </div>
+                </div>
+                <div class="card animate">
+                    <div class="card-header">
+                        <h3>Reliable Service</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Our friendly, professionally trained team will arrive on schedule and thoroughly clean up all pet waste from your yard.</p>
+                    </div>
+                </div>
+                <div class="card animate">
+                    <div class="card-header">
+                        <h3>Flexible Options</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Weekly, bi-weekly or custom scheduling options to fit your lifestyle and budget. We've got you covered.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <a href="quote.html" class="cta-button">Get an Instant Quote</a>
+    <!-- Did You Know Section -->
+    <section class="section stats">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Did You Know?</h2>
+            <div class="stats-container">
+                <div class="stat-item animate">
+                    <div class="stat-icon">⚠️</div>
+                    <p>Pet waste contains harmful bacteria like E. coli and parasites that can contaminate waterways</p>
+                </div>
+                <div class="stat-item animate">
+                    <div class="stat-icon">🦠</div>
+                    <p>One gram of dog waste can contain up to 23 million fecal coliform bacteria</p>
+                </div>
+                <div class="stat-item animate">
+                    <div class="stat-icon">🌎</div>
+                    <p>Regular waste removal helps protect local ecosystems and keeps your family safe</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    function toggleDropdown() {
-      document.getElementById("dropdownMenu").classList.toggle("show");
-    }
+    <!-- How It Works -->
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <ul class="feature-list">
+                <li class="feature-item animate">
+                    <div class="feature-icon">1</div>
+                    <div class="feature-text">
+                        <h3>Choose Your Service Schedule</h3>
+                        <p>Weekly, bi-weekly, our flexible scheduling options fit any lifestyle or need.</p>
+                    </div>
+                </li>
+                <li class="feature-item animate">
+                    <div class="feature-icon">2</div>
+                    <div class="feature-text">
+                        <h3>Professional Removal</h3>
+                        <p>Our team thoroughly cleans your yard, removing all pet waste.</p>
+                    </div>
+                </li>
+                <li class="feature-item animate">
+                    <div class="feature-icon">3</div>
+                    <div class="feature-text">
+                        <h3>Relax and Enjoy</h3>
+                        <p>Leave the cleanup to us while you enjoy a clean, fresh yard.</p>
+                    </div>
+                </li>
+                <li class="feature-item animate">
+                    <div class="feature-icon">4</div>
+                    <div class="feature-text">
+                        <h3>Repeat</h3>
+                        <p>We'll return on your scheduled day - no need to call or book again.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown");
-        for (let i = 0; i < dropdowns.length; i++) {
-          let openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-  </script>
+    <!-- Testimonials -->
+    <section id="testimonials" class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonial-container">
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"2Crew has been a game-changer for our family! With three large dogs, keeping the yard clean was a nightmare until we found these guys. Professional, reliable, and thorough every time."</p>
+                        <p class="testimonial-author">- Jessica R., Lakewood</p>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"As a busy professional, I don't have time to clean up after my dogs. 2Crew is always on time, sends notifications when they arrive and finish, and my yard has never looked better."</p>
+                        <p class="testimonial-author">- Michael T., Denver</p>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"I appreciate that they're local Colorado guys who understand our weather and challenges. They've never missed a pickup, even during snowstorms! Highly recommend."</p>
+                        <p class="testimonial-author">- Sarah K., Boulder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <span class="warning-badge">💩 Don't Wait!</span>
+            <h2>Don't Let Pet Waste Ruin Your Yard</h2>
+            <p>Enjoy a clean, safe yard without the hassle. Let us handle the mess so you can focus on enjoying time with your pets. First service FREE with regular scheduled service!</p>
+            <a href="quote.html" class="btn">Get Your Instant Quote</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service.html">Service Area</a></li>
+                        <li><a href="quote.html">Book Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Residential Service</a></li>
+                        <li><a href="#">One-Time Cleanups</a></li>
+                        <li><a href="#">Weekly Service</a></li>
+                        <li><a href="#">Bi-Weekly Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Areas</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Denver</a></li>
+                        <li><a href="#">Boulder</a></li>
+                        <li><a href="#">Lakewood</a></li>
+                        <li><a href="#">See All Areas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+1234567890">Call Us</a></li>
+                        <li><a href="mailto:info@2crewpetcleanup.com">Email Us</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copy">
+                <p>&copy; 2025 2Crew Pet Cleanup. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
 
