@@ -120,3 +120,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+// Add this to the BOTTOM of your script.js file
+document.addEventListener('DOMContentLoaded', function() {
+    const heroBackground = document.querySelector('.hero-background');
+    
+    if (heroBackground) {
+        // Initial position
+        let lastScrollY = window.scrollY;
+        updateParallax();
+        
+        // Throttle scroll events for better performance
+        let ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            lastScrollY = window.scrollY;
+            
+            if (!ticking) {
+                // Use requestAnimationFrame for smooth rendering
+                window.requestAnimationFrame(function() {
+                    updateParallax();
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        });
+        
+        function updateParallax() {
+            // Small factor for subtle effect (smaller = more subtle)
+            const factor = 0.3;
+            const yPos = -(lastScrollY * factor);
+            
+            // Use translate3d for hardware acceleration
+            heroBackground.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        }
+    }
+});
