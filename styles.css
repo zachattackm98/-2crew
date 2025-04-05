@@ -50,7 +50,7 @@
 
 .expect-item:hover .expect-header,
 .expect-item.active .expect-header {
-    color: white;
+    color: White;
 }
 
 .expect-check {
@@ -625,6 +625,7 @@ body {
 .testimonial-text {
     margin-bottom: 20px;
     font-style: italic;
+    color: var(--dark);
 }
 
 .testimonial-author {
