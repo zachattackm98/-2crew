@@ -178,19 +178,9 @@ body {
     color: white;
     padding: 100px 0;
     text-align: center;
-    overflow: hidden;
-}
-
-.hero-background {
-    position: absolute;
-    top: -50px; /* Extra space for movement */
-    left: 0;
-    right: 0;
-    bottom: -50px; /* Extra space for movement */
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('anthony-duran-XFLY0Yp3Gow-unsplash.jpg');
     background-size: cover;
     background-position: center;
-    z-index: -1;
 }
 
 .hero-content {
