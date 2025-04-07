@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+ // Calendly Widget
 document.addEventListener('DOMContentLoaded', () => {
     // Load Calendly script dynamically
     const calendlyScript = document.createElement('script');
@@ -129,10 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(calendlyScript);
 
     function initCalendlyWidget() {
-        // Capture contact details from first step
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
+        // Ensure name, email, and phone are captured
+        const name = document.getElementById('name')?.value.trim() || '';
+        const email = document.getElementById('email')?.value.trim() || '';
+        const phone = document.getElementById('phone')?.value.trim() || '';
 
         // Construct Calendly URL with prefilled parameters
         const calendlyUrl = `https://calendly.com/zachm98/30min?` +
@@ -142,20 +143,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize Calendly widget
         const calendlyWidget = document.getElementById('calendly-widget');
-        calendlyWidget.innerHTML = ''; // Clear existing widget
-        calendlyWidget.setAttribute('data-url', calendlyUrl);
+        if (calendlyWidget) {
+            calendlyWidget.innerHTML = ''; // Clear existing widget
+            calendlyWidget.setAttribute('data-url', calendlyUrl);
 
-        // Wait for Calendly script to load
-        calendlyScript.onload = () => {
-            Calendly.initInlineWidget({
-                url: calendlyUrl,
-                parentElement: calendlyWidget,
-                welcomeScreenOptions: {
-                    showName: false,
-                    showEmail: false
+            // Wait for Calendly script to load
+            calendlyScript.onload = () => {
+                if (typeof Calendly !== 'undefined') {
+                    Calendly.initInlineWidget({
+                        url: calendlyUrl,
+                        parentElement: calendlyWidget,
+                        welcomeScreenOptions: {
+                            showName: false,
+                            showEmail: false
+                        }
+                    });
                 }
-            });
-        };
+            };
+        }
     }
 
     // Event listener for Calendly events
@@ -163,8 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.data.event === 'calendly.date_and_time_selected') {
             // Capture selected time details without booking
             const selectedTimeDetails = event.data.payload;
-            document.getElementById('selectedAppointmentDetails').value = JSON.stringify(selectedTimeDetails);
-            console.log('Time slot selected (not booked):', selectedTimeDetails);
+            const detailsInput = document.getElementById('selectedAppointmentDetails');
+            if (detailsInput) {
+                detailsInput.value = JSON.stringify(selectedTimeDetails);
+                console.log('Time slot selected (not booked):', selectedTimeDetails);
+            }
         }
     });
 
