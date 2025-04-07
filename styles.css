@@ -403,7 +403,8 @@ body {
     color: var(--secondary);
 }
 
-/* Emoji Paw Print Divider */
+/* Circular Paw Print Divider */
+.section-divider {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -444,27 +445,6 @@ body {
     line-height: 1;
 }
 
-/* Small paws along line */
-.extra-paws-left, .extra-paws-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) scale(0.6);
-    font-size: 1.5rem;
-    color: var(--gray);
-    opacity: 0.4;
-    z-index: 2;
-    background-color: var(--light);
-    padding: 0 5px;
-}
-
-.extra-paws-left {
-    left: 20%;
-}
-
-.extra-paws-right {
-    right: 20%;
-}
-
 /* Add a subtle animation */
 @keyframes pawWiggle {
     0%, 100% { transform: rotate(0deg); }
@@ -490,8 +470,13 @@ body {
 }
 
 @media (max-width: 576px) {
-    .extra-paws-left, .extra-paws-right {
-        display: none; /* Hide extra paws on very small screens */
+    .section-divider-content {
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+    
+    .section-divider-icon {
+        font-size: 1.2rem;
     }
 }
 
