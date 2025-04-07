@@ -403,27 +403,25 @@ body {
     color: var(--secondary);
 }
 
-/* Paw Print Divider Section - Updated */
+/* Paw Print Divider - Professional Design */
 .paw-print-divider {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    padding: 30px 0;
+    background-color: var(--light);
     position: relative;
-    padding: 20px 0;
-    background-color: var(--light); /* Add background to entire divider */
-    z-index: 1; /* Add z-index to contain the divider */
-    overflow: hidden; 
+    overflow: hidden;
+    z-index: 1;
 }
 
 .paw-print-divider:before {
     content: '';
     position: absolute;
-    height: 2px;
-    background-color: var(--primary);
+    height: 1px;
+    background-color: #ddd;
     width: 100%;
-    opacity: 0.3;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
@@ -433,7 +431,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
     position: relative;
     z-index: 2;
     background-color: var(--light);
@@ -441,115 +439,108 @@ body {
 }
 
 .paw {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    width: 30px;
-    height: 30px;
-    background-color: var(--primary);
+    width: 40px;
+    height: 40px;
+    background-color: white;
     border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transform: rotate(10deg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
-.paw:before,
-.paw:after,
-.paw::before,
-.paw::after {
+.paw:hover {
+    transform: translateY(-3px);
+}
+
+.paw-inner {
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    border-radius: 50%;
+    position: relative;
+}
+
+.paw-inner:before,
+.paw-inner:after,
+.paw-inner::before,
+.paw-inner::after {
     content: '';
     position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: var(--primary);
+    width: 8px;
+    height: 8px;
+    background-color: #333;
     border-radius: 50%;
 }
 
-.paw:before {
-    top: -6px;
-    left: 2px;
+.paw-inner:before {
+    top: -5px;
+    left: 1px;
 }
 
-.paw:after {
-    top: -6px;
-    right: 2px;
+.paw-inner:after {
+    top: -5px;
+    right: 1px;
 }
 
-.paw::before {
-    bottom: -6px;
-    left: -4px;
+.paw-inner::before {
+    bottom: -5px;
+    left: -2px;
 }
 
-.paw::after {
-    bottom: -6px;
-    right: -4px;
-}
-
-.paw:nth-child(odd) {
-    transform: rotate(-10deg);
-    background-color: var(--secondary);
-}
-
-.paw:nth-child(odd):before,
-.paw:nth-child(odd):after,
-.paw:nth-child(odd)::before,
-.paw:nth-child(odd)::after {
-    background-color: var(--secondary);
+.paw-inner::after {
+    bottom: -5px;
+    right: -2px;
 }
 
 /* Add responsive styles */
 @media (max-width: 768px) {
     .paw-container {
-        gap: 20px;
+        gap: 30px;
     }
     
     .paw {
-        width: 25px;
-        height: 25px;
+        width: 36px;
+        height: 36px;
     }
     
-    .paw:before,
-    .paw:after,
-    .paw::before,
-    .paw::after {
-        width: 10px;
-        height: 10px;
+    .paw-inner {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .paw-inner:before,
+    .paw-inner:after,
+    .paw-inner::before,
+    .paw-inner::after {
+        width: 7px;
+        height: 7px;
     }
 }
 
 @media (max-width: 576px) {
     .paw-container {
-        gap: 15px;
+        gap: 24px;
     }
     
     .paw {
-        width: 20px;
-        height: 20px;
+        width: 32px;
+        height: 32px;
     }
     
-    .paw:before,
-    .paw:after,
-    .paw::before,
-    .paw::after {
-        width: 8px;
-        height: 8px;
-    }
-}
-
-@media (max-width: 576px) {
-    .paw-container {
-        gap: 15px;
+    .paw-inner {
+        width: 18px;
+        height: 18px;
     }
     
-    .paw {
-        width: 20px;
-        height: 20px;
-    }
-    
-    .paw:before,
-    .paw:after,
-    .paw::before,
-    .paw::after {
-        width: 8px;
-        height: 8px;
+    .paw-inner:before,
+    .paw-inner:after,
+    .paw-inner::before,
+    .paw-inner::after {
+        width: 6px;
+        height: 6px;
     }
 }
 
