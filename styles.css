@@ -403,6 +403,132 @@ body {
     color: var(--secondary);
 }
 
+<!-- CSS to add to your styles.css file -->
+.paw-print-divider {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
+    padding: 20px 0;
+}
+
+.paw-print-divider:before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background-color: var(--primary);
+    width: 100%;
+    opacity: 0.3;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.paw-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.paw {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transform: rotate(10deg);
+}
+
+.paw:before,
+.paw:after,
+.paw::before,
+.paw::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary);
+    border-radius: 50%;
+}
+
+.paw:before {
+    top: -6px;
+    left: 2px;
+}
+
+.paw:after {
+    top: -6px;
+    right: 2px;
+}
+
+.paw::before {
+    bottom: -6px;
+    left: -4px;
+}
+
+.paw::after {
+    bottom: -6px;
+    right: -4px;
+}
+
+.paw:nth-child(odd) {
+    transform: rotate(-10deg);
+    background-color: var(--secondary);
+}
+
+.paw:nth-child(odd):before,
+.paw:nth-child(odd):after,
+.paw:nth-child(odd)::before,
+.paw:nth-child(odd)::after {
+    background-color: var(--secondary);
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+    .paw-container {
+        gap: 20px;
+    }
+    
+    .paw {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .paw:before,
+    .paw:after,
+    .paw::before,
+    .paw::after {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .paw-container {
+        gap: 15px;
+    }
+    
+    .paw {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .paw:before,
+    .paw:after,
+    .paw::before,
+    .paw::after {
+        width: 8px;
+        height: 8px;
+    }
+}
+
 /* Features */
 .features {
     background-color: var(--gray-light);
