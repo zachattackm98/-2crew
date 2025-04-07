@@ -482,7 +482,7 @@ body {
 
 /* CSS to add paw print background to the entire "What Should You Expect?" section */
 #features {
-    background-color: #f9f9f9;
+    background-color: black;
     position: relative;
     overflow: hidden;
 }
