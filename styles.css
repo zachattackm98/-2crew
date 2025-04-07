@@ -413,6 +413,8 @@ body {
     position: relative;
     padding: 20px 0;
     background-color: var(--light); /* Add background to entire divider */
+    z-index: 1; /* Add z-index to contain the divider */
+    overflow: hidden; 
 }
 
 .paw-print-divider:before {
