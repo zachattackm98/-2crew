@@ -514,6 +514,40 @@ body {
 }
 
 /* Additional paw prints using container pseudo-elements */
+/* Pure CSS Emoji Paw Print Background with Triple the Paw Prints */
+#features {
+    background-color: #f7f7f7 !important;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+/* Main paw prints using pseudo-elements */
+#features:before {
+    content: '🐾';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    font-size: 80px;
+    opacity: 0.15;
+    z-index: -1;
+    transform: rotate(-15deg);
+}
+
+#features:after {
+    content: '🐾';
+    position: absolute;
+    bottom: 15%;
+    right: 15%;
+    font-size: 80px;
+    opacity: 0.15;
+    z-index: -1;
+    transform: rotate(20deg);
+}
+
+/* Container paw prints */
 #features .container:before {
     content: '🐾';
     position: absolute;
@@ -537,11 +571,101 @@ body {
     pointer-events: none;
 }
 
+/* Additional paw prints using pseudo-elements on accordion container */
+.accordion-container:before {
+    content: '🐾';
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    font-size: 70px;
+    opacity: 0.13;
+    z-index: -1;
+    transform: rotate(10deg);
+    pointer-events: none;
+}
+
+.accordion-container:after {
+    content: '🐾';
+    position: absolute;
+    bottom: 30%;
+    right: 5%;
+    font-size: 75px;
+    opacity: 0.1;
+    z-index: -1;
+    transform: rotate(-5deg);
+    pointer-events: none;
+}
+
+/* More paw prints on other elements */
+.section-title:before {
+    content: '🐾';
+    position: absolute;
+    top: 15%;
+    left: 40%;
+    font-size: 60px;
+    opacity: 0.09;
+    z-index: -1;
+    transform: rotate(15deg);
+    pointer-events: none;
+}
+
+.features-summary:before {
+    content: '🐾';
+    position: absolute;
+    bottom: 10%;
+    left: 30%;
+    font-size: 85px;
+    opacity: 0.11;
+    z-index: -1;
+    transform: rotate(-8deg);
+    pointer-events: none;
+}
+
+.features-summary:after {
+    content: '🐾';
+    position: absolute;
+    bottom: 25%;
+    left: 70%;
+    font-size: 65px;
+    opacity: 0.12;
+    z-index: -1;
+    transform: rotate(12deg);
+    pointer-events: none;
+}
+
+/* Additional diagonal paw prints */
+#features .section-title:after {
+    content: '🐾 🐾 🐾';
+    position: absolute;
+    top: 5%;
+    right: 8%;
+    font-size: 30px;
+    opacity: 0.1;
+    z-index: -1;
+    transform: rotate(45deg);
+    letter-spacing: 20px;
+    pointer-events: none;
+}
+
+#features .accordion-item:first-child:before {
+    content: '🐾 🐾';
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    font-size: 25px;
+    opacity: 0.12;
+    z-index: -1;
+    transform: rotate(-30deg);
+    letter-spacing: 15px;
+    pointer-events: none;
+}
+
 /* Make the accordion items stand out on the paw print background */
 .accordion-item {
     background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    position: relative;
 }
 
 /* Style for the divider to match the background */
@@ -559,16 +683,20 @@ body {
 /* Media query for small screens */
 @media (max-width: 768px) {
     #features:before,
-    #features:after {
-        font-size: 60px;
+    #features:after,
+    #features .container:before,
+    #features .container:after,
+    .accordion-container:before,
+    .accordion-container:after,
+    .section-title:before,
+    .features-summary:before,
+    .features-summary:after {
+        font-size: 50px;
     }
     
-    #features .container:before {
-        font-size: 90px;
-    }
-    
-    #features .container:after {
-        font-size: 70px;
+    #features .section-title:after,
+    #features .accordion-item:first-child:before {
+        font-size: 20px;
     }
 }
 
