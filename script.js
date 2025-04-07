@@ -121,60 +121,142 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Calendly Widget Integration - Basic Version (Calendar Display Only)
+// Improved Calendly widget implementation
 document.addEventListener('DOMContentLoaded', function() {
-    // We'll use a flag to track if we've already initialized the widget
-    let calendlyInitialized = false;
+    // Global flag for initialization status
+    window.calendlyInitialized = false;
     
-    // Original nextStep function reference
-    const originalNextStep = window.nextStep;
+    // First, add this style to ensure the container has proper height
+    const style = document.createElement('style');
+    style.textContent = `
+        #calendly-widget {
+            min-height: 700px;
+            width: 100%;
+            transition: opacity 0.3s ease;
+        }
+        .calendly-inline-widget {
+            min-height: 700px !important;
+        }
+    `;
+    document.head.appendChild(style);
     
-    window.nextStep = function() {
-        // Get current step before changing it
-        const currentStep = parseInt(document.querySelector('.form-step.active').getAttribute('data-step'));
+    // Load the Calendly script
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    
+    // Set up the onload handler BEFORE appending to DOM
+    script.onload = function() {
+        console.log("✅ Calendly script loaded successfully");
         
-        // Call original function
+        // If user is already on step 4, initialize the widget
+        if (document.querySelector('.form-step[data-step="4"].active')) {
+            initCalendlyWidget();
+        }
+    };
+    
+    // Set up error handler
+    script.onerror = function() {
+        console.error("❌ Failed to load Calendly script");
+        const widget = document.getElementById('calendly-widget');
+        if (widget) {
+            widget.innerHTML = '<div style="text-align: center; padding: 20px; color: red;">Unable to load calendar. Please check your internet connection and refresh the page.</div>';
+        }
+    };
+    
+    // Now append the script to the DOM
+    document.head.appendChild(script);
+    
+    // Function to initialize Calendly widget
+    function initCalendlyWidget() {
+        const container = document.getElementById('calendly-widget');
+        if (!container) {
+            console.error("Cannot find calendly-widget container");
+            return;
+        }
+        
+        // Show loading indicator
+        container.innerHTML = '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
+        
+        // Get form data
+        const name = document.getElementById('name')?.value || '';
+        const email = document.getElementById('email')?.value || '';
+        const phone = document.getElementById('phone')?.value || '';
+        
+        console.log("Form data for Calendly:", { name, email, phone });
+        
+        // Basic check if Calendly is loaded
+        if (typeof Calendly === 'undefined') {
+            console.error("Calendly is not defined");
+            setTimeout(function() {
+                // Try again in a second
+                if (typeof Calendly === 'undefined') {
+                    container.innerHTML = '<div style="text-align: center; padding: 20px; color: red;">Calendar failed to load. Please refresh the page.</div>';
+                } else {
+                    initCalendlyWidget(); // Try again
+                }
+            }, 1000);
+            return;
+        }
+        
+        // Clear container and initialize widget
+        try {
+            container.innerHTML = '';
+            
+            // Initialize the widget with explicit height
+            Calendly.initInlineWidget({
+                url: 'https://calendly.com/zachm98/30min',
+                parentElement: container,
+                prefill: {
+                    name: name,
+                    email: email,
+                    customAnswers: {
+                        a1: phone
+                    }
+                }
+            });
+            
+            window.calendlyInitialized = true;
+            console.log("✅ Calendly widget initialized successfully");
+        } catch (error) {
+            console.error("Calendly initialization error:", error);
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: red;">Error loading calendar. Please refresh the page.</div>';
+        }
+    }
+    
+    // Modify the nextStep function to properly initialize Calendly
+    const originalNextStep = window.nextStep;
+    window.nextStep = function() {
+        // Get current step before calling the original function
+        const currentStepElement = document.querySelector('.form-step.active');
+        const currentStep = currentStepElement ? parseInt(currentStepElement.getAttribute('data-step')) : 0;
+        
+        // Call the original function
         if (typeof originalNextStep === 'function') {
             originalNextStep();
         }
         
-        // If we're now on step 4 and haven't initialized Calendly yet
-        if (currentStep === 3 && !calendlyInitialized) {
-            const calendlyContainer = document.getElementById('calendly-widget');
-            if (calendlyContainer) {
-                // Show loading message
-                calendlyContainer.innerHTML = '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
-                calendlyContainer.style.minHeight = "600px"; // Ensure there's space for the widget
-                
-                // Get form data
-                const name = document.getElementById('name').value || '';
-                const email = document.getElementById('email').value || '';
-                const phone = document.getElementById('phone').value || '';
-                
-                // Set a timeout to make sure the DOM has updated
-                setTimeout(function() {
-                    try {
-                        // Direct Calendly inline widget initialization
-                        calendlyContainer.innerHTML = '';
-                        Calendly.initInlineWidget({
-                            url: 'https://calendly.com/zachm98/30min',
-                            parentElement: calendlyContainer,
-                            prefill: {
-                                name: name,
-                                email: email,
-                                customAnswers: {
-                                    a1: phone
-                                }
-                            }
-                        });
-                        calendlyInitialized = true;
-                        console.log("Calendly initialized successfully");
-                    } catch (error) {
-                        console.error("Failed to initialize Calendly:", error);
-                        calendlyContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: red;">Error loading calendar. Please refresh the page.</div>';
+        // If we're moving from step 3 to step 4, initialize Calendly
+        if (currentStep === 3) {
+            // Wait a bit for the DOM to update
+            setTimeout(function() {
+                // Check if Calendly script is loaded
+                if (typeof Calendly !== 'undefined' && !window.calendlyInitialized) {
+                    initCalendlyWidget();
+                } else if (typeof Calendly === 'undefined') {
+                    const widget = document.getElementById('calendly-widget');
+                    if (widget) {
+                        widget.innerHTML = '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
                     }
-                }, 500);
-            }
+                    
+                    // Set an interval to check if Calendly is loaded
+                    const checkInterval = setInterval(function() {
+                        if (typeof Calendly !== 'undefined') {
+                            clearInterval(checkInterval);
+                            initCalendlyWidget();
+                        }
+                    }, 500);
+                }
+            }, 100);
         }
     };
     
@@ -188,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const detailsInput = document.getElementById('selectedAppointmentDetails');
                 if (detailsInput) {
                     detailsInput.value = JSON.stringify(e.data.payload);
+                    console.log("✅ Time slot selected:", e.data.payload);
                 }
             }
         }
