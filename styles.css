@@ -404,7 +404,6 @@ body {
 }
 
 /* Emoji Paw Print Divider */
-.section-divider {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -431,17 +430,39 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
     position: relative;
     z-index: 2;
     background-color: var(--light);
-    padding: 0 15px;
+    border-radius: 50%;
+    border: 2px solid var(--gray-light);
 }
 
 .section-divider-icon {
-    font-size: 28px;
+    font-size: 1.5rem;
     line-height: 1;
+}
+
+/* Small paws along line */
+.extra-paws-left, .extra-paws-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) scale(0.6);
+    font-size: 1.5rem;
+    color: var(--gray);
+    opacity: 0.4;
+    z-index: 2;
     background-color: var(--light);
-    padding: 0 10px;
+    padding: 0 5px;
+}
+
+.extra-paws-left {
+    left: 20%;
+}
+
+.extra-paws-right {
+    right: 20%;
 }
 
 /* Add a subtle animation */
@@ -458,14 +479,19 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .section-divider-content {
+        width: 3rem;
+        height: 3rem;
+    }
+    
     .section-divider-icon {
-        font-size: 24px;
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 576px) {
-    .section-divider-icon {
-        font-size: 22px;
+    .extra-paws-left, .extra-paws-right {
+        display: none; /* Hide extra paws on very small screens */
     }
 }
 
