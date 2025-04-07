@@ -496,7 +496,7 @@ body {
     position: absolute;
     top: 10%;
     left: 10%;
-    font-size: 80px;
+    font-size: 200px;
     opacity: 0.15;
     z-index: -1;
     transform: rotate(-15deg);
@@ -507,7 +507,7 @@ body {
     position: absolute;
     bottom: 15%;
     right: 15%;
-    font-size: 80px;
+    font-size: 200px;
     opacity: 0.15;
     z-index: -1;
     transform: rotate(20deg);
@@ -520,7 +520,7 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 0;
-    padding-top: 80px;
+    padding-top: 200px;
     padding-bottom: 80px;
 }
 
@@ -530,7 +530,7 @@ body {
     position: absolute;
     top: 10%;
     left: 10%;
-    font-size: 80px;
+    font-size: 200px;
     opacity: 0.15;
     z-index: -1;
     transform: rotate(-15deg);
@@ -541,7 +541,7 @@ body {
     position: absolute;
     bottom: 15%;
     right: 15%;
-    font-size: 80px;
+    font-size: 200px;
     opacity: 0.15;
     z-index: -1;
     transform: rotate(20deg);
@@ -553,7 +553,7 @@ body {
     position: absolute;
     top: 40%;
     left: 25%;
-    font-size: 120px;
+    font-size: 230px;
     opacity: 0.08;
     z-index: -1;
     pointer-events: none;
@@ -564,7 +564,7 @@ body {
     position: absolute;
     top: 25%;
     right: 20%;
-    font-size: 90px;
+    font-size: 110px;
     opacity: 0.12;
     z-index: -1;
     transform: rotate(-10deg);
@@ -577,7 +577,7 @@ body {
     position: absolute;
     top: 35%;
     left: 5%;
-    font-size: 70px;
+    font-size: 100px;
     opacity: 0.13;
     z-index: -1;
     transform: rotate(10deg);
@@ -589,7 +589,7 @@ body {
     position: absolute;
     bottom: 30%;
     right: 5%;
-    font-size: 75px;
+    font-size: 100px;
     opacity: 0.1;
     z-index: -1;
     transform: rotate(-5deg);
@@ -602,7 +602,7 @@ body {
     position: absolute;
     top: 15%;
     left: 40%;
-    font-size: 60px;
+    font-size: 90px;
     opacity: 0.09;
     z-index: -1;
     transform: rotate(15deg);
@@ -639,7 +639,7 @@ body {
     position: absolute;
     top: 5%;
     right: 8%;
-    font-size: 30px;
+    font-size: 60px;
     opacity: 0.1;
     z-index: -1;
     transform: rotate(45deg);
@@ -652,7 +652,7 @@ body {
     position: absolute;
     top: 20%;
     left: 60%;
-    font-size: 25px;
+    font-size: 45px;
     opacity: 0.12;
     z-index: -1;
     transform: rotate(-30deg);
