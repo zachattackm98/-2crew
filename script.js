@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
- // Calendly Widget
+// Calendly Widget Integration - Basic Version (Calendar Display Only)
 document.addEventListener('DOMContentLoaded', () => {
     // Load Calendly script dynamically
     const calendlyScript = document.createElement('script');
@@ -129,8 +129,24 @@ document.addEventListener('DOMContentLoaded', () => {
     calendlyScript.async = true;
     document.head.appendChild(calendlyScript);
 
+    // Track Calendly loading state
+    let calendlyLoaded = false;
+    calendlyScript.onload = () => {
+        calendlyLoaded = true;
+        // If user is already on step 4, initialize the widget immediately
+        if (document.querySelector('.form-step[data-step="4"].active')) {
+            initCalendlyWidget();
+        }
+    };
+
     function initCalendlyWidget() {
-        // Ensure name, email, and phone are captured
+        // Add loading indicator
+        const calendlyWidget = document.getElementById('calendly-widget');
+        if (calendlyWidget) {
+            calendlyWidget.innerHTML = '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
+        }
+
+        // Get contact information from previous steps
         const name = document.getElementById('name')?.value.trim() || '';
         const email = document.getElementById('email')?.value.trim() || '';
         const phone = document.getElementById('phone')?.value.trim() || '';
@@ -141,25 +157,27 @@ document.addEventListener('DOMContentLoaded', () => {
             `&email=${encodeURIComponent(email)}` +
             `&a1=${encodeURIComponent(phone)}`;
 
-        // Initialize Calendly widget
-        const calendlyWidget = document.getElementById('calendly-widget');
-        if (calendlyWidget) {
-            calendlyWidget.innerHTML = ''; // Clear existing widget
-            calendlyWidget.setAttribute('data-url', calendlyUrl);
-
-            // Wait for Calendly script to load
-            calendlyScript.onload = () => {
-                if (typeof Calendly !== 'undefined') {
-                    Calendly.initInlineWidget({
-                        url: calendlyUrl,
-                        parentElement: calendlyWidget,
-                        welcomeScreenOptions: {
-                            showName: false,
-                            showEmail: false
-                        }
-                    });
+        // Initialize Calendly widget when script is loaded
+        if (typeof Calendly !== 'undefined') {
+            calendlyWidget.innerHTML = ''; // Clear loading indicator
+            Calendly.initInlineWidget({
+                url: calendlyUrl,
+                parentElement: calendlyWidget,
+                prefill: {
+                    name: name,
+                    email: email,
+                    customAnswers: {
+                        a1: phone
+                    }
+                },
+                welcomeScreenOptions: {
+                    showName: false,
+                    showEmail: false
                 }
-            };
+            });
+        } else {
+            // Script not loaded yet, wait and try again
+            setTimeout(initCalendlyWidget, 500);
         }
     }
 
@@ -171,21 +189,53 @@ document.addEventListener('DOMContentLoaded', () => {
             const detailsInput = document.getElementById('selectedAppointmentDetails');
             if (detailsInput) {
                 detailsInput.value = JSON.stringify(selectedTimeDetails);
-                console.log('Time slot selected (not booked):', selectedTimeDetails);
+                console.log('Time slot selected:', selectedTimeDetails);
+                
+                // Enable the Next button (optional)
+                const nextBtn = document.querySelector('.form-step[data-step="4"] .next-btn');
+                if (nextBtn) {
+                    nextBtn.removeAttribute('disabled');
+                }
             }
         }
     });
 
-    // Modify next step function to initialize widget
+    // Override just the relevant part of nextStep
     const originalNextStep = window.nextStep;
     window.nextStep = function() {
-        if (currentStep === 4) {
-            initCalendlyWidget();
-        }
+        // Get current step
+        const currentStep = document.querySelector('.form-step.active');
+        const currentStepNumber = currentStep ? parseInt(currentStep.getAttribute('data-step')) : 0;
         
-        // Call the original next step function
-        if (originalNextStep) {
-            originalNextStep();
+        // If moving to step 4, initialize Calendly
+        if (currentStepNumber === 3) {
+            // Call original next step first to make the calendar container visible
+            if (typeof originalNextStep === 'function') {
+                originalNextStep();
+            } else {
+                // Fallback if originalNextStep isn't defined
+                document.querySelector('.form-step.active').classList.remove('active');
+                document.querySelector('.form-step[data-step="4"]').classList.add('active');
+            }
+            
+            // Initialize Calendly
+            if (calendlyLoaded) {
+                initCalendlyWidget();
+            } else {
+                // If Calendly hasn't loaded yet, show loading message
+                document.getElementById('calendly-widget').innerHTML = 
+                    '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
+            }
+        } else {
+            // For other steps, just call the original function
+            if (typeof originalNextStep === 'function') {
+                originalNextStep();
+            } else {
+                // Fallback if originalNextStep isn't defined
+                const nextStepNumber = currentStepNumber + 1;
+                document.querySelector('.form-step.active').classList.remove('active');
+                document.querySelector(`.form-step[data-step="${nextStepNumber}"]`).classList.add('active');
+            }
         }
     };
 });
