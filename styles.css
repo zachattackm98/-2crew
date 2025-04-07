@@ -700,6 +700,53 @@ body {
     }
 }
 
+/* Styles for the light bulb in the Did You Know section */
+.stats {
+    position: relative;
+    overflow: hidden;
+}
+
+.stats .light-bulb {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.stats .light-bulb:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stats .light-bulb {
+        top: -40px;
+        width: 80px;
+        height: 80px;
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats .light-bulb {
+        top: -30px;
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+    }
+}
+
 /* Features */
 .features {
     background-color: var(--gray-light);
