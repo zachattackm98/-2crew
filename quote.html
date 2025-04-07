@@ -164,28 +164,16 @@
                     <!-- Step 4 -->
                     <div class="form-step" data-step="4">
                         <h3>Schedule Pickup</h3>
-                        <div class="form-group">
-                            <label for="date">Select a Date:</label>
-                            <input type="date" id="date" name="date" class="form-control" required>
-                        </div>
-                        <div class="buttons">
-                            <button type="button" class="back-btn" onclick="prevStep()">Back</button>
-                            <button type="button" class="next-btn" onclick="nextStep()">Next</button>
-                        </div>
+                        <div id="calendly-widget" class="calendly-inline-widget"></div>
+                        <input type="hidden" id="selectedAppointmentDetails" name="selectedAppointmentDetails">
+
+                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+                        <div class="buttons" style="margin-top: 20px;">
+                        <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+                        <button type="button" class="next-btn" onclick="nextStep()">Next</button>
                     </div>
-
-                    <!-- Step 4 -->
-<div class="form-step" data-step="4">
-    <h3>Schedule Pickup</h3>
-    <p>Select a time that works for you. Bookings auto-update in real time.</p>
-    <div class="calendly-inline-widget" data-url="https://calendly.com/zachm98/30min" style="min-width:320px;height:630px;"></div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
-    <div class="buttons" style="margin-top: 20px;">
-        <button type="button" class="back-btn" onclick="prevStep()">Back</button>
-        <button type="button" class="next-btn" onclick="nextStep()">Next</button>
-    </div>
-</div>
+                </div>
 
                     <!-- Step 5 -->
                     <div class="form-step" data-step="5">
