@@ -403,7 +403,7 @@ body {
     color: var(--secondary);
 }
 
-<!-- CSS to add to your styles.css file -->
+/* Paw Print Divider Section */
 .paw-print-divider {
     width: 100%;
     display: flex;
@@ -508,6 +508,11 @@ body {
         width: 10px;
         height: 10px;
     }
+}
+
+.paw-container {
+    background-color: var(--light); /* This ensures paws are visible against the line */
+    padding: 0 15px;
 }
 
 @media (max-width: 576px) {
