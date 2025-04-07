@@ -122,120 +122,74 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Calendly Widget Integration - Basic Version (Calendar Display Only)
-document.addEventListener('DOMContentLoaded', () => {
-    // Load Calendly script dynamically
-    const calendlyScript = document.createElement('script');
-    calendlyScript.src = 'https://assets.calendly.com/assets/external/widget.js';
-    calendlyScript.async = true;
-    document.head.appendChild(calendlyScript);
-
-    // Track Calendly loading state
-    let calendlyLoaded = false;
-    calendlyScript.onload = () => {
-        calendlyLoaded = true;
-        // If user is already on step 4, initialize the widget immediately
-        if (document.querySelector('.form-step[data-step="4"].active')) {
-            initCalendlyWidget();
+document.addEventListener('DOMContentLoaded', function() {
+    // We'll use a flag to track if we've already initialized the widget
+    let calendlyInitialized = false;
+    
+    // Original nextStep function reference
+    const originalNextStep = window.nextStep;
+    
+    window.nextStep = function() {
+        // Get current step before changing it
+        const currentStep = parseInt(document.querySelector('.form-step.active').getAttribute('data-step'));
+        
+        // Call original function
+        if (typeof originalNextStep === 'function') {
+            originalNextStep();
+        }
+        
+        // If we're now on step 4 and haven't initialized Calendly yet
+        if (currentStep === 3 && !calendlyInitialized) {
+            const calendlyContainer = document.getElementById('calendly-widget');
+            if (calendlyContainer) {
+                // Show loading message
+                calendlyContainer.innerHTML = '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
+                calendlyContainer.style.minHeight = "600px"; // Ensure there's space for the widget
+                
+                // Get form data
+                const name = document.getElementById('name').value || '';
+                const email = document.getElementById('email').value || '';
+                const phone = document.getElementById('phone').value || '';
+                
+                // Set a timeout to make sure the DOM has updated
+                setTimeout(function() {
+                    try {
+                        // Direct Calendly inline widget initialization
+                        calendlyContainer.innerHTML = '';
+                        Calendly.initInlineWidget({
+                            url: 'https://calendly.com/zachm98/30min',
+                            parentElement: calendlyContainer,
+                            prefill: {
+                                name: name,
+                                email: email,
+                                customAnswers: {
+                                    a1: phone
+                                }
+                            }
+                        });
+                        calendlyInitialized = true;
+                        console.log("Calendly initialized successfully");
+                    } catch (error) {
+                        console.error("Failed to initialize Calendly:", error);
+                        calendlyContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: red;">Error loading calendar. Please refresh the page.</div>';
+                    }
+                }, 500);
+            }
         }
     };
-
-    function initCalendlyWidget() {
-        // Add loading indicator
-        const calendlyWidget = document.getElementById('calendly-widget');
-        if (calendlyWidget) {
-            calendlyWidget.innerHTML = '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
-        }
-
-        // Get contact information from previous steps
-        const name = document.getElementById('name')?.value.trim() || '';
-        const email = document.getElementById('email')?.value.trim() || '';
-        const phone = document.getElementById('phone')?.value.trim() || '';
-
-        // Construct Calendly URL with prefilled parameters
-        const calendlyUrl = `https://calendly.com/zachm98/30min?` +
-            `name=${encodeURIComponent(name)}` +
-            `&email=${encodeURIComponent(email)}` +
-            `&a1=${encodeURIComponent(phone)}`;
-
-        // Initialize Calendly widget when script is loaded
-        if (typeof Calendly !== 'undefined') {
-            calendlyWidget.innerHTML = ''; // Clear loading indicator
-            Calendly.initInlineWidget({
-                url: calendlyUrl,
-                parentElement: calendlyWidget,
-                prefill: {
-                    name: name,
-                    email: email,
-                    customAnswers: {
-                        a1: phone
-                    }
-                },
-                welcomeScreenOptions: {
-                    showName: false,
-                    showEmail: false
-                }
-            });
-        } else {
-            // Script not loaded yet, wait and try again
-            setTimeout(initCalendlyWidget, 500);
-        }
-    }
-
-    // Event listener for Calendly events
-    window.addEventListener('message', function(event) {
-        if (event.data.event === 'calendly.date_and_time_selected') {
-            // Capture selected time details without booking
-            const selectedTimeDetails = event.data.payload;
-            const detailsInput = document.getElementById('selectedAppointmentDetails');
-            if (detailsInput) {
-                detailsInput.value = JSON.stringify(selectedTimeDetails);
-                console.log('Time slot selected:', selectedTimeDetails);
-                
-                // Enable the Next button (optional)
-                const nextBtn = document.querySelector('.form-step[data-step="4"] .next-btn');
-                if (nextBtn) {
-                    nextBtn.removeAttribute('disabled');
+    
+    // Listen for Calendly events
+    window.addEventListener('message', function(e) {
+        if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+            console.log("Calendly event:", e.data.event);
+            
+            if (e.data.event === 'calendly.date_and_time_selected') {
+                // Store the selected time
+                const detailsInput = document.getElementById('selectedAppointmentDetails');
+                if (detailsInput) {
+                    detailsInput.value = JSON.stringify(e.data.payload);
                 }
             }
         }
     });
-
-    // Override just the relevant part of nextStep
-    const originalNextStep = window.nextStep;
-    window.nextStep = function() {
-        // Get current step
-        const currentStep = document.querySelector('.form-step.active');
-        const currentStepNumber = currentStep ? parseInt(currentStep.getAttribute('data-step')) : 0;
-        
-        // If moving to step 4, initialize Calendly
-        if (currentStepNumber === 3) {
-            // Call original next step first to make the calendar container visible
-            if (typeof originalNextStep === 'function') {
-                originalNextStep();
-            } else {
-                // Fallback if originalNextStep isn't defined
-                document.querySelector('.form-step.active').classList.remove('active');
-                document.querySelector('.form-step[data-step="4"]').classList.add('active');
-            }
-            
-            // Initialize Calendly
-            if (calendlyLoaded) {
-                initCalendlyWidget();
-            } else {
-                // If Calendly hasn't loaded yet, show loading message
-                document.getElementById('calendly-widget').innerHTML = 
-                    '<div style="text-align: center; padding: 20px;">Loading calendar...</div>';
-            }
-        } else {
-            // For other steps, just call the original function
-            if (typeof originalNextStep === 'function') {
-                originalNextStep();
-            } else {
-                // Fallback if originalNextStep isn't defined
-                const nextStepNumber = currentStepNumber + 1;
-                document.querySelector('.form-step.active').classList.remove('active');
-                document.querySelector(`.form-step[data-step="${nextStepNumber}"]`).classList.add('active');
-            }
-        }
-    };
 });
