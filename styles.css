@@ -403,7 +403,7 @@ body {
     color: var(--secondary);
 }
 
-/* Paw Print Divider Section */
+/* Paw Print Divider Section - Updated */
 .paw-print-divider {
     width: 100%;
     display: flex;
@@ -412,6 +412,7 @@ body {
     margin: 20px 0;
     position: relative;
     padding: 20px 0;
+    background-color: var(--light); /* Add background to entire divider */
 }
 
 .paw-print-divider:before {
@@ -433,6 +434,8 @@ body {
     gap: 30px;
     position: relative;
     z-index: 2;
+    background-color: var(--light);
+    padding: 0 15px;
 }
 
 .paw {
@@ -510,9 +513,23 @@ body {
     }
 }
 
-.paw-container {
-    background-color: var(--light); /* This ensures paws are visible against the line */
-    padding: 0 15px;
+@media (max-width: 576px) {
+    .paw-container {
+        gap: 15px;
+    }
+    
+    .paw {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .paw:before,
+    .paw:after,
+    .paw::before,
+    .paw::after {
+        width: 8px;
+        height: 8px;
+    }
 }
 
 @media (max-width: 576px) {
