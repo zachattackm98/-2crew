@@ -164,12 +164,12 @@
                     <!-- Step 4 -->
                     <div class="form-step" data-step="4">
                         <h3>Schedule Pickup</h3>
-                    <!-- This is the container where Calendly will be embedded -->
-                    <div id="calendly-widget" class="calendly-inline-widget"></div>
-                    <!-- This hidden field will store the selected appointment details -->
-                    <input type="hidden" id="selectedAppointmentDetails" name="selectedAppointmentDetails">
+                        <div id="calendly-widget" class="calendly-inline-widget"></div>
+                        <input type="hidden" id="selectedAppointmentDetails" name="selectedAppointmentDetails">
 
-                    <div class="buttons" style="margin-top: 20px;">
+                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+                        <div class="buttons" style="margin-top: 20px;">
                         <button type="button" class="back-btn" onclick="prevStep()">Back</button>
                         <button type="button" class="next-btn" onclick="nextStep()">Next</button>
                     </div>
