@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
          const phone = document.getElementById('phone').value.trim();
  
          // Construct Calendly URL with prefilled parameters
-         const calendlyUrl = `https://calendly.com/zachm98/30min?` +
+         const calendlyUrl = `https://calendly.com/zachm98/30min` +
              `name=${encodeURIComponent(name)}` +
              `&email=${encodeURIComponent(email)}` +
              `&a1=${encodeURIComponent(phone)}`;
