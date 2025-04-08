@@ -122,6 +122,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Simplified Calendly Integration Based on Your Working Code
+// Replace your current Calendly implementation with this code in script.js
+// (Keep all other code in script.js the same)
+
+// Calendly Integration - Fixed Version
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM loaded, setting up Calendly...");
     
@@ -129,7 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const style = document.createElement('style');
     style.textContent = `
         #calendly-widget {
-            min-height: 650px;
+            min-height: 700px;
+        }
+        .calendly-inline-widget {
+            min-height: 700px !important;
+            height: 700px !important;
         }
         .loading-indicator {
             text-align: center;
@@ -147,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const calendlyScript = document.createElement('script');
     calendlyScript.src = 'https://assets.calendly.com/assets/external/widget.js';
     calendlyScript.async = true;
+    calendlyScript.defer = true; // Add defer attribute for better loading
     document.head.appendChild(calendlyScript);
     
     // Track loading state
@@ -156,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Calendly script loaded successfully");
         calendlyLoaded = true;
         
-        // Check if we need to initialize immediately
+        // Check if we're already on step 4
         if (document.querySelector('.form-step[data-step="4"].active')) {
             console.log("Already on step 4, initializing widget immediately");
             initCalendlyWidget();
@@ -165,6 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     calendlyScript.onerror = () => {
         console.error("Failed to load Calendly script");
+        const widget = document.getElementById('calendly-widget');
+        if (widget) {
+            widget.innerHTML = '<div class="error-message">Failed to load calendar service. Please try again later.</div>';
+        }
     };
     
     // Initialize the Calendly widget
@@ -188,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log("Form data:", { name, email, phone });
         
-        // IMPORTANT: Check if all required fields are filled
+        // Check if all required fields are filled
         if (!name || !email || !phone) {
             console.warn("Missing required fields");
             calendlyWidget.innerHTML = '<div class="error-message">Please complete the contact information in step 1.</div>';
@@ -203,25 +216,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear the container
                 calendlyWidget.innerHTML = '';
                 
-                // Construct URL with query parameters (as in your working code)
-                const calendlyUrl = `https://calendly.com/zachm98/30min?` +
-                    `name=${encodeURIComponent(name)}` +
-                    `&email=${encodeURIComponent(email)}` +
-                    `&a1=${encodeURIComponent(phone)}`;
-                
-                console.log("Calendly URL:", calendlyUrl);
-                
-                // Initialize the widget
+                // Initialize the widget - simplified approach
                 Calendly.initInlineWidget({
-                    url: calendlyUrl,
-                    parentElement: calendlyWidget,
-                    prefill: {
-                        name: name,
-                        email: email,
-                        customAnswers: {
-                            a1: phone
-                        }
-                    }
+                    url: 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1&name=' + 
+                         encodeURIComponent(name) + '&email=' + 
+                         encodeURIComponent(email) + '&a1=' + 
+                         encodeURIComponent(phone),
+                    parentElement: calendlyWidget
                 });
                 
                 console.log("Widget initialized successfully");
@@ -232,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // If Calendly isn't loaded yet, wait and try again
             console.log("Calendly not loaded yet, will retry...");
+            calendlyWidget.innerHTML = '<div class="loading-indicator">Loading calendar service...</div>';
             setTimeout(initCalendlyWidget, 500);
         }
     }
@@ -254,23 +256,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Override nextStep
-    const originalNextStep = window.nextStep;
+    // Store original nextStep function
+    const origNextStep = window.nextStep;
+    
+    // Override nextStep to handle Calendly initialization on step 4
     window.nextStep = function() {
         // Get current step
         const currentStep = parseInt(document.querySelector('.form-step.active').getAttribute('data-step'));
         console.log("nextStep called, current step:", currentStep);
         
-        // Handle special case for step 3 -> 4 transition
+        // Special handling for transition to step 4
         if (currentStep === 3) {
-            console.log("Moving to step 4, will initialize Calendly");
-            
-            // Call original function to show step 4
-            if (typeof originalNextStep === 'function') {
-                originalNextStep();
+            // First call original nextStep to make the step visible
+            if (typeof origNextStep === 'function') {
+                origNextStep();
+            } else {
+                // Fallback navigation if original function is not available
+                document.querySelector('.form-step.active').classList.remove('active');
+                document.querySelector('.form-step[data-step="4"]').classList.add('active');
+                window.scrollTo({top: 0, behavior: 'smooth'});
             }
             
-            // Initialize Calendly if loaded
+            // Initialize Calendly
             if (calendlyLoaded) {
                 console.log("Calendly already loaded, initializing widget");
                 initCalendlyWidget();
@@ -290,11 +297,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }, 200);
             }
-        } else {
-            // For other steps, just call the original function
-            if (typeof originalNextStep === 'function') {
-                originalNextStep();
-            }
+            
+            return; // Exit to prevent calling original nextStep twice
+        }
+        
+        // For all other steps, use original function
+        if (typeof origNextStep === 'function') {
+            origNextStep();
         }
     };
+    
+    // Call the original updateSummary function when reaching the review step
+    const origUpdateSummary = window.updateSummary;
+    if (typeof origUpdateSummary === 'function') {
+        // Store the original nextStep again
+        const originalNextStep = window.nextStep; 
+        
+        // Add summary update logic
+        window.nextStep = function() {
+            // Get current step before changing it
+            const currentStep = parseInt(document.querySelector('.form-step.active').getAttribute('data-step'));
+            
+            // Call our modified nextStep function
+            originalNextStep();
+            
+            // If we just moved to step 7 (review), update the summary
+            if (currentStep === 6) {
+                origUpdateSummary();
+            }
+        };
+    }
 });
