@@ -122,10 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Simplified Calendly Integration Based on Your Working Code
-// Track if Calendly script is loaded
-let calendlyScriptLoaded = false;
-
-// Load Calendly script once on page load
+// Calendly Integration
 document.addEventListener('DOMContentLoaded', function() {
     // Only run this on pages with the form
     if (!document.getElementById('cleanupForm')) return;
@@ -156,28 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const script = document.createElement('script');
         script.src = 'https://assets.calendly.com/assets/external/widget.js';
         script.async = true;
-        
-        script.onload = function() {
-            console.log("Calendly script loaded successfully");
-            calendlyScriptLoaded = true;
-            
-            // If we're already on step 4, initialize widget
-            if (currentStep === 3) { // currentStep is 0-indexed in your code
-                initCalendlyWidget();
-            }
-        };
-        
-        script.onerror = function() {
-            console.error("Failed to load Calendly script");
-            const widget = document.getElementById('calendly-widget');
-            if (widget) {
-                widget.innerHTML = '<div class="error-message">Failed to load calendar. Please refresh and try again.</div>';
-            }
-        };
-        
         document.head.appendChild(script);
-    } else {
-        calendlyScriptLoaded = true;
     }
     
     // Add event listener for Calendly events
@@ -232,46 +208,29 @@ function initCalendlyWidget() {
     
     console.log("Form data for Calendly:", { name, email, phone });
     
-    // Validation
-    if (!name || !email) {
-        calendlyWidget.innerHTML = '<div class="error-message">Please fill in your name and email in Step 1 before scheduling.</div>';
-        return;
-    }
+    // Build URL with prefill parameters
+    let calendlyUrl = 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1';
     
-    // Wait for Calendly to load if needed
-    function attemptToInitialize() {
+    // Add prefill parameters if we have values
+    if (name) calendlyUrl += '&name=' + encodeURIComponent(name);
+    if (email) calendlyUrl += '&email=' + encodeURIComponent(email);
+    if (phone) calendlyUrl += '&a1=' + encodeURIComponent(phone);
+    
+    // Create the widget with prefilled data
+    calendlyWidget.innerHTML = `
+        <div class="calendly-inline-widget" 
+             data-url="${calendlyUrl}" 
+             style="min-width:320px;height:700px;">
+        </div>
+    `;
+    
+    // Force refresh if widget doesn't load properly
+    setTimeout(function() {
         if (typeof Calendly !== 'undefined') {
-            try {
-                // Clear the container
-                calendlyWidget.innerHTML = '';
-                
-                // Initialize with prefilled data
-                Calendly.initInlineWidget({
-                    url: 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1',
-                    parentElement: calendlyWidget,
-                    prefill: {
-                        name: name,
-                        email: email,
-                        customAnswers: {
-                            a1: phone // This is to prefill phone as a custom field
-                        }
-                    }
-                });
-                
-                console.log("Calendly widget initialized successfully");
-            } catch (error) {
-                console.error("Error initializing Calendly widget:", error);
-                calendlyWidget.innerHTML = '<div class="error-message">Failed to load calendar. Please refresh and try again.</div>';
-            }
-        } else {
-            // Retry after a short delay
-            console.log("Calendly not loaded yet, retrying in 500ms");
-            setTimeout(attemptToInitialize, 500);
+            console.log("Refreshing Calendly widget");
+            Calendly.createInlineWidgets();
         }
-    }
-    
-    // Start initialization
-    attemptToInitialize();
+    }, 1000);
 }
 
 // Update the fillSummary function to include appointment details
