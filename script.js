@@ -121,34 +121,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Simplified Calendly Integration Based on Your Working Code
-// Calendly Integration
+// Simple Calendly Integration
 document.addEventListener('DOMContentLoaded', function() {
-    // Only run this on pages with the form
+    // Only run on pages with the form
     if (!document.getElementById('cleanupForm')) return;
     
-    // Add Calendly CSS styles
-    const style = document.createElement('style');
-    style.textContent = `
-        #calendly-widget {
-            min-height: 650px;
-            width: 100%;
-        }
-        .calendly-inline-widget {
-            min-height: 650px !important;
-        }
-        .loading-indicator {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-            font-size: 18px;
-            color: #00796b;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Load Calendly script if not already loaded
+    // 1. Make sure the Calendly script is loaded
     if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
         const script = document.createElement('script');
         script.src = 'https://assets.calendly.com/assets/external/widget.js';
@@ -156,11 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(script);
     }
     
-    // Add event listener for Calendly events
+    // 2. Set up event listener for Calendly events
     window.addEventListener('message', function(event) {
         if (event.data.event && event.origin.indexOf('calendly.com') !== -1) {
-            console.log("Calendly event:", event.data.event);
-            
             // When a time slot is selected
             if (event.data.event === 'calendly.date_and_time_selected') {
                 console.log("Time slot selected:", event.data.payload);
@@ -172,123 +148,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Override the original nextStep function to handle Calendly integration
-    const originalNextStep = window.nextStep;
-    
-    window.nextStep = function() {
-        // Get current step before it changes
-        const beforeStep = currentStep;
-        
-        // Call the original nextStep function
-        originalNextStep();
-        
-        // If we just moved to step 4 (index 3), initialize Calendly
-        if (beforeStep === 2 && currentStep === 3) {
-            initCalendlyWidget();
-        }
-    };
-});
-
-// Function to initialize the Calendly widget
-function initCalendlyWidget() {
-    // Get the widget container
+    // 3. Direct initialization of the Calendly widget
     const calendlyWidget = document.getElementById('calendly-widget');
-    if (!calendlyWidget) {
-        console.error("Cannot find calendly-widget element");
-        return;
+    if (calendlyWidget) {
+        // Use a direct approach, no complicated logic
+        calendlyWidget.innerHTML = `
+            <div class="calendly-inline-widget" 
+                 data-url="https://calendly.com/zachm98/30min?hide_gdpr_banner=1" 
+                 style="min-width:320px;height:700px;">
+            </div>
+        `;
     }
-    
-    // Show loading indicator
-    calendlyWidget.innerHTML = '<div class="loading-indicator">Loading calendar...</div>';
-    
-    // Get form values
-    const name = document.getElementById('name')?.value || '';
-    const email = document.getElementById('email')?.value || '';
-    const phone = document.getElementById('phone')?.value || '';
-    
-    console.log("Form data for Calendly:", { name, email, phone });
-    
-    // Build URL with prefill parameters
-    let calendlyUrl = 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1';
-    
-    // Add prefill parameters if we have values
-    if (name) calendlyUrl += '&name=' + encodeURIComponent(name);
-    if (email) calendlyUrl += '&email=' + encodeURIComponent(email);
-    if (phone) calendlyUrl += '&a1=' + encodeURIComponent(phone);
-    
-    // Create the widget with prefilled data
-    calendlyWidget.innerHTML = `
-        <div class="calendly-inline-widget" 
-             data-url="${calendlyUrl}" 
-             style="min-width:320px;height:700px;">
-        </div>
-    `;
-    
-    // Force refresh if widget doesn't load properly
-    setTimeout(function() {
-        if (typeof Calendly !== 'undefined') {
-            console.log("Refreshing Calendly widget");
-            Calendly.createInlineWidgets();
-        }
-    }, 1000);
-}
-
-// Update the fillSummary function to include appointment details
-const originalFillSummary = window.fillSummary;
-
-window.fillSummary = function() {
-    // Call the original function first
-    if (typeof originalFillSummary === 'function') {
-        originalFillSummary();
-    }
-    
-    // Add appointment details to summary if available
-    const summaryElement = document.getElementById("summary");
-    const appointmentDetails = document.getElementById('selectedAppointmentDetails')?.value;
-    
-    if (summaryElement && appointmentDetails) {
-        try {
-            const details = JSON.parse(appointmentDetails);
-            const appointmentDate = new Date(details.start_time);
-            
-            // Format date and time nicely
-            const dateString = appointmentDate.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            const timeString = appointmentDate.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            
-            // Add appointment info to the summary
-            const appointmentHTML = `
-                <li class="summary-category">
-                    <strong>Scheduled Appointment</strong>
-                    <ul>
-                        <li><strong>Date:</strong> ${dateString}</li>
-                        <li><strong>Time:</strong> ${timeString}</li>
-                    </ul>
-                </li>
-            `;
-            
-            // Find where to insert this information
-            const summaryList = summaryElement.querySelector('.summary-list');
-            if (summaryList) {
-                // Try to insert after Service Details if it exists
-                const serviceDetails = summaryList.querySelector('.summary-category:nth-child(3)');
-                if (serviceDetails) {
-                    serviceDetails.insertAdjacentHTML('afterend', appointmentHTML);
-                } else {
-                    // Otherwise just append to the end
-                    summaryList.insertAdjacentHTML('beforeend', appointmentHTML);
-                }
-            }
-        } catch (e) {
-            console.error("Error parsing appointment details:", e);
-        }
-    }
-};
+});
