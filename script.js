@@ -122,41 +122,63 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Simple Calendly Integration
-document.addEventListener('DOMContentLoaded', function() {
-    // Only run on pages with the form
-    if (!document.getElementById('cleanupForm')) return;
-    
-    // 1. Make sure the Calendly script is loaded
-    if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
-        const script = document.createElement('script');
-        script.src = 'https://assets.calendly.com/assets/external/widget.js';
-        script.async = true;
-        document.head.appendChild(script);
-    }
-    
-    // 2. Set up event listener for Calendly events
-    window.addEventListener('message', function(event) {
-        if (event.data.event && event.origin.indexOf('calendly.com') !== -1) {
-            // When a time slot is selected
-            if (event.data.event === 'calendly.date_and_time_selected') {
-                console.log("Time slot selected:", event.data.payload);
-                const detailsInput = document.getElementById('selectedAppointmentDetails');
-                if (detailsInput) {
-                    detailsInput.value = JSON.stringify(event.data.payload);
-                }
-            }
-        }
-    });
-    
-    // 3. Direct initialization of the Calendly widget
-    const calendlyWidget = document.getElementById('calendly-widget');
-    if (calendlyWidget) {
-        // Use a direct approach, no complicated logic
-        calendlyWidget.innerHTML = `
-            <div class="calendly-inline-widget" 
-                 data-url="https://calendly.com/zachm98/30min?hide_gdpr_banner=1" 
-                 style="min-width:320px;height:700px;">
-            </div>
-        `;
-    }
-});
+document.addEventListener('DOMContentLoaded', () => {
+     // Load Calendly script dynamically
+     const calendlyScript = document.createElement('script');
+     calendlyScript.src = 'https://assets.calendly.com/assets/external/widget.js';
+     calendlyScript.async = true;
+     document.head.appendChild(calendlyScript);
+ 
+     function initCalendlyWidget() {
+         // Capture contact details from first step
+         const name = document.getElementById('name').value.trim();
+         const email = document.getElementById('email').value.trim();
+         const phone = document.getElementById('phone').value.trim();
+ 
+         // Construct Calendly URL with prefilled parameters
+         const calendlyUrl = `https://calendly.com/zachm98/30min?` +
+             `name=${encodeURIComponent(name)}` +
+             `&email=${encodeURIComponent(email)}` +
+             `&a1=${encodeURIComponent(phone)}`;
+ 
+         // Initialize Calendly widget
+         const calendlyWidget = document.getElementById('calendly-widget');
+         calendlyWidget.innerHTML = ''; // Clear existing widget
+         calendlyWidget.setAttribute('data-url', calendlyUrl);
+ 
+         // Wait for Calendly script to load
+         calendlyScript.onload = () => {
+             Calendly.initInlineWidget({
+                 url: calendlyUrl,
+                 parentElement: calendlyWidget,
+                 welcomeScreenOptions: {
+                     showName: false,
+                     showEmail: false
+                 }
+             });
+         };
+     }
+ 
+     // Event listener for Calendly events
+     window.addEventListener('message', function(event) {
+         if (event.data.event === 'calendly.date_and_time_selected') {
+             // Capture selected time details without booking
+             const selectedTimeDetails = event.data.payload;
+             document.getElementById('selectedAppointmentDetails').value = JSON.stringify(selectedTimeDetails);
+             console.log('Time slot selected (not booked):', selectedTimeDetails);
+         }
+     });
+ 
+     // Modify next step function to initialize widget
+     const originalNextStep = window.nextStep;
+     window.nextStep = function() {
+         if (currentStep === 4) {
+             initCalendlyWidget();
+         }
+         
+         // Call the original next step function
+         if (originalNextStep) {
+             originalNextStep();
+         }
+     };
+ });
