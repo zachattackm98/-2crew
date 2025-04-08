@@ -162,84 +162,85 @@
                     </div>
 
                     <!-- Step 4 -->
-                    <!-- Step 4 with Calendly and prefill script -->
-<div class="form-step" data-step="4">
-     <h3>Schedule Pickup</h3>
-     <p>Select a time that works for you. Bookings auto-update in real time.</p>
-     
-     <!-- We'll use this as a placeholder for the Calendly widget -->
-     <div id="calendly-container" style="min-height:630px;"></div>
-     
-     <!-- Add a hidden field to store appointment details -->
-     <input type="hidden" id="selectedAppointmentDetails" name="selectedAppointmentDetails">
-     
-     <!-- Script to initialize Calendly with form data -->
-     <script type="text/javascript">
-         document.addEventListener('DOMContentLoaded', function() {
-             // Load the Calendly script
-             const script = document.createElement('script');
-             script.src = 'https://assets.calendly.com/assets/external/widget.js';
-             script.onload = function() {
-                 // Once the script is loaded, initialize the widget
-                 initCalendlyWithFormData();
-             };
-             document.head.appendChild(script);
-             
-             // Set up listener for Calendly events
-             window.addEventListener('message', function(event) {
-                 if (event.data.event && event.origin.indexOf('calendly.com') !== -1) {
-                     console.log("Calendly event:", event.data.event);
-                     
-                     // When a time slot is selected
-                     if (event.data.event === 'calendly.date_and_time_selected') {
-                         console.log("Time slot selected:", event.data.payload);
-                         const detailsInput = document.getElementById('selectedAppointmentDetails');
-                         if (detailsInput) {
-                             detailsInput.value = JSON.stringify(event.data.payload);
-                         }
-                     }
-                 }
-             });
-             
-             // Function to initialize Calendly with form data
-             function initCalendlyWithFormData() {
-                 if (typeof Calendly === 'undefined') {
-                     console.log("Calendly script not loaded yet, waiting...");
-                     setTimeout(initCalendlyWithFormData, 200);
-                     return;
-                 }
-                 
-                 // Get form values
-                 const name = document.getElementById('name')?.value || '';
-                 const email = document.getElementById('email')?.value || '';
-                 const phone = document.getElementById('phone')?.value || '';
-                 
-                 console.log("Form data for Calendly:", { name, email, phone });
-                 
-                 // Get container
-                 const container = document.getElementById('calendly-container');
-                 if (!container) return;
-                 
-                 // Initialize inline widget with prefill data
-                 Calendly.initInlineWidget({
-                     url: 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1',
-                     parentElement: container,
-                     prefill: {
-                         name: name,
-                         email: email,
-                         customAnswers: {
-                             a1: phone
-                         }
-                     }
-                 });
-             }
-         });
-     </script>
+                    <!-- Step 4 with simple Calendly embed and URL parameters -->
+                    <div class="form-step" data-step="4">
+                        <h3>Schedule Pickup</h3>
+                        <p>Select a time that works for you. Bookings auto-update in real time.</p>
+    
+                    <!-- Placeholder for Calendly -->
+                    <div id="calendly-inline-widget"></div>
+    
+                    <!-- Hidden input for appointment details -->
+                    <input type="hidden" id="selectedAppointmentDetails" name="selectedAppointmentDetails">
+    
+                    <!-- Simple script to update Calendly URL with form data -->
+                <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // This function runs when step 4 becomes active
+            function setupCalendly() {
+                const step4 = document.querySelector('.form-step[data-step="4"]');
+                if (!step4 || !step4.classList.contains('active')) return;
+                
+                // Get form data
+                const name = document.getElementById('name')?.value || '';
+                const email = document.getElementById('email')?.value || '';
+                const phone = document.getElementById('phone')?.value || '';
+                
+                console.log("Form data:", { name, email, phone });
+                
+                // Build URL with parameters
+                let calendlyUrl = 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1';
+                
+                // Add URL parameters for prefill
+                if (name) calendlyUrl += '&name=' + encodeURIComponent(name);
+                if (email) calendlyUrl += '&email=' + encodeURIComponent(email);
+                if (phone) calendlyUrl += '&a1=' + encodeURIComponent(phone);
+                
+                // Create the widget with the URL
+                const container = document.getElementById('calendly-inline-widget');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="calendly-inline-widget" data-url="${calendlyUrl}" style="min-width:320px;height:630px;"></div>
+                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async><\/script>
+                    `;
+                }
+            }
+            
+            // Add a listener for the Calendly events
+            window.addEventListener('message', function(event) {
+                if (event.data.event && event.origin.indexOf('calendly.com') !== -1) {
+                    if (event.data.event === 'calendly.date_and_time_selected') {
+                        console.log("Time slot selected:", event.data.payload);
+                        const detailsInput = document.getElementById('selectedAppointmentDetails');
+                        if (detailsInput) {
+                            detailsInput.value = JSON.stringify(event.data.payload);
+                        }
+                    }
+                }
+            });
+            
+            // Find the step 3 next button and add an event listener
+            const step3NextBtn = document.querySelector('.form-step[data-step="3"] .next-btn');
+            if (step3NextBtn) {
+                const origOnClick = step3NextBtn.onclick;
+                step3NextBtn.onclick = function(e) {
+                    // Call the original onclick function
+                    if (origOnClick) origOnClick.call(this, e);
+                    
+                    // After a short delay, setup Calendly
+                    setTimeout(setupCalendly, 100);
+                };
+            }
+            
+            // Check if we're already on step 4
+            setupCalendly();
+        });
+    </script>
 
-     <div class="buttons" style="margin-top: 20px;">
-         <button type="button" class="back-btn" onclick="prevStep()">Back</button>
-         <button type="button" class="next-btn" onclick="nextStep()">Next</button>
-     </div>
+    <div class="buttons" style="margin-top: 20px;">
+        <button type="button" class="back-btn" onclick="prevStep()">Back</button>
+        <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+    </div>
 </div>
 
                     <!-- Step 5 -->
