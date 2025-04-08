@@ -120,3 +120,52 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Enhanced Date Picker for Booking System
+document.addEventListener('DOMContentLoaded', function() {
+    const datePicker = document.getElementById('date');
+    
+    // Function to get today's date in YYYY-MM-DD format
+    function getTodayFormatted() {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    }
+
+    // Set up the date picker
+    function setupDatePicker() {
+        // Set the minimum date to today
+        datePicker.min = getTodayFormatted();
+
+        // Add event listener to validate date selection
+        datePicker.addEventListener('change', validateDateSelection);
+    }
+
+    // Validate date selection
+    function validateDateSelection() {
+        const selectedDate = new Date(datePicker.value);
+        const today = new Date();
+        
+        // Allow all days EXCEPT when the selected day is before today
+        if (selectedDate < today) {
+            // Reset to today if an invalid date is somehow selected
+            datePicker.value = getTodayFormatted();
+        }
+    }
+
+    // Optional: Disable specific dates or add custom restrictions
+    function isDateAvailable(date) {
+        // Example restrictions:
+        // 1. Uncomment to disable specific days of the week (e.g., Mondays)
+        // if (date.getDay() === 1) return false;
+        
+        // 2. Uncomment to set a maximum booking date (e.g., 3 months from now)
+        // const maxDate = new Date();
+        // maxDate.setMonth(maxDate.getMonth() + 3);
+        // if (date > maxDate) return false;
+        
+        return true;
+    }
+
+    // Initial setup
+    setupDatePicker();
+});
