@@ -122,209 +122,214 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Simplified Calendly Integration Based on Your Working Code
-// Replace your current Calendly implementation with this code in script.js
-// (Keep all other code in script.js the same)
+// Track if Calendly script is loaded
+let calendlyScriptLoaded = false;
 
-// Calendly Integration - Fixed Version
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM loaded, setting up Calendly...");
+// Load Calendly script once on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Only run this on pages with the form
+    if (!document.getElementById('cleanupForm')) return;
     
-    // Add necessary CSS
+    // Add Calendly CSS styles
     const style = document.createElement('style');
     style.textContent = `
         #calendly-widget {
-            min-height: 700px;
+            min-height: 650px;
+            width: 100%;
         }
         .calendly-inline-widget {
-            min-height: 700px !important;
-            height: 700px !important;
+            min-height: 650px !important;
         }
         .loading-indicator {
-            text-align: center;
-            padding: 20px;
-        }
-        .error-message {
-            text-align: center;
-            padding: 20px;
-            color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 18px;
+            color: #00796b;
         }
     `;
     document.head.appendChild(style);
     
-    // Load Calendly script
-    const calendlyScript = document.createElement('script');
-    calendlyScript.src = 'https://assets.calendly.com/assets/external/widget.js';
-    calendlyScript.async = true;
-    calendlyScript.defer = true; // Add defer attribute for better loading
-    document.head.appendChild(calendlyScript);
-    
-    // Track loading state
-    let calendlyLoaded = false;
-    
-    calendlyScript.onload = () => {
-        console.log("Calendly script loaded successfully");
-        calendlyLoaded = true;
+    // Load Calendly script if not already loaded
+    if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://assets.calendly.com/assets/external/widget.js';
+        script.async = true;
         
-        // Check if we're already on step 4
-        if (document.querySelector('.form-step[data-step="4"].active')) {
-            console.log("Already on step 4, initializing widget immediately");
-            initCalendlyWidget();
-        }
-    };
-    
-    calendlyScript.onerror = () => {
-        console.error("Failed to load Calendly script");
-        const widget = document.getElementById('calendly-widget');
-        if (widget) {
-            widget.innerHTML = '<div class="error-message">Failed to load calendar service. Please try again later.</div>';
-        }
-    };
-    
-    // Initialize the Calendly widget
-    function initCalendlyWidget() {
-        console.log("Initializing Calendly widget");
-        
-        // Get the widget container
-        const calendlyWidget = document.getElementById('calendly-widget');
-        if (!calendlyWidget) {
-            console.error("Cannot find calendly-widget element");
-            return;
-        }
-        
-        // Show loading indicator
-        calendlyWidget.innerHTML = '<div class="loading-indicator">Loading calendar...</div>';
-        
-        // Get form data
-        const name = document.getElementById('name')?.value.trim() || '';
-        const email = document.getElementById('email')?.value.trim() || '';
-        const phone = document.getElementById('phone')?.value.trim() || '';
-        
-        console.log("Form data:", { name, email, phone });
-        
-        // Check if all required fields are filled
-        if (!name || !email || !phone) {
-            console.warn("Missing required fields");
-            calendlyWidget.innerHTML = '<div class="error-message">Please complete the contact information in step 1.</div>';
-            return;
-        }
-        
-        // Check if Calendly is loaded
-        if (typeof Calendly !== 'undefined') {
-            try {
-                console.log("Calendly is defined, initializing widget");
-                
-                // Clear the container
-                calendlyWidget.innerHTML = '';
-                
-                // Initialize the widget - simplified approach
-                Calendly.initInlineWidget({
-                    url: 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1&name=' + 
-                         encodeURIComponent(name) + '&email=' + 
-                         encodeURIComponent(email) + '&a1=' + 
-                         encodeURIComponent(phone),
-                    parentElement: calendlyWidget
-                });
-                
-                console.log("Widget initialized successfully");
-            } catch (error) {
-                console.error("Error initializing Calendly widget:", error);
-                calendlyWidget.innerHTML = '<div class="error-message">Failed to load calendar. Please try again.</div>';
+        script.onload = function() {
+            console.log("Calendly script loaded successfully");
+            calendlyScriptLoaded = true;
+            
+            // If we're already on step 4, initialize widget
+            if (currentStep === 3) { // currentStep is 0-indexed in your code
+                initCalendlyWidget();
             }
-        } else {
-            // If Calendly isn't loaded yet, wait and try again
-            console.log("Calendly not loaded yet, will retry...");
-            calendlyWidget.innerHTML = '<div class="loading-indicator">Loading calendar service...</div>';
-            setTimeout(initCalendlyWidget, 500);
-        }
+        };
+        
+        script.onerror = function() {
+            console.error("Failed to load Calendly script");
+            const widget = document.getElementById('calendly-widget');
+            if (widget) {
+                widget.innerHTML = '<div class="error-message">Failed to load calendar. Please refresh and try again.</div>';
+            }
+        };
+        
+        document.head.appendChild(script);
+    } else {
+        calendlyScriptLoaded = true;
     }
     
-    // Listen for Calendly events
+    // Add event listener for Calendly events
     window.addEventListener('message', function(event) {
-        // Security check
-        if (event.origin.indexOf('calendly.com') === -1) return;
-        
-        console.log("Received event from Calendly:", event.data.event);
-        
-        if (event.data.event === 'calendly.date_and_time_selected') {
-            // Store selected time details
-            const selectedTimeDetails = event.data.payload;
-            const detailsInput = document.getElementById('selectedAppointmentDetails');
-            if (detailsInput) {
-                detailsInput.value = JSON.stringify(selectedTimeDetails);
-                console.log('Time slot selected:', selectedTimeDetails);
+        if (event.data.event && event.origin.indexOf('calendly.com') !== -1) {
+            console.log("Calendly event:", event.data.event);
+            
+            // When a time slot is selected
+            if (event.data.event === 'calendly.date_and_time_selected') {
+                console.log("Time slot selected:", event.data.payload);
+                const detailsInput = document.getElementById('selectedAppointmentDetails');
+                if (detailsInput) {
+                    detailsInput.value = JSON.stringify(event.data.payload);
+                }
             }
         }
     });
     
-    // Store original nextStep function
-    const origNextStep = window.nextStep;
+    // Override the original nextStep function to handle Calendly integration
+    const originalNextStep = window.nextStep;
     
-    // Override nextStep to handle Calendly initialization on step 4
     window.nextStep = function() {
-        // Get current step
-        const currentStep = parseInt(document.querySelector('.form-step.active').getAttribute('data-step'));
-        console.log("nextStep called, current step:", currentStep);
+        // Get current step before it changes
+        const beforeStep = currentStep;
         
-        // Special handling for transition to step 4
-        if (currentStep === 3) {
-            // First call original nextStep to make the step visible
-            if (typeof origNextStep === 'function') {
-                origNextStep();
-            } else {
-                // Fallback navigation if original function is not available
-                document.querySelector('.form-step.active').classList.remove('active');
-                document.querySelector('.form-step[data-step="4"]').classList.add('active');
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            }
-            
-            // Initialize Calendly
-            if (calendlyLoaded) {
-                console.log("Calendly already loaded, initializing widget");
-                initCalendlyWidget();
-            } else {
-                console.log("Calendly not loaded yet, showing loading message");
-                const widget = document.getElementById('calendly-widget');
-                if (widget) {
-                    widget.innerHTML = '<div class="loading-indicator">Loading calendar...</div>';
-                }
-                
-                // Check periodically if Calendly has loaded
-                const checkInterval = setInterval(() => {
-                    if (calendlyLoaded) {
-                        console.log("Calendly loaded during interval check");
-                        clearInterval(checkInterval);
-                        initCalendlyWidget();
-                    }
-                }, 200);
-            }
-            
-            return; // Exit to prevent calling original nextStep twice
-        }
+        // Call the original nextStep function
+        originalNextStep();
         
-        // For all other steps, use original function
-        if (typeof origNextStep === 'function') {
-            origNextStep();
+        // If we just moved to step 4 (index 3), initialize Calendly
+        if (beforeStep === 2 && currentStep === 3) {
+            initCalendlyWidget();
         }
     };
-    
-    // Call the original updateSummary function when reaching the review step
-    const origUpdateSummary = window.updateSummary;
-    if (typeof origUpdateSummary === 'function') {
-        // Store the original nextStep again
-        const originalNextStep = window.nextStep; 
-        
-        // Add summary update logic
-        window.nextStep = function() {
-            // Get current step before changing it
-            const currentStep = parseInt(document.querySelector('.form-step.active').getAttribute('data-step'));
-            
-            // Call our modified nextStep function
-            originalNextStep();
-            
-            // If we just moved to step 7 (review), update the summary
-            if (currentStep === 6) {
-                origUpdateSummary();
-            }
-        };
-    }
 });
+
+// Function to initialize the Calendly widget
+function initCalendlyWidget() {
+    // Get the widget container
+    const calendlyWidget = document.getElementById('calendly-widget');
+    if (!calendlyWidget) {
+        console.error("Cannot find calendly-widget element");
+        return;
+    }
+    
+    // Show loading indicator
+    calendlyWidget.innerHTML = '<div class="loading-indicator">Loading calendar...</div>';
+    
+    // Get form values
+    const name = document.getElementById('name')?.value || '';
+    const email = document.getElementById('email')?.value || '';
+    const phone = document.getElementById('phone')?.value || '';
+    
+    console.log("Form data for Calendly:", { name, email, phone });
+    
+    // Validation
+    if (!name || !email) {
+        calendlyWidget.innerHTML = '<div class="error-message">Please fill in your name and email in Step 1 before scheduling.</div>';
+        return;
+    }
+    
+    // Wait for Calendly to load if needed
+    function attemptToInitialize() {
+        if (typeof Calendly !== 'undefined') {
+            try {
+                // Clear the container
+                calendlyWidget.innerHTML = '';
+                
+                // Initialize with prefilled data
+                Calendly.initInlineWidget({
+                    url: 'https://calendly.com/zachm98/30min?hide_gdpr_banner=1',
+                    parentElement: calendlyWidget,
+                    prefill: {
+                        name: name,
+                        email: email,
+                        customAnswers: {
+                            a1: phone // This is to prefill phone as a custom field
+                        }
+                    }
+                });
+                
+                console.log("Calendly widget initialized successfully");
+            } catch (error) {
+                console.error("Error initializing Calendly widget:", error);
+                calendlyWidget.innerHTML = '<div class="error-message">Failed to load calendar. Please refresh and try again.</div>';
+            }
+        } else {
+            // Retry after a short delay
+            console.log("Calendly not loaded yet, retrying in 500ms");
+            setTimeout(attemptToInitialize, 500);
+        }
+    }
+    
+    // Start initialization
+    attemptToInitialize();
+}
+
+// Update the fillSummary function to include appointment details
+const originalFillSummary = window.fillSummary;
+
+window.fillSummary = function() {
+    // Call the original function first
+    if (typeof originalFillSummary === 'function') {
+        originalFillSummary();
+    }
+    
+    // Add appointment details to summary if available
+    const summaryElement = document.getElementById("summary");
+    const appointmentDetails = document.getElementById('selectedAppointmentDetails')?.value;
+    
+    if (summaryElement && appointmentDetails) {
+        try {
+            const details = JSON.parse(appointmentDetails);
+            const appointmentDate = new Date(details.start_time);
+            
+            // Format date and time nicely
+            const dateString = appointmentDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const timeString = appointmentDate.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Add appointment info to the summary
+            const appointmentHTML = `
+                <li class="summary-category">
+                    <strong>Scheduled Appointment</strong>
+                    <ul>
+                        <li><strong>Date:</strong> ${dateString}</li>
+                        <li><strong>Time:</strong> ${timeString}</li>
+                    </ul>
+                </li>
+            `;
+            
+            // Find where to insert this information
+            const summaryList = summaryElement.querySelector('.summary-list');
+            if (summaryList) {
+                // Try to insert after Service Details if it exists
+                const serviceDetails = summaryList.querySelector('.summary-category:nth-child(3)');
+                if (serviceDetails) {
+                    serviceDetails.insertAdjacentHTML('afterend', appointmentHTML);
+                } else {
+                    // Otherwise just append to the end
+                    summaryList.insertAdjacentHTML('beforeend', appointmentHTML);
+                }
+            }
+        } catch (e) {
+            console.error("Error parsing appointment details:", e);
+        }
+    }
+};
