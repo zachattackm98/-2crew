@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Waste Removal Pricing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 30px;
+        }
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* for rounded corners and shadow */
+        }
+        .pricing-table thead th {
+            background-color: #f0f0f0;
+            color: #2c3e50;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+        .pricing-table tbody tr:nth-child(odd) {
+            background-color: #f5f5f5;
+        }
+        .pricing-table td, .pricing-table th {
+            border-bottom: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .pricing-table td:last-child,
+        .pricing-table th:last-child {
+            text-align: center;
+        }
+        .additional-charges {
+            margin-top: 30px;
+        }
+        .additional-charges h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .additional-charges ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .additional-charges li {
+            margin-bottom: 10px;
+        }
+        .notes {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        @media (max-width: 768px) {
+            .pricing-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .pricing-table thead th,
+            .pricing-table tbody td {
+                display: table-cell;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pet Waste Removal Pricing</h1>
+
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Service Frequency</th>
+                    <th>Number of Dogs</th>
+                    <th>Yard Size (Up to 1/2 Acre)</th>
+                    <th>Yard Size (1/2 Acre +)</th>
+                    <th>Price</th>
+                    <th>Total Monthly Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Weekly</td>
+                    <td>1</td>
+                    <td>$20</td>
+                    <td>$30</td>
+                    <td>Per Visit</td>
+                    <td>$80 - $120</td>
+                </tr>
+                <tr>
+                    <td>Weekly</td>
+                    <td>2</td>
+                    <td>$25</td>
+                    <td>$30</td>
+                    <td>Per Visit</td>
+                    <td>$100 - $120</td>
+                </tr>
+                <tr>
+                    <td>Weekly</td>
+                    <td>3</td>
+                    <td>$30</td>
+                    <td>$35</td>
+                    <td>Per Visit</td>
+                    <td>$120 - $140</td>
+                </tr>
+                <tr>
+                    <td>Twice Weekly</td>
+                    <td>1</td>
+                    <td>$15</td>
+                    <td>$20</td>
+                    <td>Per Visit</td>
+                    <td>$120 - $160</td>
+                </tr>
+                <tr>
+                    <td>Twice Weekly</td>
+                    <td>2</td>
+                    <td>$20</td>
+                    <td>$25</td>
+                    <td>Per Visit</td>
+                    <td>$160 - $200</td>
+                </tr>
+                <tr>
+                    <td>Twice Weekly</td>
+                    <td>3</td>
+                    <td>$25</td>
+                    <td>$30</td>
+                    <td>Per Visit</td>
+                    <td>$200 - $240</td>
+                </tr>
+                 <tr>
+                    <td>Thrice Weekly</td>
+                    <td>1</td>
+                    <td>$15</td>
+                    <td>$20</td>
+                    <td>Per Visit</td>
+                    <td>$180 - $240</td>
+                </tr>
+                <tr>
+                    <td>Thrice Weekly</td>
+                    <td>2</td>
+                    <td>$20</td>
+                    <td>$25</td>
+                    <td>Per Visit</td>
+                    <td>$240 - $300</td>
+                </tr>
+                <tr>
+                    <td>Thrice Weekly</td>
+                    <td>3</td>
+                    <td>$25</td>
+                    <td>$30</td>
+                    <td>Per Visit</td>
+                    <td>$300 - $360</td>
+                </tr>
+                <tr>
+                    <td>Bi-Weekly</td>
+                    <td>1</td>
+                    <td>$35</td>
+                    <td>$45</td>
+                    <td>Per Visit</td>
+                    <td>$70 - $90</td>
+                </tr>
+                <tr>
+                    <td>Bi-Weekly</td>
+                    <td>2</td>
+                    <td>$40</td>
+                    <td>$50</td>
+                    <td>Per Visit</td>
+                    <td>$80 - $100</td>
+                </tr>
+                <tr>
+                    <td>Bi-Weekly</td>
+                    <td>3</td>
+                    <td>$45</td>
+                    <td>$55</td>
+                    <td>Per Visit</td>
+                    <td>$90 - $110</td>
+                </tr>
+                <tr>
+                    <td>One-Time Cleanup</td>
+                    <td>1</td>
+                    <td>$60</td>
+                    <td>$80</td>
+                    <td>Per Visit</td>
+                    <td>$60 - $80</td>
+                </tr>
+                <tr>
+                    <td>One-Time Cleanup</td>
+                    <td>2</td>
+                    <td>$75</td>
+                    <td>$95</td>
+                    <td>Per Visit</td>
+                    <td>$75 - $95</td>
+                </tr>
+                <tr>
+                    <td>One-Time Cleanup</td>
+                    <td>3</td>
+                    <td>$90</td>
+                    <td>$110</td>
+                    <td>Per Visit</td>
+                    <td>$90 - $110</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="additional-charges">
+            <h2>Additional Charges</h2>
+            <ul>
+                <li><strong>Initial Cleanup Fee:</strong> For yards that have not been cleaned in over a month, add a one-time fee.
+                    <ul>
+                        <li>Less than 1 month: No additional fee.</li>
+                        <li>1 to 3 months: + $20</li>
+                        <li>More than 3 months: + $40</li>
+                    </ul>
+                </li>
+                <li><strong>Extra Large Yards:</strong> For yards larger than 1 acre, add an additional $10 - $20 per visit, or provide a custom quote.</li>
+                <li><strong>Travel Surcharge:</strong> If a customer is located outside the primary service area, you might consider adding a travel surcharge.</li>
+                 <li><strong>Add-on Services:</strong>
+                    <ul>
+                        <li>Deodorizing/Sanitizing: Charge per visit.</li>
+                        <li>Waste Removal: Charge per visit.</li>
+                        <li>Lawn Mowing: Provide combined service pricing.</li>
+                         <li>Flea and Tick Control:  Price per application.</li>
+                        <li>Pet Waste Composting:  Price per month.</li>
+                        <li>Gutter Cleaning:  Price per visit.</li>
+                        <li>Garbage Can Cleaning: Price per can.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="notes">
+            <h2>Notes:</h2>
+            <ul>
+                <li>Free Initial Cleanup:  Factor this into your pricing (e.g., by slightly increasing the price of the regular service).</li>
+                <li>Pricing Page:  Outline these costs on your website's "Pricing" page.</li>
+                <li>Quote Form: Your online quote form should calculate the total cost based on selections.</li>
+                <li>Flexibility: Be prepared to provide custom quotes for unusual situations.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
