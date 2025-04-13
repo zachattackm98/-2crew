@@ -20,6 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
             // In production, you would handle the form submission via AJAX here
         });
     }
+    
+    // Set up event listener for trash can location options
+    const trashCanOptions = document.querySelectorAll('input[name="trashCanOption"]');
+    if (trashCanOptions.length) {
+        trashCanOptions.forEach(option => {
+            option.addEventListener('change', updatePricing);
+        });
+    }
 });
 
 // Function to show the current step
@@ -126,6 +134,21 @@ function toggleInput(select, inputId) {
     }
 }
 
+// Update pricing when "we haul" option is selected
+function updatePricing() {
+    const weHaulOption = document.querySelector('input[name="trashCanOption"][value="weHaul"]');
+    const additionalCostElement = document.getElementById('additionalCost');
+    
+    if (weHaulOption && additionalCostElement) {
+        if (weHaulOption.checked) {
+            additionalCostElement.textContent = '$5.00';
+            additionalCostElement.closest('.additional-cost').classList.remove('hidden');
+        } else {
+            additionalCostElement.closest('.additional-cost').classList.add('hidden');
+        }
+    }
+}
+
 // Generate summary of form data
 function fillSummary() {
     const form = document.getElementById("cleanupForm");
@@ -153,7 +176,12 @@ function fillSummary() {
             } else if (['plan', 'date'].includes(key)) {
                 serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
             } else {
-                accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                // Special handling for trash can option to show the fee
+                if (key === 'trashCanOption' && value === 'weHaul') {
+                    accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
+                } else {
+                    accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                }
             }
         }
     }
@@ -188,6 +216,23 @@ function fillSummary() {
     const summaryElement = document.getElementById("summary");
     if (summaryElement) {
         summaryElement.innerHTML = summaryHtml;
+    }
+    
+    // Update total price if we haul option is selected
+    const weHaulOption = document.querySelector('input[name="trashCanOption"][value="weHaul"]:checked');
+    const totalPriceElement = document.getElementById('totalPrice');
+    
+    if (weHaulOption && totalPriceElement) {
+        // Get the base price from the selected plan
+        const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
+        if (selectedPlan) {
+            const basePriceText = selectedPlan.closest('.plan-card').querySelector('.plan-price').textContent;
+            const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
+            
+            // Add $5 for we haul service
+            const totalPrice = basePrice + 5;
+            totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+        }
     }
 }
 
