@@ -289,3 +289,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Function to update the plan cards when number of dogs changes
+function updatePlanCards() {
+    const dogsSelect = document.getElementById('dogs');
+    const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
+    
+    // Only show total price if more than one dog
+    if (numberOfDogs > 1) {
+        // Weekly plan
+        updatePlanTotal('weekly-total', 20, numberOfDogs);
+        
+        // Twice weekly plan
+        updatePlanTotal('twice-weekly-total', 15, numberOfDogs);
+        
+        // Thrice weekly plan
+        updatePlanTotal('thrice-weekly-total', 15, numberOfDogs);
+        
+        // Bi-weekly plan
+        updatePlanTotal('biweekly-total', 35, numberOfDogs);
+    } else {
+        // Clear totals if only one dog
+        clearPlanTotals();
+    }
+}
+
+// Helper function to update a specific plan's total price
+function updatePlanTotal(elementId, basePrice, numberOfDogs) {
+    const totalElement = document.getElementById(elementId);
+    if (!totalElement) return;
+    
+    // Calculate total price based on number of dogs
+    const totalPrice = basePrice + ((numberOfDogs - 1) * 5);
+    
+    // Just show the total for X dogs without breaking down the calculation
+    totalElement.textContent = `Total for ${numberOfDogs} dogs: $${totalPrice.toFixed(2)}`;
+}
+
+// Clear all plan totals
+function clearPlanTotals() {
+    const planTotals = document.querySelectorAll('.plan-total');
+    planTotals.forEach(element => {
+        element.textContent = '';
+    });
+}
+
+// Add this to your event listener for dogs select
+document.addEventListener('DOMContentLoaded', () => {
+    const dogsSelect = document.getElementById('dogs');
+    if (dogsSelect) {
+        dogsSelect.addEventListener('change', function() {
+            updatePricing();
+            updatePlanCards();
+        });
+    }
+    
+    // Also call it when navigating to step 3
+    const nextButtons = document.querySelectorAll('.next-btn');
+    nextButtons.forEach((button, index) => {
+        if (index === 1) { // Button for step 2 going to step 3
+            button.addEventListener('click', function() {
+                updatePlanCards();
+            });
+        }
+    });
+});
