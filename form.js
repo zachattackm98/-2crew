@@ -178,135 +178,157 @@ function updatePricing() {
 // Function to fill the price breakdown in the summary
 function fillPriceBreakdown() {
     const priceBreakdownElement = document.getElementById('priceBreakdown');
-    if (!priceBreakdownElement) return;
+    if (!priceBreakdownElement) {
+        console.log("Price breakdown element not found");
+        return;
+    }
     
     // Get selected plan information
     const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
-    if (!selectedPlan) return;
-    
-    const planName = selectedPlan.closest('.plan-card-content').querySelector('h4').textContent;
-    const basePriceText = selectedPlan.closest('.plan-card-content').querySelector('.plan-price').textContent;
-    const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
-    
-    // Get number of dogs
-    const dogsSelect = document.getElementById('dogs');
-    const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
-    
-    // Calculate adjusted price based on number of dogs
-    const adjustedPrice = basePrice + ((numberOfDogs - 1) * 5);
-    
-    // Check if "we haul" option is selected
-    const weHaulOption = document.querySelector('input[name="trashCanOption"][value="weHaul"]:checked');
-    const weHaulCost = weHaulOption ? 5 : 0;
-    
-    // Calculate total price
-    const totalPrice = adjustedPrice + weHaulCost;
-    
-    // Create breakdown HTML - simplified version
-    let breakdownHtml = `
-        <li><span>${planName} (${numberOfDogs} ${numberOfDogs === 1 ? 'dog' : 'dogs'}):</span> <span>$${adjustedPrice.toFixed(2)}</span></li>
-    `;
-    
-    if (weHaulOption) {
-        breakdownHtml += `
-            <li><span>We Haul Service:</span> <span>$5.00</span></li>
-        `;
+    if (!selectedPlan) {
+        console.log("No plan selected yet");
+        priceBreakdownElement.innerHTML = '<li><span>No plan selected</span></li>';
+        return;
     }
     
-    breakdownHtml += `
-        <li><span>Total:</span> <span id="finalPrice">$${totalPrice.toFixed(2)}</span></li>
-    `;
-    
-    priceBreakdownElement.innerHTML = breakdownHtml;
+    try {
+        const planCardContent = selectedPlan.closest('.plan-card-content');
+        if (!planCardContent) {
+            console.log("Plan card content not found");
+            return;
+        }
+        
+        const planNameElement = planCardContent.querySelector('h4');
+        if (!planNameElement) {
+            console.log("Plan name element not found");
+            return;
+        }
+        
+        const planName = planNameElement.textContent;
+        const basePriceText = planCardContent.querySelector('.plan-price').textContent;
+        if (!basePriceText) {
+            console.log("Plan price text not found");
+            return;
+        }
+        
+        const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
+        
+        // Get number of dogs
+        const dogsSelect = document.getElementById('dogs');
+        const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
+        
+        // Calculate adjusted price based on number of dogs
+        const adjustedPrice = basePrice + ((numberOfDogs - 1) * 5);
+        
+        // Check if "we haul" option is selected
+        const weHaulOption = document.querySelector('input[name="trashCanOption"][value="weHaul"]:checked');
+        const weHaulCost = weHaulOption ? 5 : 0;
+        
+        // Calculate total price
+        const totalPrice = adjustedPrice + weHaulCost;
+        
+        // Create breakdown HTML - simplified version
+        let breakdownHtml = `
+            <li><span>${planName} (${numberOfDogs} ${numberOfDogs === 1 ? 'dog' : 'dogs'}):</span> <span>$${adjustedPrice.toFixed(2)}</span></li>
+        `;
+        
+        if (weHaulOption) {
+            breakdownHtml += `
+                <li><span>We Haul Service:</span> <span>$5.00</span></li>
+            `;
+        }
+        
+        breakdownHtml += `
+            <li><span>Total:</span> <span id="finalPrice">$${totalPrice.toFixed(2)}</span></li>
+        `;
+        
+        priceBreakdownElement.innerHTML = breakdownHtml;
+    } catch (error) {
+        console.error("Error in fillPriceBreakdown:", error);
+        priceBreakdownElement.innerHTML = '<li><span>Error calculating price</span></li>';
+    }
 }
 
 // Generate summary of form data
 function fillSummary() {
-    const form = document.getElementById("cleanupForm");
-    if (!form) return;
-    
-    // Call the price breakdown function
-    fillPriceBreakdown();
-    
-    const formData = new FormData(form);
-    const ignoredFields = ["card", "", null];
-    let summaryHtml = '<ul class="summary-list">';
-    
-    // Group data by categories for better organization
-    const contactInfo = [];
-    const petInfo = [];
-    const serviceInfo = [];
-    const accessInfo = [];
-    
-    for (let [key, value] of formData.entries()) {
-        if (value && !ignoredFields.includes(key)) {
-            const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
-            
-            // Sort into categories
-            if (['name', 'phone', 'email', 'address'].includes(key)) {
-                contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
-                petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            } else if (['plan', 'date'].includes(key)) {
-                serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            } else {
-                // Special handling for trash can option to show the fee
-                if (key === 'trashCanOption' && value === 'weHaul') {
-                    accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
+    try {
+        const form = document.getElementById("cleanupForm");
+        if (!form) {
+            console.log("Form not found");
+            return;
+        }
+        
+        // Call the price breakdown function
+        fillPriceBreakdown();
+        
+        const summaryElement = document.getElementById("summary");
+        if (!summaryElement) {
+            console.log("Summary element not found");
+            return;
+        }
+        
+        const formData = new FormData(form);
+        const ignoredFields = ["card", "cardNumber", "expiry", "cvc", "", null];
+        let summaryHtml = '<ul class="summary-list">';
+        
+        // Group data by categories for better organization
+        const contactInfo = [];
+        const petInfo = [];
+        const serviceInfo = [];
+        const accessInfo = [];
+        
+        for (let [key, value] of formData.entries()) {
+            if (value && !ignoredFields.includes(key)) {
+                const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
+                
+                // Sort into categories
+                if (['name', 'phone', 'email', 'address'].includes(key)) {
+                    contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
+                    petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                } else if (['plan', 'date'].includes(key)) {
+                    serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
                 } else {
-                    accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                    // Special handling for trash can option to show the fee
+                    if (key === 'trashCanOption' && value === 'weHaul') {
+                        accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
+                    } else {
+                        accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                    }
                 }
             }
         }
-    }
-    
-    // Add each category to the summary
-    if (contactInfo.length) {
-        summaryHtml += '<li class="summary-category"><strong>Contact Information</strong><ul>';
-        summaryHtml += contactInfo.join('');
-        summaryHtml += '</ul></li>';
-    }
-    
-    if (petInfo.length) {
-        summaryHtml += '<li class="summary-category"><strong>Pet & Yard Details</strong><ul>';
-        summaryHtml += petInfo.join('');
-        summaryHtml += '</ul></li>';
-    }
-    
-    if (serviceInfo.length) {
-        summaryHtml += '<li class="summary-category"><strong>Service Details</strong><ul>';
-        summaryHtml += serviceInfo.join('');
-        summaryHtml += '</ul></li>';
-    }
-    
-    if (accessInfo.length) {
-        summaryHtml += '<li class="summary-category"><strong>Access Information</strong><ul>';
-        summaryHtml += accessInfo.join('');
-        summaryHtml += '</ul></li>';
-    }
-    
-    summaryHtml += '</ul>';
-    
-    const summaryElement = document.getElementById("summary");
-    if (summaryElement) {
-        summaryElement.innerHTML = summaryHtml;
-    }
-    
-    // Update total price if we haul option is selected
-    const weHaulOption = document.querySelector('input[name="trashCanOption"][value="weHaul"]:checked');
-    const totalPriceElement = document.getElementById('totalPrice');
-    
-    if (weHaulOption && totalPriceElement) {
-        // Get the base price from the selected plan
-        const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
-        if (selectedPlan) {
-            const basePriceText = selectedPlan.closest('.plan-card').querySelector('.plan-price').textContent;
-            const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
-            
-            // Add $5 for we haul service
-            const totalPrice = basePrice + 5;
-            totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+        
+        // Add each category to the summary
+        if (contactInfo.length) {
+            summaryHtml += '<li class="summary-category"><strong>Contact Information</strong><ul>';
+            summaryHtml += contactInfo.join('');
+            summaryHtml += '</ul></li>';
         }
+        
+        if (petInfo.length) {
+            summaryHtml += '<li class="summary-category"><strong>Pet & Yard Details</strong><ul>';
+            summaryHtml += petInfo.join('');
+            summaryHtml += '</ul></li>';
+        }
+        
+        if (serviceInfo.length) {
+            summaryHtml += '<li class="summary-category"><strong>Service Details</strong><ul>';
+            summaryHtml += serviceInfo.join('');
+            summaryHtml += '</ul></li>';
+        }
+        
+        if (accessInfo.length) {
+            summaryHtml += '<li class="summary-category"><strong>Access Information</strong><ul>';
+            summaryHtml += accessInfo.join('');
+            summaryHtml += '</ul></li>';
+        }
+        
+        summaryHtml += '</ul>';
+        
+        summaryElement.innerHTML = summaryHtml;
+    } catch (error) {
+        console.error("Error in fillSummary:", error);
     }
 }
 
