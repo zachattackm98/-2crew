@@ -409,6 +409,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: -10px; /* Or reduce height/padding */
     padding: 0;
     background-color: var(--light);
     position: relative;
