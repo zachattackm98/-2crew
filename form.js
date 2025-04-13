@@ -134,8 +134,17 @@ function toggleInput(select, inputId) {
     }
 }
 
-// Update pricing when "we haul" option is selected
+// Update pricing when plan, number of dogs, or waste disposal option changes
 function updatePricing() {
+    // Get selected plan
+    const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
+    const totalPriceElement = document.getElementById('totalPrice');
+    
+    // Get number of dogs
+    const dogsSelect = document.getElementById('dogs');
+    const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
+    
+    // Check if "we haul" option is selected
     const weHaulOption = document.querySelector('input[name="trashCanOption"][value="weHaul"]');
     const additionalCostElement = document.getElementById('additionalCost');
     
@@ -148,17 +157,18 @@ function updatePricing() {
         }
     }
     
-    // Update total price display
-    const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
-    const totalPriceElement = document.getElementById('totalPrice');
-    
+    // Calculate total price
     if (selectedPlan && totalPriceElement) {
         const basePriceText = selectedPlan.closest('.plan-card').querySelector('.plan-price').textContent;
-        const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
+        let basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
         
-        let totalPrice = basePrice;
+        // Add $5 for each extra dog without explicitly mentioning it
+        const adjustedPrice = basePrice + ((numberOfDogs - 1) * 5);
+        
+        // Add $5 for "we haul" service if selected
+        let totalPrice = adjustedPrice;
         if (weHaulOption && weHaulOption.checked) {
-            totalPrice += 5; // Add $5 for we haul service
+            totalPrice += 5;
         }
         
         totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
