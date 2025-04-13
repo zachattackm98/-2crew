@@ -405,15 +405,14 @@ body {
 
 /* Circular Paw Print Divider */
 .section-divider {
-    width: 100%;
+    position: relative;
+    padding: 0;
+    background-color: var(--light);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: -10px; /* Or reduce height/padding */
-    padding: 0;
-    background-color: var(--light);
-    position: relative;
-    overflow: hidden;
+    height: 1px; /* just enough for the line */
+    overflow: visible;
     z-index: 1;
 }
 
@@ -429,17 +428,19 @@ body {
 }
 
 .section-divider-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Perfectly centers icon on the line */
+    width: 3.5rem;
+    height: 3.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: -10px; /* Or reduce height/padding */
-    width: 3.5rem;
-    height: 3.5rem;
-    position: relative;
-    z-index: 2;
     background-color: var(--light);
-    border-radius: 50%;
     border: 2px solid var(--gray-light);
+    border-radius: 50%;
+    z-index: 2;
 }
 
 .section-divider-icon {
