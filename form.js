@@ -346,48 +346,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Function to update the plan cards when number of dogs changes
+// Function to update plan prices when number of dogs changes
 function updatePlanCards() {
     const dogsSelect = document.getElementById('dogs');
     const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
     
-    // Only show total price if more than one dog
+    // Get base prices
+    const weeklyBasePrice = 20;
+    const twiceWeeklyBasePrice = 15;
+    const thriceWeeklyBasePrice = 15;
+    const biweeklyBasePrice = 35;
+    
+    // Only adjust prices if more than one dog
     if (numberOfDogs > 1) {
-        // Weekly plan
-        updatePlanTotal('weekly-total', 20, numberOfDogs);
+        const extraDogs = numberOfDogs - 1;
+        const extraCost = extraDogs * 5;
         
-        // Twice weekly plan
-        updatePlanTotal('twice-weekly-total', 15, numberOfDogs);
-        
-        // Thrice weekly plan
-        updatePlanTotal('thrice-weekly-total', 15, numberOfDogs);
-        
-        // Bi-weekly plan
-        updatePlanTotal('biweekly-total', 35, numberOfDogs);
+        // Update each plan price
+        updatePlanPrice('weekly-price', weeklyBasePrice + extraCost);
+        updatePlanPrice('twice-weekly-price', twiceWeeklyBasePrice + extraCost);
+        updatePlanPrice('thrice-weekly-price', thriceWeeklyBasePrice + extraCost);
+        updatePlanPrice('biweekly-price', biweeklyBasePrice + extraCost);
     } else {
-        // Clear totals if only one dog
-        clearPlanTotals();
+        // Reset to base prices if only one dog
+        updatePlanPrice('weekly-price', weeklyBasePrice);
+        updatePlanPrice('twice-weekly-price', twiceWeeklyBasePrice);
+        updatePlanPrice('thrice-weekly-price', thriceWeeklyBasePrice);
+        updatePlanPrice('biweekly-price', biweeklyBasePrice);
     }
 }
 
-// Helper function to update a specific plan's total price
-function updatePlanTotal(elementId, basePrice, numberOfDogs) {
-    const totalElement = document.getElementById(elementId);
-    if (!totalElement) return;
-    
-    // Calculate total price based on number of dogs
-    const totalPrice = basePrice + ((numberOfDogs - 1) * 5);
-    
-    // Just show the total for X dogs without breaking down the calculation
-    totalElement.textContent = `Total for ${numberOfDogs} dogs: $${totalPrice.toFixed(2)}`;
-}
-
-// Clear all plan totals
-function clearPlanTotals() {
-    const planTotals = document.querySelectorAll('.plan-total');
-    planTotals.forEach(element => {
-        element.textContent = '';
-    });
+// Helper function to update a specific plan's price
+function updatePlanPrice(elementId, price) {
+    const priceElement = document.getElementById(elementId);
+    if (priceElement) {
+        priceElement.textContent = `$${price.toFixed(2)}`;
+    }
 }
 
 // Add this to your event listener for dogs select
