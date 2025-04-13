@@ -177,45 +177,70 @@ function updatePricing() {
 
 // Function to fill the price breakdown in the summary
 function fillPriceBreakdown() {
+    console.log("Starting fillPriceBreakdown function");
+    
     const priceBreakdownElement = document.getElementById('priceBreakdown');
     if (!priceBreakdownElement) {
-        console.log("Price breakdown element not found");
+        console.error("Price breakdown element not found - make sure your HTML has an element with id='priceBreakdown'");
         return;
     }
     
     // Get selected plan information
     const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
     if (!selectedPlan) {
-        console.log("No plan selected yet");
+        console.warn("No plan selected yet - please select a plan in step 3");
         priceBreakdownElement.innerHTML = '<li><span>No plan selected</span></li>';
         return;
     }
     
+    console.log("Selected plan value:", selectedPlan.value);
+    
     try {
-        const planCardContent = selectedPlan.closest('.plan-card-content');
+        // Try direct approach to get plan info
+        const planCardElement = selectedPlan.closest('.plan-card');
+        console.log("Plan card element found:", planCardElement);
+        
+        const planCardContent = planCardElement.querySelector('.plan-card-content');
         if (!planCardContent) {
-            console.log("Plan card content not found");
+            console.error("Plan card content not found");
+            // Try alternative selector
+            priceBreakdownElement.innerHTML = '<li><span>Unable to find plan details</span></li>';
             return;
         }
         
         const planNameElement = planCardContent.querySelector('h4');
         if (!planNameElement) {
-            console.log("Plan name element not found");
+            console.error("Plan name element (h4) not found");
+            // Use plan value as fallback
+            const planName = selectedPlan.value.split('-')[0].trim();
+            const basePriceText = selectedPlan.value.split('-')[1].trim();
+            
+            // Basic calculation without full details
+            priceBreakdownElement.innerHTML = `
+                <li><span>${planName}:</span> <span>${basePriceText}</span></li>
+                <li><span>Total:</span> <span>${basePriceText}</span></li>
+            `;
             return;
         }
         
         const planName = planNameElement.textContent;
-        const basePriceText = planCardContent.querySelector('.plan-price').textContent;
-        if (!basePriceText) {
-            console.log("Plan price text not found");
+        const priceElement = planCardContent.querySelector('.plan-price');
+        
+        if (!priceElement) {
+            console.error("Plan price element not found");
+            priceBreakdownElement.innerHTML = '<li><span>Unable to find price details</span></li>';
             return;
         }
+        
+        const basePriceText = priceElement.textContent;
+        console.log("Found plan name:", planName, "and price:", basePriceText);
         
         const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
         
         // Get number of dogs
         const dogsSelect = document.getElementById('dogs');
         const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
+        console.log("Number of dogs:", numberOfDogs);
         
         // Calculate adjusted price based on number of dogs
         const adjustedPrice = basePrice + ((numberOfDogs - 1) * 5);
@@ -226,6 +251,7 @@ function fillPriceBreakdown() {
         
         // Calculate total price
         const totalPrice = adjustedPrice + weHaulCost;
+        console.log("Calculated total price:", totalPrice);
         
         // Create breakdown HTML - simplified version
         let breakdownHtml = `
@@ -243,9 +269,10 @@ function fillPriceBreakdown() {
         `;
         
         priceBreakdownElement.innerHTML = breakdownHtml;
+        console.log("Price breakdown updated successfully");
     } catch (error) {
         console.error("Error in fillPriceBreakdown:", error);
-        priceBreakdownElement.innerHTML = '<li><span>Error calculating price</span></li>';
+        priceBreakdownElement.innerHTML = '<li><span>Error calculating price: ' + error.message + '</span></li>';
     }
 }
 
