@@ -1358,6 +1358,78 @@ textarea.form-control {
         color: var(--gray);
       }
 
+/* Styling for radio options */
+.radio-options {
+    margin: 20px 0;
+}
+
+.radio-option {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 10px;
+    margin-top: 3px; /* Align with text */
+}
+
+.radio-option label {
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+/* Highlight option when selected */
+.radio-option input[type="radio"]:checked + label {
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* Additional cost display */
+.additional-cost {
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+    transition: all 0.3s ease;
+}
+
+.additional-cost.hidden {
+    display: none;
+}
+
+.additional-cost p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+#additionalCost {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+/* Price summary styling */
+.price-summary {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.price-summary p {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#totalPrice {
+    color: #28a745;
+}
+
 /* Responsive styles for the accordion */
 @media (max-width: 768px) {
     .accordion-item {
