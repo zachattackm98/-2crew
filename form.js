@@ -147,6 +147,22 @@ function updatePricing() {
             additionalCostElement.closest('.additional-cost').classList.add('hidden');
         }
     }
+    
+    // Update total price display
+    const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
+    const totalPriceElement = document.getElementById('totalPrice');
+    
+    if (selectedPlan && totalPriceElement) {
+        const basePriceText = selectedPlan.closest('.plan-card').querySelector('.plan-price').textContent;
+        const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
+        
+        let totalPrice = basePrice;
+        if (weHaulOption && weHaulOption.checked) {
+            totalPrice += 5; // Add $5 for we haul service
+        }
+        
+        totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+    }
 }
 
 // Generate summary of form data
