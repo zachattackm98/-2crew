@@ -345,7 +345,8 @@ function fillSummary() {
                 accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
             }
         }
-        
+    }
+}    
         // Add each category to the summary
         if (contactInfo.length) {
             summaryHtml += '<li class="summary-category"><strong>Contact Information</strong><ul>';
