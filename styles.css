@@ -1430,6 +1430,69 @@ textarea.form-control {
     color: #28a745;
 }
 
+/* Styling for plan total price */
+.plan-total {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--primary-dark);
+    font-weight: 600;
+    background-color: rgba(0, 121, 107, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Enhanced price summary styling */
+.price-summary {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.price-summary p {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#totalPrice, #finalPrice {
+    color: #28a745;
+    font-weight: 700;
+}
+
+/* Price breakdown in summary - simplified version */
+.price-breakdown {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.price-breakdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.price-breakdown li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #dee2e6;
+}
+
+.price-breakdown li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-weight: 600;
+}
+
 /* Responsive styles for the accordion */
 @media (max-width: 768px) {
     .accordion-item {
