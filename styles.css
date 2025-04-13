@@ -5,7 +5,8 @@
 }
 .services-header h1 {
     font-weight: bold;
-    font-size: 2.5rem;
+    font-style: industry;
+    font-size: 3rem;
     color: var(--primary);
     margin-bottom: 10px;
 }
