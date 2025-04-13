@@ -309,20 +309,40 @@ function fillSummary() {
                 const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
                 
                 // Sort into categories
-                if (['name', 'phone', 'email', 'address'].includes(key)) {
-                    contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-                } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
-                    petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-                } else if (['plan', 'date'].includes(key)) {
-                    serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+        // In your fillSummary() function
+        if (['name', 'phone', 'email', 'address'].includes(key)) {
+            contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+        } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
+            petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+        } else if (['plan', 'date'].includes(key)) {
+            // Special handling for the plan to get the current price
+            if (key === 'plan') {
+                const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
+                if (selectedPlan) {
+                    // Get the plan name directly from the content rather than the value
+                    const planCard = selectedPlan.closest('.plan-card');
+                    const planName = planCard.querySelector('h4').textContent;
+                    const priceText = planCard.querySelector('.plan-price').textContent;
+                    
+                    // Get number of dogs for display
+                    const dogsSelect = document.getElementById('dogs');
+                    const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
+                    
+                    // Create an updated plan string that reflects the current price
+                    const dynamicPlanString = `${planName} (${numberOfDogs} ${numberOfDogs === 1 ? 'dog' : 'dogs'}) - ${priceText}`;
+                    serviceInfo.push(`<li><strong>${label}:</strong> ${dynamicPlanString}</li>`);
                 } else {
-                    // Special handling for trash can option to show the fee
-                    if (key === 'trashCanOption' && value === 'weHaul') {
-                        accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
-                    } else {
-                        accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-                    }
+                    serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
                 }
+            } else {
+                serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+            }
+        } else {
+            // Special handling for trash can option to show the fee
+            if (key === 'trashCanOption' && value === 'weHaul') {
+                accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
+            } else {
+                accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
             }
         }
         
