@@ -169,6 +169,7 @@ function updatePricing() {
 function fillSummary() {
     const form = document.getElementById("cleanupForm");
     if (!form) return;
+    fillPriceBreakdown();
     
     const formData = new FormData(form);
     const ignoredFields = ["card", "", null];
@@ -201,6 +202,51 @@ function fillSummary() {
             }
         }
     }
+
+// Function to fill the price breakdown in the summary
+function fillPriceBreakdown() {
+    const priceBreakdownElement = document.getElementById('priceBreakdown');
+    if (!priceBreakdownElement) return;
+    
+    // Get selected plan information
+    const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
+    if (!selectedPlan) return;
+    
+    const planName = selectedPlan.closest('.plan-card-content').querySelector('h4').textContent;
+    const basePriceText = selectedPlan.closest('.plan-card-content').querySelector('.plan-price').textContent;
+    const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
+    
+    // Get number of dogs
+    const dogsSelect = document.getElementById('dogs');
+    const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
+    
+    // Calculate adjusted price based on number of dogs
+    const adjustedPrice = basePrice + ((numberOfDogs - 1) * 5);
+    
+    // Check if "we haul" option is selected
+    const weHaulOption = document.querySelector('input[name="trashCanOption"][value="weHaul"]:checked');
+    const weHaulCost = weHaulOption ? 5 : 0;
+    
+    // Calculate total price
+    const totalPrice = adjustedPrice + weHaulCost;
+    
+    // Create breakdown HTML - simplified version
+    let breakdownHtml = `
+        <li><span>${planName} (${numberOfDogs} ${numberOfDogs === 1 ? 'dog' : 'dogs'}):</span> <span>$${adjustedPrice.toFixed(2)}</span></li>
+    `;
+    
+    if (weHaulOption) {
+        breakdownHtml += `
+            <li><span>We Haul Service:</span> <span>$5.00</span></li>
+        `;
+    }
+    
+    breakdownHtml += `
+        <li><span>Total:</span> <span id="finalPrice">$${totalPrice.toFixed(2)}</span></li>
+    `;
+    
+    priceBreakdownElement.innerHTML = breakdownHtml;
+}
     
     // Add each category to the summary
     if (contactInfo.length) {
