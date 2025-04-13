@@ -175,44 +175,6 @@ function updatePricing() {
     }
 }
 
-// Generate summary of form data
-function fillSummary() {
-    const form = document.getElementById("cleanupForm");
-    if (!form) return;
-    fillPriceBreakdown();
-    
-    const formData = new FormData(form);
-    const ignoredFields = ["card", "", null];
-    let summaryHtml = '<ul class="summary-list">';
-    
-    // Group data by categories for better organization
-    const contactInfo = [];
-    const petInfo = [];
-    const serviceInfo = [];
-    const accessInfo = [];
-    
-    for (let [key, value] of formData.entries()) {
-        if (value && !ignoredFields.includes(key)) {
-            const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
-            
-            // Sort into categories
-            if (['name', 'phone', 'email', 'address'].includes(key)) {
-                contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
-                petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            } else if (['plan', 'date'].includes(key)) {
-                serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            } else {
-                // Special handling for trash can option to show the fee
-                if (key === 'trashCanOption' && value === 'weHaul') {
-                    accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
-                } else {
-                    accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-                }
-            }
-        }
-    }
-
 // Function to fill the price breakdown in the summary
 function fillPriceBreakdown() {
     const priceBreakdownElement = document.getElementById('priceBreakdown');
@@ -257,6 +219,46 @@ function fillPriceBreakdown() {
     
     priceBreakdownElement.innerHTML = breakdownHtml;
 }
+
+// Generate summary of form data
+function fillSummary() {
+    const form = document.getElementById("cleanupForm");
+    if (!form) return;
+    
+    // Call the price breakdown function
+    fillPriceBreakdown();
+    
+    const formData = new FormData(form);
+    const ignoredFields = ["card", "", null];
+    let summaryHtml = '<ul class="summary-list">';
+    
+    // Group data by categories for better organization
+    const contactInfo = [];
+    const petInfo = [];
+    const serviceInfo = [];
+    const accessInfo = [];
+    
+    for (let [key, value] of formData.entries()) {
+        if (value && !ignoredFields.includes(key)) {
+            const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
+            
+            // Sort into categories
+            if (['name', 'phone', 'email', 'address'].includes(key)) {
+                contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+            } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
+                petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+            } else if (['plan', 'date'].includes(key)) {
+                serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+            } else {
+                // Special handling for trash can option to show the fee
+                if (key === 'trashCanOption' && value === 'weHaul') {
+                    accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
+                } else {
+                    accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                }
+            }
+        }
+    }
     
     // Add each category to the summary
     if (contactInfo.length) {
