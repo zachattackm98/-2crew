@@ -181,68 +181,46 @@ function fillPriceBreakdown() {
     
     const priceBreakdownElement = document.getElementById('priceBreakdown');
     if (!priceBreakdownElement) {
-        console.error("Price breakdown element not found - make sure your HTML has an element with id='priceBreakdown'");
+        console.error("Price breakdown element not found");
         return;
     }
     
     // Get selected plan information
     const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
     if (!selectedPlan) {
-        console.warn("No plan selected yet - please select a plan in step 3");
+        console.warn("No plan selected yet");
         priceBreakdownElement.innerHTML = '<li><span>No plan selected</span></li>';
         return;
     }
     
-    console.log("Selected plan value:", selectedPlan.value);
-    
     try {
-        // Try direct approach to get plan info
+        // Get plan information
         const planCardElement = selectedPlan.closest('.plan-card');
-        console.log("Plan card element found:", planCardElement);
-        
         const planCardContent = planCardElement.querySelector('.plan-card-content');
-        if (!planCardContent) {
-            console.error("Plan card content not found");
-            // Try alternative selector
-            priceBreakdownElement.innerHTML = '<li><span>Unable to find plan details</span></li>';
-            return;
-        }
-        
         const planNameElement = planCardContent.querySelector('h4');
-        if (!planNameElement) {
-            console.error("Plan name element (h4) not found");
-            // Use plan value as fallback
-            const planName = selectedPlan.value.split('-')[0].trim();
-            const basePriceText = selectedPlan.value.split('-')[1].trim();
-            
-            // Basic calculation without full details
-            priceBreakdownElement.innerHTML = `
-                <li><span>${planName}:</span> <span>${basePriceText}</span></li>
-                <li><span>Total:</span> <span>${basePriceText}</span></li>
-            `;
-            return;
-        }
-        
         const planName = planNameElement.textContent;
-        const priceElement = planCardContent.querySelector('.plan-price');
         
-        if (!priceElement) {
-            console.error("Plan price element not found");
-            priceBreakdownElement.innerHTML = '<li><span>Unable to find price details</span></li>';
-            return;
+        // Base prices - use these directly rather than from UI
+        let basePrice;
+        if (planName === "Weekly Service") {
+            basePrice = 20;
+        } else if (planName === "Twice Weekly") {
+            basePrice = 15;
+        } else if (planName === "Thrice Weekly") {
+            basePrice = 15;
+        } else if (planName === "Bi-Weekly") {
+            basePrice = 35;
+        } else {
+            // If unknown plan, get from UI as fallback
+            const priceElement = planCardContent.querySelector('.plan-price');
+            basePrice = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
         }
-        
-        const basePriceText = priceElement.textContent;
-        console.log("Found plan name:", planName, "and price:", basePriceText);
-        
-        const basePrice = parseFloat(basePriceText.replace(/[^0-9.]/g, ''));
         
         // Get number of dogs
         const dogsSelect = document.getElementById('dogs');
         const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
-        console.log("Number of dogs:", numberOfDogs);
         
-        // Calculate adjusted price based on number of dogs
+        // Calculate adjusted price
         const adjustedPrice = basePrice + ((numberOfDogs - 1) * 5);
         
         // Check if "we haul" option is selected
@@ -251,9 +229,8 @@ function fillPriceBreakdown() {
         
         // Calculate total price
         const totalPrice = adjustedPrice + weHaulCost;
-        console.log("Calculated total price:", totalPrice);
         
-        // Create breakdown HTML - simplified version
+        // Create breakdown HTML
         let breakdownHtml = `
             <li><span>${planName} (${numberOfDogs} ${numberOfDogs === 1 ? 'dog' : 'dogs'}):</span> <span>$${adjustedPrice.toFixed(2)}</span></li>
         `;
@@ -269,7 +246,6 @@ function fillPriceBreakdown() {
         `;
         
         priceBreakdownElement.innerHTML = breakdownHtml;
-        console.log("Price breakdown updated successfully");
     } catch (error) {
         console.error("Error in fillPriceBreakdown:", error);
         priceBreakdownElement.innerHTML = '<li><span>Error calculating price: ' + error.message + '</span></li>';
