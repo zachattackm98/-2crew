@@ -200,8 +200,18 @@ function fillSummary() {
                 contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
             } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
                 petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            } else if (['plan', 'date'].includes(key)) {
+            } else if (key === 'plan') {
+                planName = value; // Store plan name
+                const selectedPlan = document.querySelector(`.plan-card input[type="radio"][value="${value}"]`);
+                if (selectedPlan) {
+                    planPrice = selectedPlan.closest('.plan-card').querySelector('.plan-price').textContent; // Get plan price
+                    serviceInfo.push(`<li><strong>Plan:</strong> ${planName} (${planPrice})</li>`); // Include price in summary
+                } else {
+                    serviceInfo.push(`<li><strong>Plan:</strong> ${planName}</li>`); // Plan name without price if price not found
+                }
+            } else if (key === 'date'){
                 serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+            }
             } else {
                 // Special handling for trash can option to show the fee
                 if (key === 'trashCanOption' && value === 'weHaul') {
