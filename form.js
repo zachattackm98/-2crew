@@ -5,6 +5,7 @@ const progressSteps = document.querySelectorAll(".progress-step");
 const progressLines = document.querySelectorAll(".progress-line");
 
 // Initialize when document is ready
+// Modify your form submission handler in the DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
     if (steps.length === 0) return; // Exit if not on form page
     
@@ -16,18 +17,50 @@ document.addEventListener("DOMContentLoaded", () => {
     if (form) {
         form.addEventListener("submit", function(e) {
             e.preventDefault();
-            alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
-            // In production, you would handle the form submission via AJAX here
+            
+            // Get all form data
+            const formData = new FormData(form);
+            const formDataObject = {};
+            
+            // Convert FormData to a regular object
+            for (let [key, value] of formData.entries()) {
+                formDataObject[key] = value;
+            }
+            
+            // Add additional information if needed
+            // For example, add the total price calculated
+            const totalPriceElement = document.getElementById('finalPrice');
+            if (totalPriceElement) {
+                formDataObject.totalPrice = totalPriceElement.textContent;
+            }
+            
+            // Send data to Zapier webhook
+            fetch('https://hooks.zapier.com/hooks/catch/22450304/20l4fs2/', {
+                method: 'POST',
+                body: JSON.stringify(formDataObject),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
+                    // Optional: Reset form or redirect to a thank you page
+                    // form.reset();
+                    // window.location.href = "thank-you.html";
+                } else {
+                    alert("There was an issue submitting your form. Please try again or contact us directly.");
+                    console.error('Submission error:', response);
+                }
+            })
+            .catch(error => {
+                alert("There was an issue submitting your form. Please try again or contact us directly.");
+                console.error('Submission error:', error);
+            });
         });
     }
     
-    // Set up event listener for trash can location options
-    const trashCanOptions = document.querySelectorAll('input[name="trashCanOption"]');
-    if (trashCanOptions.length) {
-        trashCanOptions.forEach(option => {
-            option.addEventListener('change', updatePricing);
-        });
-    }
+    // Rest of your initialization code...
 });
 
 // Function to show the current step
