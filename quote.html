@@ -252,38 +252,38 @@
                             <label for="extraInfo">Additional Info:</label>
                             <textarea id="extraInfo" name="extraInfo" class="form-control" required></textarea>
                         </div>
+                        <!-- Waste Disposal Options -->
+                        <div class="form-group">
+                            <h3>Waste Disposal Option</h3>
+                            <p>Please let us know your preference for waste disposal.</p>
+                            
+                            <div class="radio-options">
+                                <div class="radio-option">
+                                    <input type="radio" id="customerTrashCan" name="trashCanOption" value="customerTrashCan" checked>
+                                    <label for="customerTrashCan">Use my trash can (included with service)</label>
+                                </div>
+                                
+                                <div class="radio-option">
+                                    <input type="radio" id="weHaul" name="trashCanOption" value="weHaul">
+                                    <label for="weHaul">We Haul - We remove all pet waste from your property ($5.00 additional fee)</label>
+                                </div>
+                            </div>
+                            
+                            <div class="additional-cost hidden">
+                                <p>Additional cost: <span id="additionalCost">$5.00</span></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Price summary section -->
+                        <div class="price-summary">
+                            <p>Total: <span id="totalPrice">$XX.XX</span></p>
+                        </div>
+                        
                         <div class="buttons">
                             <button type="button" class="back-btn" onclick="prevStep()">Back</button>
                             <button type="button" class="next-btn" onclick="nextStep()">Next</button>
                         </div>
                     </div>
-
-                    <!-- Trash Can Location Options for Step 6 -->
-<div class="form-group">
-    <h3>Trash Can Location</h3>
-    <p>Please let us know your preference for waste disposal.</p>
-    
-    <div class="radio-options">
-        <div class="radio-option">
-            <input type="radio" id="customerTrashCan" name="trashCanOption" value="customerTrashCan" checked>
-            <label for="customerTrashCan">Use my trash can (included with service)</label>
-        </div>
-        
-        <div class="radio-option">
-            <input type="radio" id="weHaul" name="trashCanOption" value="weHaul">
-            <label for="weHaul">We Haul - We remove all pet waste from your property ($5.00 additional fee)</label>
-        </div>
-    </div>
-    
-    <div class="additional-cost hidden">
-        <p>Additional cost: <span id="additionalCost">$5.00</span></p>
-    </div>
-</div>
-
-<!-- If you have a total price display section somewhere, add this -->
-<div class="price-summary">
-    <p>Total: <span id="totalPrice">$XX.XX</span></p>
-</div>
 
                     <!-- Step 7 -->
                     <div class="form-step" data-step="7">
