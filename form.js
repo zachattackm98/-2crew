@@ -1,64 +1,82 @@
-// form.js
+// Multi-step form functionality
+let currentStep = 0; // Start with the first step (index 0)
+const steps = document.querySelectorAll(".form-step");
+const progressSteps = document.querySelectorAll(".progress-step");
+const progressLines = document.querySelectorAll(".progress-line");
 
-let currentStep = 1;
+// Initialize when document is ready
+document.addEventListener("DOMContentLoaded", () => {
+    if (steps.length === 0) return; // Exit if not on form page
+    
+    // Initialize the form
+    showStep(currentStep);
+    updateProgress();
+    setupEventListeners();
+    
+    // Initialize Stripe
+    initializeStripe();
+});
 
-function nextStep() {
-    const currentStepEl = document.querySelector(`.form-step[data-step='${currentStep}']`);
-    if (!validateStep(currentStepEl)) {
-        alert("Please fill out all required fields before proceeding.");
-        return;
+// Function to show the current step
+function showStep(index) {
+    steps.forEach((step, i) => {
+        step.classList.toggle("active", i === index);
+    });
+    
+    // If we're on the summary step, fill the summary
+    if (index === steps.length - 1) {
+        fillSummary();
     }
+    
+    // Update step-specific content
+    if (index === 2) { // Plan selection step (index 2 = step 3)
+        updatePlanCards();
+    }
+    
+    updateProgress();
+}
 
-    const nextStepEl = document.querySelector(`.form-step[data-step='${currentStep + 1}']`);
-    if (nextStepEl) {
-        currentStepEl.classList.remove("active");
-        nextStepEl.classList.add("active");
-        currentStep++;
-        updateProgressBar();
+// Function to update progress indicators
+function updateProgress() {
+    progressSteps.forEach((step, i) => {
+        if (i <= currentStep) {
+            step.classList.add("active");
+            step.classList.add("completed");
+        } else {
+            step.classList.remove("active");
+            step.classList.remove("completed");
+        }
+    });
+    
+    // Update progress lines if they exist
+    if (progressLines.length > 0) {
+        progressLines.forEach((line, i) => {
+            if (i < currentStep) {
+                line.classList.add("active");
+            } else {
+                line.classList.remove("active");
+            }
+        });
+    }
+}
+
+// Navigation functions
+function nextStep() {
+    // Validate current step before proceeding
+    if (validateCurrentStep()) {
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            showStep(currentStep);
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
     }
 }
 
 function prevStep() {
-    const currentStepEl = document.querySelector(`.form-step[data-step='${currentStep}']`);
-    const prevStepEl = document.querySelector(`.form-step[data-step='${currentStep - 1}']`);
-    if (prevStepEl) {
-        currentStepEl.classList.remove("active");
-        prevStepEl.classList.add("active");
+    if (currentStep > 0) {
         currentStep--;
-        updateProgressBar();
-    }
-}
-
-function validateStep(stepEl) {
-    const requiredFields = stepEl.querySelectorAll("[required]");
-    for (const field of requiredFields) {
-        if (!field.value.trim()) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function updateProgressBar() {
-    const allSteps = document.querySelectorAll(".progress-step");
-    allSteps.forEach(step => {
-        const stepNum = parseInt(step.dataset.step);
-        if (stepNum <= currentStep) {
-            step.classList.add("completed");
-        } else {
-            step.classList.remove("completed");
-        }
-    });
-}
-
-function toggleInput(select, inputId) {
-    const input = document.getElementById(inputId);
-    const isVisible = select.value === "yes";
-    input.classList.toggle("hidden", !isVisible);
-    if (isVisible) {
-        input.setAttribute("required", "required");
-    } else {
-        input.removeAttribute("required");
+        showStep(currentStep);
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 }
 
@@ -70,6 +88,7 @@ function validateCurrentStep() {
     let isValid = true;
     
     requiredInputs.forEach(input => {
+        // Skip hidden fields
         if (input.classList.contains("hidden")) return;
         
         if (!input.value.trim()) {
@@ -97,6 +116,8 @@ function validateCurrentStep() {
 // Toggle dependent inputs based on selection
 function toggleInput(select, inputId) {
     const input = document.getElementById(inputId);
+    if (!input) return;
+    
     const isVisible = select.value === "yes";
     
     input.classList.toggle("hidden", !isVisible);
@@ -106,150 +127,6 @@ function toggleInput(select, inputId) {
     } else {
         input.removeAttribute("required");
     }
-}
-
-// Initialize when document is ready
-// Modify your form submission handler in the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
-    if (steps.length === 0) return; // Exit if not on form page
-    
-    showStep(currentStep);
-    updateProgress();
-    
-    // Initialize Stripe (replace with your publishable key)
-const stripe = Stripe('pk_live_51RBSmKIOx6clChnoF3l7oG7TxK2GgUTuhsvi7BpjzsS4PC7tYtgMZLadiCCKZsZrYoaKEEWeA1cLKcky43GDdavg005FfSxSzl');
-const elements = stripe.elements();
-
-// Create card element
-const cardElement = elements.create('card', {
-    style: {
-        base: {
-            fontSize: '16px',
-            color: '#32325d',
-        }
-    }
-});
-
-// Mount the card element
-const cardContainer = document.getElementById('card-element-container');
-if (cardContainer) {
-    cardElement.mount('#card-element-container');
-}
-
-// Handle form submission
-const form = document.getElementById("cleanupForm");
-if (form) {
-    form.addEventListener("submit", async function(e) {
-        e.preventDefault();
-        
-        // Show loading state
-        const submitButton = document.querySelector('.submit-btn');
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'Processing...';
-            submitButton.classList.add('processing');
-        }
-        
-        // Clear previous error messages
-        const errorElement = document.getElementById('card-errors');
-        if (errorElement) {
-            errorElement.textContent = '';
-        }
-        
-        try {
-            // Create a payment method
-            const result = await stripe.createPaymentMethod({
-                type: 'card',
-                card: cardElement,
-                billing_details: {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                },
-            });
-            
-            if (result.error) {
-                // Show error to your customer
-                if (errorElement) {
-                    errorElement.textContent = result.error.message;
-                }
-                
-                // Re-enable the submit button
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Book Now';
-                    submitButton.classList.remove('processing');
-                }
-                return;
-            }
-            
-            // Get all form data
-            const formData = new FormData(form);
-            const formDataObject = {};
-            
-            // Convert FormData to a regular object
-            for (let [key, value] of formData.entries()) {
-                formDataObject[key] = value;
-            }
-            
-            // Add payment method ID to form data
-            formDataObject.paymentMethodId = result.paymentMethod.id;
-            
-            // Add additional information if needed
-            const totalPriceElement = document.getElementById('finalPrice');
-            if (totalPriceElement) {
-                formDataObject.totalPrice = totalPriceElement.textContent;
-            }
-            
-            // Send data to Zapier webhook
-            fetch('https://hooks.zapier.com/hooks/catch/22450304/20l4fs2/', {
-                method: 'POST',
-                body: JSON.stringify(formDataObject),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
-                    // Optional: Reset form or redirect to a thank you page
-                    // form.reset();
-                    window.location.href = "thank-you.html";
-                } else {
-                    alert("There was an issue submitting your form. Please try again or contact us directly.");
-                    console.error('Submission error:', response);
-                    
-                    // Re-enable the submit button
-                    if (submitButton) {
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'Book Now';
-                        submitButton.classList.remove('processing');
-                    }
-                }
-            })
-            .catch(error => {
-                alert("There was an issue submitting your form. Please try again or contact us directly.");
-                console.error('Submission error:', error);
-                
-                // Re-enable the submit button
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Book Now';
-                    submitButton.classList.remove('processing');
-                }
-            });
-            
-        } catch (error) {
-            console.error('Error:', error);
-            alert("There was an issue processing your payment information. Please try again.");
-            
-            // Re-enable the submit button
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Book Now';
-                submitButton.classList.remove('processing');
-            }
-        }
-    });
 }
 
 // Update pricing when plan, number of dogs, or waste disposal option changes
@@ -295,8 +172,6 @@ function updatePricing() {
 
 // Function to fill the price breakdown in the summary
 function fillPriceBreakdown() {
-    console.log("Starting fillPriceBreakdown function");
-    
     const priceBreakdownElement = document.getElementById('priceBreakdown');
     if (!priceBreakdownElement) {
         console.error("Price breakdown element not found");
@@ -403,44 +278,44 @@ function fillSummary() {
                 const label = key.replace(/([A-Z])/g, ' $1').replace(/^\w/, c => c.toUpperCase());
                 
                 // Sort into categories
-        // In your fillSummary() function
-        if (['name', 'phone', 'email', 'address'].includes(key)) {
-            contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-        } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
-            petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-        } else if (['plan', 'date'].includes(key)) {
-            // Special handling for the plan to get the current price
-            if (key === 'plan') {
-                const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
-                if (selectedPlan) {
-                    // Get the plan name directly from the content rather than the value
-                    const planCard = selectedPlan.closest('.plan-card');
-                    const planName = planCard.querySelector('h4').textContent;
-                    const priceText = planCard.querySelector('.plan-price').textContent;
-                    
-                    // Get number of dogs for display
-                    const dogsSelect = document.getElementById('dogs');
-                    const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
-                    
-                    // Create an updated plan string that reflects the current price
-                    const dynamicPlanString = `${planName} (${numberOfDogs} ${numberOfDogs === 1 ? 'dog' : 'dogs'}) - ${priceText}`;
-                    serviceInfo.push(`<li><strong>${label}:</strong> ${dynamicPlanString}</li>`);
+                if (['name', 'phone', 'email', 'address'].includes(key)) {
+                    contactInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                } else if (['dogs', 'yardSize', 'lastClean'].includes(key)) {
+                    petInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                } else if (['plan', 'date'].includes(key)) {
+                    // Special handling for the plan to get the current price
+                    if (key === 'plan') {
+                        const selectedPlan = document.querySelector('.plan-card input[type="radio"]:checked');
+                        if (selectedPlan) {
+                            // Get the plan name directly from the content rather than the value
+                            const planCard = selectedPlan.closest('.plan-card');
+                            const planName = planCard.querySelector('h4').textContent;
+                            const priceText = planCard.querySelector('.plan-price').textContent;
+                            
+                            // Get number of dogs for display
+                            const dogsSelect = document.getElementById('dogs');
+                            const numberOfDogs = dogsSelect ? parseInt(dogsSelect.value) || 1 : 1;
+                            
+                            // Create an updated plan string that reflects the current price
+                            const dynamicPlanString = `${planName} (${numberOfDogs} ${numberOfDogs === 1 ? 'dog' : 'dogs'}) - ${priceText}`;
+                            serviceInfo.push(`<li><strong>${label}:</strong> ${dynamicPlanString}</li>`);
+                        } else {
+                            serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                        }
+                    } else {
+                        serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                    }
                 } else {
-                    serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                    // Special handling for trash can option to show the fee
+                    if (key === 'trashCanOption' && value === 'weHaul') {
+                        accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
+                    } else {
+                        accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
+                    }
                 }
-            } else {
-                serviceInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
-            }
-        } else {
-            // Special handling for trash can option to show the fee
-            if (key === 'trashCanOption' && value === 'weHaul') {
-                accessInfo.push(`<li><strong>Trash Can Option:</strong> We Haul (+ $5.00)</li>`);
-            } else {
-                accessInfo.push(`<li><strong>${label}:</strong> ${value}</li>`);
             }
         }
-    }
-}
+        
         // Add each category to the summary
         if (contactInfo.length) {
             summaryHtml += '<li class="summary-category"><strong>Contact Information</strong><ul>';
@@ -473,44 +348,6 @@ function fillSummary() {
         console.error("Error in fillSummary:", error);
     }
 }
-
-// Plan selection highlights
-const planCards = document.querySelectorAll('.plan-card input[type="radio"]');
-if (planCards.length) {
-    planCards.forEach(radio => {
-        radio.addEventListener('change', function() {
-            // Update appearances
-            document.querySelectorAll('.plan-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            if (this.checked) {
-                this.closest('.plan-card').classList.add('selected');
-            }
-        });
-    });
-}
-
-// Add input validation styles
-document.addEventListener('DOMContentLoaded', () => {
-    const inputs = document.querySelectorAll('.form-control');
-    
-    inputs.forEach(input => {
-        // Add validation styling on blur
-        input.addEventListener('blur', function() {
-            if (this.hasAttribute('required') && !this.value.trim()) {
-                this.classList.add('invalid');
-            } else {
-                this.classList.remove('invalid');
-            }
-        });
-        
-        // Remove validation styling when typing
-        input.addEventListener('input', function() {
-            this.classList.remove('invalid');
-        });
-    });
-});
 
 // Function to update plan prices when number of dogs changes
 function updatePlanCards() {
@@ -550,8 +387,189 @@ function updatePlanPrice(elementId, price) {
     }
 }
 
-// Add this to your event listener for dogs select
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize Stripe payment processing
+function initializeStripe() {
+    const cardContainer = document.getElementById('card-element-container');
+    if (!cardContainer) return; // Not on payment page
+    
+    try {
+        // Initialize Stripe
+        const stripe = Stripe('pk_live_51RBSmKIOx6clChnoF3l7oG7TxK2GgUTuhsvi7BpjzsS4PC7tYtgMZLadiCCKZsZrYoaKEEWeA1cLKcky43GDdavg005FfSxSzl');
+        const elements = stripe.elements();
+
+        // Create card element
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#32325d',
+                }
+            }
+        });
+
+        // Mount the card element
+        cardElement.mount('#card-element-container');
+
+        // Handle form submission
+        const form = document.getElementById("cleanupForm");
+        if (form) {
+            form.addEventListener("submit", async function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitButton = document.querySelector('.submit-btn');
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Processing...';
+                    submitButton.classList.add('processing');
+                }
+                
+                // Clear previous error messages
+                const errorElement = document.getElementById('card-errors');
+                if (errorElement) {
+                    errorElement.textContent = '';
+                }
+                
+                try {
+                    // Create a payment method
+                    const result = await stripe.createPaymentMethod({
+                        type: 'card',
+                        card: cardElement,
+                        billing_details: {
+                            name: document.getElementById('name').value,
+                            email: document.getElementById('email').value,
+                        },
+                    });
+                    
+                    if (result.error) {
+                        // Show error to your customer
+                        if (errorElement) {
+                            errorElement.textContent = result.error.message;
+                        }
+                        
+                        // Re-enable the submit button
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Book Now';
+                            submitButton.classList.remove('processing');
+                        }
+                        return;
+                    }
+                    
+                    // Get all form data
+                    const formData = new FormData(form);
+                    const formDataObject = {};
+                    
+                    // Convert FormData to a regular object
+                    for (let [key, value] of formData.entries()) {
+                        formDataObject[key] = value;
+                    }
+                    
+                    // Add payment method ID to form data
+                    formDataObject.paymentMethodId = result.paymentMethod.id;
+                    
+                    // Add additional information if needed
+                    const totalPriceElement = document.getElementById('finalPrice');
+                    if (totalPriceElement) {
+                        formDataObject.totalPrice = totalPriceElement.textContent;
+                    }
+                    
+                    // Send data to Zapier webhook
+                    fetch('https://hooks.zapier.com/hooks/catch/22450304/20l4fs2/', {
+                        method: 'POST',
+                        body: JSON.stringify(formDataObject),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
+                            // Optional: Reset form or redirect to a thank you page
+                            window.location.href = "thank-you.html";
+                        } else {
+                            alert("There was an issue submitting your form. Please try again or contact us directly.");
+                            console.error('Submission error:', response);
+                            
+                            // Re-enable the submit button
+                            if (submitButton) {
+                                submitButton.disabled = false;
+                                submitButton.textContent = 'Book Now';
+                                submitButton.classList.remove('processing');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        alert("There was an issue submitting your form. Please try again or contact us directly.");
+                        console.error('Submission error:', error);
+                        
+                        // Re-enable the submit button
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Book Now';
+                            submitButton.classList.remove('processing');
+                        }
+                    });
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert("There was an issue processing your payment information. Please try again.");
+                    
+                    // Re-enable the submit button
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Book Now';
+                        submitButton.classList.remove('processing');
+                    }
+                }
+            });
+        }
+    } catch (error) {
+        console.error("Error initializing Stripe:", error);
+    }
+}
+
+// Set up all event listeners
+function setupEventListeners() {
+    // Plan selection highlights
+    const planCards = document.querySelectorAll('.plan-card input[type="radio"]');
+    if (planCards.length) {
+        planCards.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Update appearances
+                document.querySelectorAll('.plan-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                
+                if (this.checked) {
+                    this.closest('.plan-card').classList.add('selected');
+                }
+                
+                // Update pricing when plan changes
+                updatePricing();
+            });
+        });
+    }
+    
+    // Add input validation styles
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+        // Add validation styling on blur
+        input.addEventListener('blur', function() {
+            if (this.hasAttribute('required') && !this.value.trim() && !this.classList.contains('hidden')) {
+                this.classList.add('invalid');
+            } else {
+                this.classList.remove('invalid');
+            }
+        });
+        
+        // Remove validation styling when typing
+        input.addEventListener('input', function() {
+            this.classList.remove('invalid');
+        });
+    });
+    
+    // Dogs select change event
     const dogsSelect = document.getElementById('dogs');
     if (dogsSelect) {
         dogsSelect.addEventListener('change', function() {
@@ -560,13 +578,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Also call it when navigating to step 3
-    const nextButtons = document.querySelectorAll('.next-btn');
-    nextButtons.forEach((button, index) => {
-        if (index === 1) { // Button for step 2 going to step 3
-            button.addEventListener('click', function() {
-                updatePlanCards();
-            });
-        }
+    // Trash can option change event
+    const trashOptions = document.querySelectorAll('input[name="trashCanOption"]');
+    trashOptions.forEach(option => {
+        option.addEventListener('change', updatePricing);
     });
-});
+    
+    // Community gate code toggle
+    const communityGateSelect = document.getElementById('communityGate');
+    if (communityGateSelect) {
+        communityGateSelect.addEventListener('change', function() {
+            toggleInput(this, 'communityCode');
+        });
+        
+        // Initialize state
+        toggleInput(communityGateSelect, 'communityCode');
+    }
+    
+    // House gate code toggle
+    const houseGateSelect = document.getElementById('houseGate');
+    if (houseGateSelect) {
+        houseGateSelect.addEventListener('change', function() {
+            toggleInput(this, 'houseCode');
+        });
+        
+        // Initialize state
+        toggleInput(houseGateSelect, 'houseCode');
+    }
+}
