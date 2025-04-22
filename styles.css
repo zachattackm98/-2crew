@@ -1386,6 +1386,39 @@ textarea.form-control {
         height: 250px;
     }
     
+/* Payment section styling */
+.payment-note {
+    color: var(--gray);
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Stripe container styling */
+.stripe-container {
+    padding: 15px;
+    border: 1px solid var(--gray-light);
+    border-radius: 5px;
+    background-color: white;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+/* Error message styling */
+.payment-error {
+    color: var(--danger);
+    font-size: 0.9rem;
+    margin-top: 10px;
+    min-height: 20px;
+}
+
+/* Processing state */
+.submit-btn.processing {
+    background-color: var(--gray);
+    cursor: not-allowed;
+}
+    
 @media (max-width: 992px) {
     .nav-menu {
         position: fixed;
