@@ -1,65 +1,55 @@
 // Multi-step form functionality
-let currentStep = 0;
-const steps = document.querySelectorAll(".form-step");
-const progressSteps = document.querySelectorAll(".progress-step");
-const progressLines = document.querySelectorAll(".progress-line");
+// form.js
 
-// Function to show the current step
-function showStep(index) {
-    steps.forEach((step, i) => {
-        step.classList.toggle("active", i === index);
-    });
-    
-    if (index === steps.length - 1) {
-        fillSummary();
+let currentStep = 1;
+
+function nextStep() {
+    const currentStepEl = document.querySelector(`.form-step[data-step='${currentStep}']`);
+    if (!validateStep(currentStepEl)) {
+        alert("Please fill out all required fields before proceeding.");
+        return;
     }
-    
-    updateProgress();
+
+    const nextStepEl = document.querySelector(`.form-step[data-step='${currentStep + 1}']`);
+    if (nextStepEl) {
+        currentStepEl.classList.remove("active");
+        nextStepEl.classList.add("active");
+        currentStep++;
+        updateProgressBar();
+    }
 }
 
-// Function to update progress indicators
-function updateProgress() {
-    progressSteps.forEach((step, i) => {
-        if (i <= currentStep) {
-            step.classList.add("active");
-        } else {
-            step.classList.remove("active");
+function prevStep() {
+    const currentStepEl = document.querySelector(`.form-step[data-step='${currentStep}']`);
+    const prevStepEl = document.querySelector(`.form-step[data-step='${currentStep - 1}']`);
+    if (prevStepEl) {
+        currentStepEl.classList.remove("active");
+        prevStepEl.classList.add("active");
+        currentStep--;
+        updateProgressBar();
+    }
+}
+
+function validateStep(stepEl) {
+    const requiredFields = stepEl.querySelectorAll("[required]");
+    for (const field of requiredFields) {
+        if (!field.value.trim()) {
+            return false;
         }
-        
-        if (i < currentStep) {
+    }
+    return true;
+}
+
+function updateProgressBar() {
+    const allSteps = document.querySelectorAll(".progress-step");
+    allSteps.forEach(step => {
+        const stepNum = parseInt(step.dataset.step);
+        if (stepNum <= currentStep) {
             step.classList.add("completed");
         } else {
             step.classList.remove("completed");
         }
     });
-    
-    progressLines.forEach((line, i) => {
-        if (i < currentStep) {
-            line.classList.add("active");
-        } else {
-            line.classList.remove("active");
-        }
-    });
-}
-
-// Navigation functions
-function nextStep() {
-    // You could add validation here before proceeding
-    if (validateCurrentStep()) {
-        if (currentStep < steps.length - 1) {
-            currentStep++;
-            showStep(currentStep);
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-    }
-}
-
-function prevStep() {
-    if (currentStep > 0) {
-        currentStep--;
-        showStep(currentStep);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
 }
 
 // Simple validation function - could be expanded as needed
