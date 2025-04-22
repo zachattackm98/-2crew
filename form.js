@@ -475,10 +475,6 @@ function initializeStripe() {
                     }
                     
                     // Send data to Zapier webhook
-                    const formData = new FormData(form);
-                    const data = Object.fromEntries(formData.entries());
-                    
-                     // Send data to Zapier webhook
                       fetch("https://hooks.zapier.com/hooks/catch/22450304/2xaypin/", {
                         method: "POST",
                         body: formData
