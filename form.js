@@ -475,11 +475,13 @@ function initializeStripe() {
                     }
                     
                     // Send data to Zapier webhook
-                      fetch("https://hooks.zapier.com/hooks/catch/22450304/2xaypin/", {
-                        method: "POST",
-                        body: formData
-                        }
-                    })
+                        fetch('https://hooks.zapier.com/hooks/catch/22450304/2xaypin/', {
+                        method: 'POST',
+                        body: JSON.stringify(formDataObject),
+                        headers: {
+                            'Content-Type': 'application/json'
+                    }
+                })
                     .then(response => {
                         if (response.ok) {
                             alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
