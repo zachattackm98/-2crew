@@ -478,7 +478,6 @@ function initializeStripe() {
                       fetch("https://hooks.zapier.com/hooks/catch/22450304/2xaypin/", {
                         method: "POST",
                         body: formData
-                        }
                     })
                     .then(response => {
                         if (response.ok) {
