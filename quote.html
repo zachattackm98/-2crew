@@ -299,21 +299,13 @@
 
                         <div class="payment-section">
                             <h4>Payment Details</h4>
-                            <div class="form-group">
-                                <label for="cardNumber">Card Number:</label>
-                                <input type="text" id="cardNumber" name="cardNumber" placeholder="Card Number" class="form-control" required>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group half">
-                                    <label for="expiry">Expiration Date:</label>
-                                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" class="form-control" required>
-                                </div>
-                                <div class="form-group half">
-                                    <label for="cvc">CVC:</label>
-                                    <input type="text" id="cvc" name="cvc" placeholder="CVC" class="form-control" required>
-                                </div>
-                            </div>
+                            <p class="payment-note">Your card won't be charged now - we keep it on file for booking purposes only.</p>
+                            
+                            <!-- For Stripe integration -->
+                            <div id="card-element-container" class="form-control stripe-container"></div>
+                            <div id="card-errors" class="payment-error" role="alert"></div>
                         </div>
+                        
                         <div class="buttons">
                             <button type="button" class="back-btn" onclick="prevStep()">Back</button>
                             <button type="submit" class="submit-btn">Book Now</button>
