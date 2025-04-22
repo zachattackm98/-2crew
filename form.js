@@ -4,6 +4,110 @@ const steps = document.querySelectorAll(".form-step");
 const progressSteps = document.querySelectorAll(".progress-step");
 const progressLines = document.querySelectorAll(".progress-line");
 
+// Function to show the current step
+function showStep(index) {
+    steps.forEach((step, i) => {
+        step.classList.toggle("active", i === index);
+    });
+    
+    if (index === steps.length - 1) {
+        fillSummary();
+    }
+    
+    updateProgress();
+}
+
+// Function to update progress indicators
+function updateProgress() {
+    progressSteps.forEach((step, i) => {
+        if (i <= currentStep) {
+            step.classList.add("active");
+        } else {
+            step.classList.remove("active");
+        }
+        
+        if (i < currentStep) {
+            step.classList.add("completed");
+        } else {
+            step.classList.remove("completed");
+        }
+    });
+    
+    progressLines.forEach((line, i) => {
+        if (i < currentStep) {
+            line.classList.add("active");
+        } else {
+            line.classList.remove("active");
+        }
+    });
+}
+
+// Navigation functions
+function nextStep() {
+    // You could add validation here before proceeding
+    if (validateCurrentStep()) {
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            showStep(currentStep);
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    }
+}
+
+function prevStep() {
+    if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+}
+
+// Simple validation function - could be expanded as needed
+function validateCurrentStep() {
+    const currentStepElement = steps[currentStep];
+    const requiredInputs = currentStepElement.querySelectorAll("[required]");
+    
+    let isValid = true;
+    
+    requiredInputs.forEach(input => {
+        if (input.classList.contains("hidden")) return;
+        
+        if (!input.value.trim()) {
+            isValid = false;
+            input.classList.add("invalid");
+            
+            // Remove invalid class when user types
+            input.addEventListener("input", function() {
+                if (this.value.trim()) {
+                    this.classList.remove("invalid");
+                }
+            }, { once: true });
+        } else {
+            input.classList.remove("invalid");
+        }
+    });
+    
+    if (!isValid) {
+        alert("Please fill in all required fields before proceeding.");
+    }
+    
+    return isValid;
+}
+
+// Toggle dependent inputs based on selection
+function toggleInput(select, inputId) {
+    const input = document.getElementById(inputId);
+    const isVisible = select.value === "yes";
+    
+    input.classList.toggle("hidden", !isVisible);
+    
+    if (isVisible) {
+        input.setAttribute("required", "required");
+    } else {
+        input.removeAttribute("required");
+    }
+}
+
 // Initialize when document is ready
 // Modify your form submission handler in the DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showStep(currentStep);
     updateProgress();
     
-    // Form submission handler
     // Initialize Stripe (replace with your publishable key)
 const stripe = Stripe('pk_live_51RBSmKIOx6clChnoF3l7oG7TxK2GgUTuhsvi7BpjzsS4PC7tYtgMZLadiCCKZsZrYoaKEEWeA1cLKcky43GDdavg005FfSxSzl');
 const elements = stripe.elements();
@@ -147,110 +250,6 @@ if (form) {
             }
         }
     });
-}
-
-// Function to show the current step
-function showStep(index) {
-    steps.forEach((step, i) => {
-        step.classList.toggle("active", i === index);
-    });
-    
-    if (index === steps.length - 1) {
-        fillSummary();
-    }
-    
-    updateProgress();
-}
-
-// Function to update progress indicators
-function updateProgress() {
-    progressSteps.forEach((step, i) => {
-        if (i <= currentStep) {
-            step.classList.add("active");
-        } else {
-            step.classList.remove("active");
-        }
-        
-        if (i < currentStep) {
-            step.classList.add("completed");
-        } else {
-            step.classList.remove("completed");
-        }
-    });
-    
-    progressLines.forEach((line, i) => {
-        if (i < currentStep) {
-            line.classList.add("active");
-        } else {
-            line.classList.remove("active");
-        }
-    });
-}
-
-// Navigation functions
-function nextStep() {
-    // You could add validation here before proceeding
-    if (validateCurrentStep()) {
-        if (currentStep < steps.length - 1) {
-            currentStep++;
-            showStep(currentStep);
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-    }
-}
-
-function prevStep() {
-    if (currentStep > 0) {
-        currentStep--;
-        showStep(currentStep);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-}
-
-// Simple validation function - could be expanded as needed
-function validateCurrentStep() {
-    const currentStepElement = steps[currentStep];
-    const requiredInputs = currentStepElement.querySelectorAll("[required]");
-    
-    let isValid = true;
-    
-    requiredInputs.forEach(input => {
-        if (input.classList.contains("hidden")) return;
-        
-        if (!input.value.trim()) {
-            isValid = false;
-            input.classList.add("invalid");
-            
-            // Remove invalid class when user types
-            input.addEventListener("input", function() {
-                if (this.value.trim()) {
-                    this.classList.remove("invalid");
-                }
-            }, { once: true });
-        } else {
-            input.classList.remove("invalid");
-        }
-    });
-    
-    if (!isValid) {
-        alert("Please fill in all required fields before proceeding.");
-    }
-    
-    return isValid;
-}
-
-// Toggle dependent inputs based on selection
-function toggleInput(select, inputId) {
-    const input = document.getElementById(inputId);
-    const isVisible = select.value === "yes";
-    
-    input.classList.toggle("hidden", !isVisible);
-    
-    if (isVisible) {
-        input.setAttribute("required", "required");
-    } else {
-        input.removeAttribute("required");
-    }
 }
 
 // Update pricing when plan, number of dogs, or waste disposal option changes
