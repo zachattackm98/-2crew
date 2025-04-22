@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Form submission handler
     // Initialize Stripe (replace with your publishable key)
-const stripe = Stripe('pk_test_your_actual_key_here');
+const stripe = Stripe('pk_live_51RBSmKIOx6clChnoF3l7oG7TxK2GgUTuhsvi7BpjzsS4PC7tYtgMZLadiCCKZsZrYoaKEEWeA1cLKcky43GDdavg005FfSxSzl');
 const elements = stripe.elements();
 
 // Create card element
