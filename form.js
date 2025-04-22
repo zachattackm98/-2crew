@@ -1,4 +1,3 @@
-// Multi-step form functionality
 // form.js
 
 let currentStep = 1;
@@ -50,6 +49,17 @@ function updateProgressBar() {
             step.classList.remove("completed");
         }
     });
+}
+
+function toggleInput(select, inputId) {
+    const input = document.getElementById(inputId);
+    const isVisible = select.value === "yes";
+    input.classList.toggle("hidden", !isVisible);
+    if (isVisible) {
+        input.setAttribute("required", "required");
+    } else {
+        input.removeAttribute("required");
+    }
 }
 
 // Simple validation function - could be expanded as needed
