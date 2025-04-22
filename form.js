@@ -13,10 +13,71 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress();
     
     // Form submission handler
-    const form = document.getElementById("cleanupForm");
-    if (form) {
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
+    // Initialize Stripe (replace with your publishable key)
+const stripe = Stripe('pk_test_your_actual_key_here');
+const elements = stripe.elements();
+
+// Create card element
+const cardElement = elements.create('card', {
+    style: {
+        base: {
+            fontSize: '16px',
+            color: '#32325d',
+        }
+    }
+});
+
+// Mount the card element
+const cardContainer = document.getElementById('card-element-container');
+if (cardContainer) {
+    cardElement.mount('#card-element-container');
+}
+
+// Handle form submission
+const form = document.getElementById("cleanupForm");
+if (form) {
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        const submitButton = document.querySelector('.submit-btn');
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Processing...';
+            submitButton.classList.add('processing');
+        }
+        
+        // Clear previous error messages
+        const errorElement = document.getElementById('card-errors');
+        if (errorElement) {
+            errorElement.textContent = '';
+        }
+        
+        try {
+            // Create a payment method
+            const result = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                },
+            });
+            
+            if (result.error) {
+                // Show error to your customer
+                if (errorElement) {
+                    errorElement.textContent = result.error.message;
+                }
+                
+                // Re-enable the submit button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Book Now';
+                    submitButton.classList.remove('processing');
+                }
+                return;
+            }
             
             // Get all form data
             const formData = new FormData(form);
@@ -27,8 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 formDataObject[key] = value;
             }
             
+            // Add payment method ID to form data
+            formDataObject.paymentMethodId = result.paymentMethod.id;
+            
             // Add additional information if needed
-            // For example, add the total price calculated
             const totalPriceElement = document.getElementById('finalPrice');
             if (totalPriceElement) {
                 formDataObject.totalPrice = totalPriceElement.textContent;
@@ -47,21 +110,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
                     // Optional: Reset form or redirect to a thank you page
                     // form.reset();
-                    // window.location.href = "thank-you.html";
+                    window.location.href = "thank-you.html";
                 } else {
                     alert("There was an issue submitting your form. Please try again or contact us directly.");
                     console.error('Submission error:', response);
+                    
+                    // Re-enable the submit button
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Book Now';
+                        submitButton.classList.remove('processing');
+                    }
                 }
             })
             .catch(error => {
                 alert("There was an issue submitting your form. Please try again or contact us directly.");
                 console.error('Submission error:', error);
+                
+                // Re-enable the submit button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Book Now';
+                    submitButton.classList.remove('processing');
+                }
             });
-        });
-    }
-    
-    // Rest of your initialization code...
-});
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert("There was an issue processing your payment information. Please try again.");
+            
+            // Re-enable the submit button
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Book Now';
+                submitButton.classList.remove('processing');
+            }
+        }
+    });
+}
 
 // Function to show the current step
 function showStep(index) {
