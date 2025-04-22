@@ -475,11 +475,9 @@ function initializeStripe() {
                     }
                     
                     // Send data to Zapier webhook
-                    fetch('https://hooks.zapier.com/hooks/catch/22450304/2xaypin/', {
-                        method: 'POST',
-                        body: JSON.stringify(formDataObject),
-                        headers: {
-                            'Content-Type': 'application/json'
+                      fetch("https://hooks.zapier.com/hooks/catch/22450304/2xaypin/", {
+                        method: "POST",
+                        body: formData
                         }
                     })
                     .then(response => {
