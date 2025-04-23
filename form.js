@@ -506,6 +506,8 @@ if (form) {
         } catch (error) {
             console.error('Error:', error);
             alert("There was an issue processing your payment information. Please try again.");
+        }
+    } 
             
             // Re-enable the submit button
             if (submitButton) {
