@@ -91,7 +91,15 @@ function validateCurrentStep() {
         // Skip hidden fields
         if (input.classList.contains("hidden")) return;
         
-        if (!input.value.trim()) {
+        // Special handling for radio buttons
+        if (input.type === "radio") {
+            const name = input.name;
+            const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
+            if (!checked) {
+                isValid = false;
+                input.closest('.plan-options').classList.add('invalid');
+            }
+        } else if (!input.value.trim()) {
             isValid = false;
             input.classList.add("invalid");
             
@@ -468,43 +476,23 @@ function initializeStripe() {
                     // Add a validation flag instead of the actual payment method ID
                     formDataObject.cardValidated = true;
                     
-                    // Send data to Zapier webhook (fix: removed Content-Type header)
-                    fetch('https://hooks.zapier.com/hooks/catch/22450304/2xaypin/', {
+                    // Send data to Zapier webhook
+                    const response = await fetch('https://hooks.zapier.com/hooks/catch/22450304/2xaypin/', {
                         method: 'POST',
                         body: JSON.stringify(formDataObject)
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
-                            // Redirect to thank you page
-                            window.location.href = "thank-you.html";
-                        } else {
-                            alert("There was an issue submitting your form. Please try again or contact us directly.");
-                            console.error('Submission error:', response);
-                            
-                            // Re-enable the submit button
-                            if (submitButton) {
-                                submitButton.disabled = false;
-                                submitButton.textContent = 'Book Now';
-                                submitButton.classList.remove('processing');
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        alert("There was an issue submitting your form. Please try again or contact us directly.");
-                        console.error('Submission error:', error);
-                        
-                        // Re-enable the submit button
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'Book Now';
-                            submitButton.classList.remove('processing');
-                        }
                     });
+
+                    if (response.ok) {
+                        alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
+                        // Redirect to thank you page
+                        window.location.href = "thank-you.html";
+                    } else {
+                        throw new Error('Failed to submit form');
+                    }
                     
                 } catch (error) {
                     console.error('Error:', error);
-                    alert("There was an issue processing your payment information. Please try again.");
+                    alert("There was an issue processing your request. Please try again or contact us directly.");
                     
                     // Re-enable the submit button
                     if (submitButton) {
@@ -518,16 +506,6 @@ function initializeStripe() {
     } catch (error) {
         console.error("Error initializing Stripe:", error);
     }
-}
-         
-            // Re-enable the submit button
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Book Now';
-                submitButton.classList.remove('processing');
-            }
-        }
-    });
 }
 
 // Set up all event listeners
