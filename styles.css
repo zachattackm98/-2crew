@@ -466,8 +466,8 @@ body {
 .section-divider:before {
     content: '';
     position: absolute;
-    height: 1px;
-    background-color: #ddd;
+    height: 3px;
+    background-color: var(--primary); /* Changed from #ddd to your primary color */
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
