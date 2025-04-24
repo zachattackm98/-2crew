@@ -9,6 +9,10 @@
     --gray: #6c757d;
     --gray-light: #e9ecef;
     --success: #198754;
+
+.services {
+    padding-top: 40px; /* Reduced top padding */
+    padding-bottom: 80px; /* Keep original bottom padding */
 }
 
 #features {
