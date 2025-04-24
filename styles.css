@@ -19,18 +19,18 @@
     font-weight: bold;
     font-style: industry;
     font-size: 3rem;
-    color: var(--primary);
+    color: white;
     margin-bottom: 10px;
 }
 .services-header h2 {
     font-size: 1.8rem;
-    color: var(--gray);
+    color: white;
     margin-bottom: 15px;
 }
 .services-header p {
     max-width: 800px;
     margin: 0 auto;
-    color: var(--gray);
+    color: white;
 }
 .services-layout {
     display: flex;
