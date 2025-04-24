@@ -489,7 +489,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: var(--light);
-    border: 2px solid var(--primary)
+    border: 2px solid var(--primary);
     border-radius: 50%;
     z-index: 2;
 }
