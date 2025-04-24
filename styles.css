@@ -518,18 +518,6 @@ body {
     }
 }
 
-/* Features Pure CSS Emoji Paw Print Background for Features Section */
-#features {
-    background-image: url('ChatGPT Image Apr 23, 2025 at 08_48_17 PM.png');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    overflow: hidden;
-    z-index: 0;
-    padding-top: 80px;
-    padding-bottom: 80px;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
     #features:before,
