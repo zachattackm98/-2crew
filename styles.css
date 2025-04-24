@@ -11,6 +11,10 @@
     --success: #198754;
 }
 
+.services {
+    padding-top: 40px; /* Reduced top padding */
+    padding-bottom: 80px; /* Keep original bottom padding */
+}
 .services-header {
     text-align: center;
     margin-bottom: 40px;
@@ -292,7 +296,7 @@ body {
 
 /* Main Content */
 .section {
-    padding: 40px 0;
+    padding: 80px 0;
 }
 /* Add to your styles.css file */
 .section-title-container {
@@ -485,7 +489,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: var(--light);
-    border: 2px solid var(--gray-light);
+    border: 2px solid var(--primary)
     border-radius: 50%;
     z-index: 2;
 }
