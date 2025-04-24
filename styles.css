@@ -493,7 +493,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: var(--light);
-    border: 8px var(--gray-light);
+    border: 8px solid var(--gray-light);
     border-radius: 50%;
     z-index: 2;
 }
