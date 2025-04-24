@@ -212,7 +212,7 @@ body {
 
 /* Add specific rule with !important to override other rules */
 .services.section {
-    padding-top: 30px !important;
+    padding-top: 20px !important;
 }
 
 /* Hero Section */
