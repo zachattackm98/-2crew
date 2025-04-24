@@ -10,11 +10,6 @@
     --gray-light: #e9ecef;
     --success: #198754;
 
-.services {
-    padding-top: 40px; /* Reduced top padding */
-    padding-bottom: 80px; /* Keep original bottom padding */
-}
-
 #features {
     background-color: var(--gray-light);
 }
@@ -213,6 +208,11 @@ body {
     margin: 5px auto;
     background-color: var(--dark);
     transition: all 0.3s ease;
+}
+
+/* Add specific rule with !important to override other rules */
+.services.section {
+    padding-top: 30px !important;
 }
 
 /* Hero Section */
