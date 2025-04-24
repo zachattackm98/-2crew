@@ -12,9 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showStep(currentStep);
     updateProgress();
     setupEventListeners();
-    
-    // Initialize Stripe
-    initializeStripe();
+
 });
 
 // Function to show the current step
@@ -272,7 +270,7 @@ function fillSummary() {
         }
         
         const formData = new FormData(form);
-        const ignoredFields = ["card", "cardNumber", "expiry", "cvc", "", null];
+        const ignoredFields = ["", null];
         let summaryHtml = '<ul class="summary-list">';
         
         // Group data by categories for better organization
@@ -395,117 +393,56 @@ function updatePlanPrice(elementId, price) {
     }
 }
 
-// Initialize Stripe payment processing
-function initializeStripe() {
-    const cardContainer = document.getElementById('card-element-container');
-    if (!cardContainer) return; // Not on payment page
-    
-    try {
-        // Initialize Stripe
-        const stripe = Stripe('pk_live_51RBSmKIOx6clChnoF3l7oG7TxK2GgUTuhsvi7BpjzsS4PC7tYtgMZLadiCCKZsZrYoaKEEWeA1cLKcky43GDdavg005FfSxSzl');
-        const elements = stripe.elements();
-
-        // Create card element
-        const cardElement = elements.create('card', {
-            style: {
-                base: {
-                    fontSize: '16px',
-                    color: '#32325d',
-                }
-            }
-        });
-
-        // Mount the card element
-        cardElement.mount('#card-element-container');
-
-        // Handle form submission
-        const form = document.getElementById("cleanupForm");
-        if (form) {
-            form.addEventListener("submit", async function(e) {
-                e.preventDefault();
-                
-                // Show loading state
-                const submitButton = document.querySelector('.submit-btn');
-                if (submitButton) {
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Processing...';
-                    submitButton.classList.add('processing');
-                }
-                
-                // Clear previous error messages
-                const errorElement = document.getElementById('card-errors');
-                if (errorElement) {
-                    errorElement.textContent = '';
-                }
-                
-                try {
-                    // Create a payment method to validate the card without charging
-                    const result = await stripe.createPaymentMethod({
-                        type: 'card',
-                        card: cardElement,
-                        billing_details: {
-                            name: document.getElementById('name').value,
-                            email: document.getElementById('email').value,
-                        }
-                    });
-                    
-                    if (result.error) {
-                        // Show error to your customer
-                        if (errorElement) {
-                            errorElement.textContent = result.error.message;
-                        }
-                        
-                        // Re-enable the submit button
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'Book Now';
-                            submitButton.classList.remove('processing');
-                        }
-                        return;
-                    }
-                    
-                    // Card is valid! Now collect form data without the payment method
-                    const formData = new FormData(form);
-                    const formDataObject = {};
-                    
-                    // Convert FormData to a regular object
-                    for (let [key, value] of formData.entries()) {
-                        formDataObject[key] = value;
-                    }
-                    
-                    // Add a validation flag instead of the actual payment method ID
-                    formDataObject.cardValidated = true;
-                    
-                    // Send data to Zapier webhook
-                    const response = await fetch('https://hooks.zapier.com/hooks/catch/22450304/2xaypin/', {
-                        method: 'POST',
-                        body: JSON.stringify(formDataObject)
-                    });
-
-                    if (response.ok) {
-                        alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
-                        // Redirect to thank you page
-                        window.location.href = "thank-you.html";
-                    } else {
-                        throw new Error('Failed to submit form');
-                    }
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert("There was an issue processing your request. Please try again or contact us directly.");
-                    
-                    // Re-enable the submit button
-                    if (submitButton) {
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'Book Now';
-                        submitButton.classList.remove('processing');
-                    }
-                }
-            });
+// Handle form submission
+const form = document.getElementById("cleanupForm");
+if (form) {
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        const submitButton = document.querySelector('.submit-btn');
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Processing...';
+            submitButton.classList.add('processing');
         }
-    } catch (error) {
-        console.error("Error initializing Stripe:", error);
-    }
+        
+        try {
+            // Collect form data
+            const formData = new FormData(form);
+            const formDataObject = {};
+            
+            // Convert FormData to a regular object
+            for (let [key, value] of formData.entries()) {
+                formDataObject[key] = value;
+            }
+            
+            // Send data to Zapier webhook
+            const response = await fetch('https://hooks.zapier.com/hooks/catch/22450304/2xaypin/', {
+                method: 'POST',
+                body: JSON.stringify(formDataObject)
+            });
+
+            if (response.ok) {
+                alert("Thank you for booking our service! We'll contact you shortly to confirm your appointment.");
+                // Redirect to thank you page
+                window.location.href = "thank-you.html";
+            } else {
+                throw new Error('Failed to submit form');
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert("There was an issue processing your request. Please try again or contact us directly.");
+            
+            // Re-enable the submit button
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Book Now';
+                submitButton.classList.remove('processing');
+            }
+        }
+    });
 }
 
 // Set up all event listeners
