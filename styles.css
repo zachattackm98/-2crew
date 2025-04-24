@@ -32,6 +32,11 @@
     margin: 0 auto;
     color: white;
 }
+
+.services {
+    background-color: #facd83;
+}
+
 .services-layout {
     display: flex;
     flex-direction: column;
