@@ -475,7 +475,7 @@ body {
     content: '';
     position: absolute;
     height: 3px;
-    background-color: var(--primary); /* Changed from #ddd to your primary color */
+    background-color: black; /* Changed from #ddd to your primary color */
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
@@ -493,7 +493,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: var(--light);
-    border: 3px solid var(--primary);
+    border: 3px solid black;
     border-radius: 50%;
     z-index: 2;
 }
