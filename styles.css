@@ -474,7 +474,7 @@ body {
 .section-divider:before {
     content: '';
     position: absolute;
-    height: 8px;
+    height: 2px;
     background-color: var(--gray-light); /* Changed from #ddd to your primary color */
     width: 100%;
     top: 50%;
@@ -493,7 +493,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: var(--light);
-    border: 8px solid var(--gray-light);
+    border: 2px solid var(--gray-light);
     border-radius: 50%;
     z-index: 2;
 }
