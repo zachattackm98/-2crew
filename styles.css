@@ -11,6 +11,10 @@
     --success: #198754;
 }
 
+#features {
+    background-color: var(--gray-light);
+}
+
 .services-header {
     text-align: center;
     margin-bottom: 40px;
@@ -613,7 +617,7 @@ body {
 
 /* Features */
 .features {
-    background-color: var(--gray-light);
+    background-color: var(--light);
 }
 
 .feature-list {
