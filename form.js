@@ -417,10 +417,13 @@ if (form) {
                 formDataObject[key] = value;
             }
             
-            // Send data to Zapier webhook
+            // Send data to Make.com webhook
             const response = await fetch('https://hook.us2.make.com/azb0lj2p19e6aj5jb2880r895uq7jrj8', {
                 method: 'POST',
-                body: JSON.stringify(formDataObject)
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' // Change content type
+                },
+                body: new URLSearchParams(formDataObject) // Use URLSearchParams instead of JSON.stringify
             });
 
             if (response.ok) {
