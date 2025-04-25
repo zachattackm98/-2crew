@@ -69,29 +69,57 @@ statItems.forEach(item => {
     });
 });
 
-// Testimonial auto-scroll (optional)
+// Improved testimonial auto-scroll
 const testimonialContainer = document.querySelector('.testimonial-container');
 if (testimonialContainer) {
     let scrollAmount = 0;
-    let scrollMax = testimonialContainer.scrollWidth - testimonialContainer.clientWidth;
+    let scrollMax = 0;
     let scrollInterval;
+    let scrollDirection = 1; // 1 for forward, -1 for backward
+    let scrollSpeed = 0.5; // pixels per tick (slower for smoother scrolling)
+
+    // Calculate the maximum scroll value
+    function updateScrollMax() {
+        scrollMax = testimonialContainer.scrollWidth - testimonialContainer.clientWidth;
+    }
 
     function startAutoScroll() {
+        // Update scroll max first
+        updateScrollMax();
+        
+        // Clear any existing interval
+        if (scrollInterval) clearInterval(scrollInterval);
+        
         scrollInterval = setInterval(() => {
-            scrollAmount += 1;
+            // Update scroll position
+            scrollAmount += (scrollSpeed * scrollDirection);
+            
+            // Handle direction change for smooth scrolling
             if (scrollAmount >= scrollMax) {
-                scrollAmount = 0;
+                scrollDirection = -1; // start scrolling backward
+            } else if (scrollAmount <= 0) {
+                scrollDirection = 1; // start scrolling forward
             }
+            
+            // Apply the scroll position
             testimonialContainer.scrollLeft = scrollAmount;
-        }, 30);
+        }, 20);
     }
 
     function stopAutoScroll() {
-        clearInterval(scrollInterval);
+        if (scrollInterval) {
+            clearInterval(scrollInterval);
+            scrollInterval = null;
+        }
     }
 
-    // Start auto-scroll after page load, stop on hover
+    // Handle window resize to update scroll parameters
+    window.addEventListener('resize', updateScrollMax);
+    
+    // Initialize auto-scroll after page load
     setTimeout(startAutoScroll, 3000);
+    
+    // Pause on hover
     testimonialContainer.addEventListener('mouseenter', stopAutoScroll);
     testimonialContainer.addEventListener('mouseleave', startAutoScroll);
 }
@@ -125,6 +153,9 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const datePicker = document.getElementById('date');
     
+    // Exit early if there's no date picker on this page
+    if (!datePicker) return;
+    
     // Function to get today's date in YYYY-MM-DD format
     function getTodayFormatted() {
         const today = new Date();
@@ -138,32 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Add event listener to validate date selection
         datePicker.addEventListener('change', validateDateSelection);
-    }
-
-    // Validate date selection
-    function validateDateSelection() {
-        const selectedDate = new Date(datePicker.value);
-        const today = new Date();
-        
-        // Allow all days EXCEPT when the selected day is before today
-        if (selectedDate < today) {
-            // Reset to today if an invalid date is somehow selected
-            datePicker.value = getTodayFormatted();
-        }
-    }
-
-    // Optional: Disable specific dates or add custom restrictions
-    function isDateAvailable(date) {
-        // Example restrictions:
-        // 1. Uncomment to disable specific days of the week (e.g., Mondays)
-        // if (date.getDay() === 1) return false;
-        
-        // 2. Uncomment to set a maximum booking date (e.g., 3 months from now)
-        // const maxDate = new Date();
-        // maxDate.setMonth(maxDate.getMonth() + 3);
-        // if (date > maxDate) return false;
-        
-        return true;
     }
 
     // Initial setup
