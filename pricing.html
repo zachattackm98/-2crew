@@ -3,271 +3,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Waste Removal Pricing</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Pricing | #2Crew Pet Cleanup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1, h2 {
+        /* Additional styles specific to pricing page */
+        .pricing-hero {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
+            padding: 40px 0;
         }
-        h2 {
-            font-size: 1.8rem;
-            margin-top: 30px;
-        }
+        
         .pricing-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* for rounded corners and shadow */
+            margin-bottom: 40px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
+        
         .pricing-table thead th {
-            background-color: #f0f0f0;
-            color: #2c3e50;
-            padding: 12px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px;
             text-align: left;
-            border-bottom: 2px solid #ddd;
+            font-weight: 600;
         }
-        .pricing-table tbody tr:nth-child(odd) {
-            background-color: #f5f5f5;
+        
+        .pricing-table tbody tr:nth-child(even) {
+            background-color: rgba(0, 121, 107, 0.05);
         }
+        
         .pricing-table td, .pricing-table th {
-            border-bottom: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
         }
-        .pricing-table td:last-child,
-        .pricing-table th:last-child {
-            text-align: center;
+        
+        .pricing-table td:last-child {
+            font-weight: 600;
+            color: var(--primary);
         }
-        .additional-charges {
-            margin-top: 30px;
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .additional-charges h2 {
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pricing-card h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
             font-size: 1.5rem;
-            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
         }
-        .additional-charges ul {
-            list-style: disc;
-            padding-left: 20px;
-            margin-bottom: 20px;
+        
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
         }
-        .additional-charges li {
-            margin-bottom: 10px;
+        
+        .pricing-card li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
         }
-        .notes {
-            margin-top: 30px;
+        
+        .pricing-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .highlight {
+            background-color: var(--secondary-light);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .pricing-notes {
+            background-color: var(--light);
             padding: 20px;
-            background-color: #e9ecef;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.5;
+            border-radius: 10px;
+            margin-top: 40px;
+            border-left: 4px solid var(--primary);
         }
+        
+        .pricing-notes h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .pricing-notes p {
+            margin-bottom: 10px;
+            color: var(--gray);
+        }
+        
         @media (max-width: 768px) {
             .pricing-table {
                 display: block;
                 overflow-x: auto;
                 white-space: nowrap;
             }
-            .pricing-table thead th,
-            .pricing-table tbody td {
-                display: table-cell;
-                min-width: 120px;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Pet Waste Removal Pricing</h1>
-
-        <table class="pricing-table">
-            <thead>
-                <tr>
-                    <th>Service Frequency</th>
-                    <th>Number of Dogs</th>
-                    <th>Yard Size (Up to 1/2 Acre)</th>
-                    <th>Yard Size (1/2 Acre +)</th>
-                    <th>Price</th>
-                    <th>Total Monthly Cost</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Weekly</td>
-                    <td>1</td>
-                    <td>$20</td>
-                    <td>$30</td>
-                    <td>Per Visit</td>
-                    <td>$80 - $120</td>
-                </tr>
-                <tr>
-                    <td>Weekly</td>
-                    <td>2</td>
-                    <td>$25</td>
-                    <td>$30</td>
-                    <td>Per Visit</td>
-                    <td>$100 - $120</td>
-                </tr>
-                <tr>
-                    <td>Weekly</td>
-                    <td>3</td>
-                    <td>$30</td>
-                    <td>$35</td>
-                    <td>Per Visit</td>
-                    <td>$120 - $140</td>
-                </tr>
-                <tr>
-                    <td>Twice Weekly</td>
-                    <td>1</td>
-                    <td>$15</td>
-                    <td>$20</td>
-                    <td>Per Visit</td>
-                    <td>$120 - $160</td>
-                </tr>
-                <tr>
-                    <td>Twice Weekly</td>
-                    <td>2</td>
-                    <td>$20</td>
-                    <td>$25</td>
-                    <td>Per Visit</td>
-                    <td>$160 - $200</td>
-                </tr>
-                <tr>
-                    <td>Twice Weekly</td>
-                    <td>3</td>
-                    <td>$25</td>
-                    <td>$30</td>
-                    <td>Per Visit</td>
-                    <td>$200 - $240</td>
-                </tr>
-                 <tr>
-                    <td>Thrice Weekly</td>
-                    <td>1</td>
-                    <td>$15</td>
-                    <td>$20</td>
-                    <td>Per Visit</td>
-                    <td>$180 - $240</td>
-                </tr>
-                <tr>
-                    <td>Thrice Weekly</td>
-                    <td>2</td>
-                    <td>$20</td>
-                    <td>$25</td>
-                    <td>Per Visit</td>
-                    <td>$240 - $300</td>
-                </tr>
-                <tr>
-                    <td>Thrice Weekly</td>
-                    <td>3</td>
-                    <td>$25</td>
-                    <td>$30</td>
-                    <td>Per Visit</td>
-                    <td>$300 - $360</td>
-                </tr>
-                <tr>
-                    <td>Bi-Weekly</td>
-                    <td>1</td>
-                    <td>$35</td>
-                    <td>$45</td>
-                    <td>Per Visit</td>
-                    <td>$70 - $90</td>
-                </tr>
-                <tr>
-                    <td>Bi-Weekly</td>
-                    <td>2</td>
-                    <td>$40</td>
-                    <td>$50</td>
-                    <td>Per Visit</td>
-                    <td>$80 - $100</td>
-                </tr>
-                <tr>
-                    <td>Bi-Weekly</td>
-                    <td>3</td>
-                    <td>$45</td>
-                    <td>$55</td>
-                    <td>Per Visit</td>
-                    <td>$90 - $110</td>
-                </tr>
-                <tr>
-                    <td>One-Time Cleanup</td>
-                    <td>1</td>
-                    <td>$60</td>
-                    <td>$80</td>
-                    <td>Per Visit</td>
-                    <td>$60 - $80</td>
-                </tr>
-                <tr>
-                    <td>One-Time Cleanup</td>
-                    <td>2</td>
-                    <td>$75</td>
-                    <td>$95</td>
-                    <td>Per Visit</td>
-                    <td>$75 - $95</td>
-                </tr>
-                <tr>
-                    <td>One-Time Cleanup</td>
-                    <td>3</td>
-                    <td>$90</td>
-                    <td>$110</td>
-                    <td>Per Visit</td>
-                    <td>$90 - $110</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="additional-charges">
-            <h2>Additional Charges</h2>
-            <ul>
-                <li><strong>Initial Cleanup Fee:</strong> For yards that have not been cleaned in over a month, add a one-time fee.
-                    <ul>
-                        <li>Less than 1 month: No additional fee.</li>
-                        <li>1 to 3 months: + $20</li>
-                        <li>More than 3 months: + $40</li>
-                    </ul>
-                </li>
-                <li><strong>Extra Large Yards:</strong> For yards larger than 1 acre, add an additional $10 - $20 per visit, or provide a custom quote.</li>
-                <li><strong>Travel Surcharge:</strong> If a customer is located outside the primary service area, you might consider adding a travel surcharge.</li>
-                 <li><strong>Add-on Services:</strong>
-                    <ul>
-                        <li>Deodorizing/Sanitizing: Charge per visit.</li>
-                        <li>Waste Removal: Charge per visit.</li>
-                        <li>Lawn Mowing: Provide combined service pricing.</li>
-                         <li>Flea and Tick Control:  Price per application.</li>
-                        <li>Pet Waste Composting:  Price per month.</li>
-                        <li>Gutter Cleaning:  Price per visit.</li>
-                        <li>Garbage Can Cleaning: Price per can.</li>
-                    </ul>
-                </li>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo banner.png" alt="#2Crew Pet Cleanup Logo">
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                <li class="nav-item"><a href="service.html" class="nav-link">Service Area</a></li>
+                <li class="nav-item"><a href="quote.html" class="nav-link cta">Book Our Service</a></li>
             </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
+    </nav>
 
-        <div class="notes">
-            <h2>Notes:</h2>
-            <ul>
-                <li>Free Initial Cleanup:  Factor this into your pricing (e.g., by slightly increasing the price of the regular service).</li>
-                <li>Pricing Page:  Outline these costs on your website's "Pricing" page.</li>
-                <li>Quote Form: Your online quote form should calculate the total cost based on selections.</li>
-                <li>Flexibility: Be prepared to provide custom quotes for unusual situations.</li>
-            </ul>
+    <!-- Pricing Hero Section -->
+    <section class="services-header">
+        <div class="container">
+            <h1>Our Pricing</h1>
+            <h2>Transparent & Affordable</h2>
+            <p>We offer flexible scheduling options to fit your needs and budget. First cleanup is FREE with regular scheduled service!</p>
+        </div>
+    </section>
+
+    <!-- Main Pricing Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Service Plans</h2>
+            
+            <p class="section-subtitle">Choose the perfect plan for your pet waste cleanup needs. We offer various service frequencies to accommodate any schedule.</p>
+            
+            <!-- Pricing Table -->
+            <div class="pricing-card">
+                <h3>Standard Yard Size (Up to 1/2 Acre)</h3>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Service Frequency</th>
+                            <th>1 Dog</th>
+                            <th>2 Dogs</th>
+                            <th>3 Dogs</th>
+                            <th>Total Monthly Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Weekly</td>
+                            <td>$20 per visit</td>
+                            <td>$25 per visit</td>
+                            <td>$30 per visit</td>
+                            <td>$80-$120/month</td>
+                        </tr>
+                        <tr>
+                            <td>Twice Weekly</td>
+                            <td>$15 per visit</td>
+                            <td>$20 per visit</td>
+                            <td>$25 per visit</td>
+                            <td>$120-$200/month</td>
+                        </tr>
+                        <tr>
+                            <td>Thrice Weekly</td>
+                            <td>$15 per visit</td>
+                            <td>$20 per visit</td>
+                            <td>$25 per visit</td>
+                            <td>$180-$300/month</td>
+                        </tr>
+                        <tr>
+                            <td>Bi-Weekly</td>
+                            <td>$35 per visit</td>
+                            <td>$40 per visit</td>
+                            <td>$45 per visit</td>
+                            <td>$70-$90/month</td>
+                        </tr>
+                        <tr>
+                            <td>One-Time Cleanup</td>
+                            <td>$60 per visit</td>
+                            <td>$75 per visit</td>
+                            <td>$90 per visit</td>
+                            <td>One-time fee</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Larger Yard Size (1/2 Acre or More)</h3>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Service Frequency</th>
+                            <th>1 Dog</th>
+                            <th>2 Dogs</th>
+                            <th>3 Dogs</th>
+                            <th>Total Monthly Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Weekly</td>
+                            <td>$30 per visit</td>
+                            <td>$30 per visit</td>
+                            <td>$35 per visit</td>
+                            <td>$120-$140/month</td>
+                        </tr>
+                        <tr>
+                            <td>Twice Weekly</td>
+                            <td>$20 per visit</td>
+                            <td>$25 per visit</td>
+                            <td>$30 per visit</td>
+                            <td>$160-$240/month</td>
+                        </tr>
+                        <tr>
+                            <td>Thrice Weekly</td>
+                            <td>$20 per visit</td>
+                            <td>$25 per visit</td>
+                            <td>$30 per visit</td>
+                            <td>$240-$360/month</td>
+                        </tr>
+                        <tr>
+                            <td>Bi-Weekly</td>
+                            <td>$45 per visit</td>
+                            <td>$50 per visit</td>
+                            <td>$55 per visit</td>
+                            <td>$90-$110/month</td>
+                        </tr>
+                        <tr>
+                            <td>One-Time Cleanup</td>
+                            <td>$80 per visit</td>
+                            <td>$95 per visit</td>
+                            <td>$110 per visit</td>
+                            <td>One-time fee</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Decorative Paw Print Divider -->
+    <div class="section-divider">
+        <div class="section-divider-content">
+            <span class="section-divider-icon">🐾</span>
         </div>
     </div>
+    
+    <!-- Additional Charges Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Additional Services & Fees</h2>
+            <p class="section-subtitle">Customize your service with these options</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Initial Cleanup Fees</h3>
+                    <ul>
+                        <li>Less than 1 month: <span class="highlight">No additional fee</span></li>
+                        <li>1 to 3 months: <span class="highlight">+$20</span></li>
+                        <li>More than 3 months: <span class="highlight">+$40</span></li>
+                    </ul>
+                    <p>These one-time fees apply for yards that haven't been cleaned in a while and require extra effort.</p>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Waste Disposal Options</h3>
+                    <ul>
+                        <li>Use customer's trash can: <span class="highlight">Included</span></li>
+                        <li>We Haul Service: <span class="highlight">+$5 per visit</span></li>
+                        <li>We remove all pet waste from your property</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Add-On Services</h3>
+                    <ul>
+                        <li>Deodorizing/Sanitizing: <span class="highlight">Call for pricing</span></li>
+                        <li>Garbage Can Cleaning: <span class="highlight">Call for pricing</span></li>
+                        <li>Flea and Tick Control: <span class="highlight">Call for pricing</span></li>
+                        <li>Pet Waste Composting: <span class="highlight">Call for pricing</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pricing-notes">
+                <h3>Important Notes</h3>
+                <ul>
+                    <li>All new customers receive their <span class="highlight">first service FREE</span> with regular scheduled service!</li>
+                    <li>Prices are subject to change for extremely large properties, properties with difficult access, or special circumstances.</li>
+                    <li>For yards with more than 3 dogs, please contact us for custom pricing.</li>
+                    <li>No contracts or commitments - you can cancel or modify your service at any time!</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <span class="warning-badge">Save Time & Money</span>
+            <h2>Ready for a Cleaner Yard?</h2>
+            <p>Get started today and enjoy a poop-free yard without the hassle! First cleanup is FREE with regular scheduled service.</p>
+            <a href="quote.html" class="btn">Get Your Instant Quote</a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="accordion-container">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="check-icon">?</span>
+                        <h3>Do I need to be home when you clean my yard?</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>No, you don't need to be home. We'll need access to your yard, which can be arranged during the booking process.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="check-icon">?</span>
+                        <h3>How do I pay for services?</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Payment is handled securely through our online system. You can set up automatic payments for recurring services.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="check-icon">?</span>
+                        <h3>What if I need to reschedule a service?</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Just contact us at least 24 hours in advance, and we'll be happy to reschedule your service to a more convenient time.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="check-icon">?</span>
+                        <h3>Do you provide services in winter or bad weather?</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Yes! We provide year-round service in all weather conditions except during severe weather events that would make it unsafe for our team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service.html">Service Area</a></li>
+                        <li><a href="quote.html">Book Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Residential Service</a></li>
+                        <li><a href="#">One-Time Cleanups</a></li>
+                        <li><a href="#">Weekly Service</a></li>
+                        <li><a href="#">Bi-Weekly Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Areas</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Denver</a></li>
+                        <li><a href="#">Boulder</a></li>
+                        <li><a href="#">Lakewood</a></li>
+                        <li><a href="#">See All Areas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+1234567890">Call Us</a></li>
+                        <li><a href="mailto:info@2crewpetcleanup.com">Email Us</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copy">
+                <p>&copy; 2025 #2Crew Pet Cleanup. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
