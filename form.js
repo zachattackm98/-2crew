@@ -418,7 +418,7 @@ if (form) {
             }
             
             // Send data to Zapier webhook
-            const response = await fetch('https://hooks.zapier.com/hooks/catch/22450304/2xaypin/', {
+            const response = await fetch('https://hook.us2.make.com/azb0lj2p19e6aj5jb2880r895uq7jrj8', {
                 method: 'POST',
                 body: JSON.stringify(formDataObject)
             });
