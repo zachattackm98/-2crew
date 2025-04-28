@@ -1479,6 +1479,387 @@ textarea.form-control {
     margin-top: auto;
 }
 
+
+    /* Enhanced Services Header - Add to your styles.css file */
+
+.services-header {
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    padding: 60px 30px;
+    color: white;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Add decorative elements */
+.services-header::before,
+.services-header::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 0;
+}
+
+.services-header::before {
+    width: 400px;
+    height: 400px;
+    top: -200px;
+    right: -100px;
+}
+
+.services-header::after {
+    width: 300px;
+    height: 300px;
+    bottom: -100px;
+    left: -50px;
+}
+
+/* Floating paw prints (decorative elements) */
+.services-header .paw-prints {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.services-header .paw {
+    position: absolute;
+    opacity: 0.07;
+    transform: rotate(var(--rotation));
+}
+
+.services-header .paw:nth-child(1) {
+    top: 10%;
+    left: 5%;
+    font-size: 30px;
+    --rotation: 15deg;
+    animation: float 8s ease-in-out infinite;
+}
+
+.services-header .paw:nth-child(2) {
+    top: 15%;
+    right: 10%;
+    font-size: 24px;
+    --rotation: -10deg;
+    animation: float 7s ease-in-out infinite 1s;
+}
+
+.services-header .paw:nth-child(3) {
+    bottom: 15%;
+    left: 15%;
+    font-size: 28px;
+    --rotation: 5deg;
+    animation: float 9s ease-in-out infinite 2s;
+}
+
+.services-header .paw:nth-child(4) {
+    bottom: 10%;
+    right: 5%;
+    font-size: 22px;
+    --rotation: -20deg;
+    animation: float 6s ease-in-out infinite 0.5s;
+}
+
+/* Content styling for better visibility */
+.services-header .content {
+    position: relative;
+    z-index: 1;
+}
+
+.services-header h1 {
+    font-weight: 800;
+    font-size: 3.2rem;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: inline-block;
+}
+
+/* Add a decorative underline to the heading */
+.services-header h1::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.services-header h2 {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.services-header p {
+    max-width: 800px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Trust badges */
+.services-header .trust-badges {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    gap: 20px;
+}
+
+.services-header .badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.services-header .badge:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.services-header .badge-icon {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+/* Animation for floating elements */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(var(--rotation));
+    }
+    50% {
+        transform: translateY(-15px) rotate(var(--rotation));
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .services-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .services-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .services-header p {
+        font-size: 1.1rem;
+    }
+    
+    .services-header .trust-badges {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+/* Enhanced Service Rows - Add to your styles.css file */
+
+.services-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.service-row {
+    display: flex;
+    align-items: stretch;
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+/* Add subtle hover effects */
+.service-row:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Add a color accent to the left side */
+.service-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--primary);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.4s ease;
+}
+
+.service-row:hover::before {
+    transform: scaleY(1);
+}
+
+.service-image {
+    width: 40%;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-row:hover .service-image img {
+    transform: scale(1.05);
+}
+
+.service-content {
+    width: 60%;
+    padding: 35px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.service-content h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+.service-row:hover .service-content h3 {
+    color: var(--secondary);
+}
+
+/* Add decorative underline to service title */
+.service-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--primary);
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.service-row:hover .service-content h3::after {
+    width: 80px;
+    background: var(--secondary);
+}
+
+.service-content p {
+    color: var(--gray);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* Learn more link */
+.service-link {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.service-link:hover {
+    color: var(--secondary);
+}
+
+.service-link-icon {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.service-link:hover .service-link-icon {
+    transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .service-row {
+        flex-direction: column;
+    }
+    
+    .service-image,
+    .service-content {
+        width: 100%;
+    }
+    
+    .service-image {
+        height: 250px;
+    }
+    
+    .service-row::before {
+        width: 100%;
+        height: 6px;
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+    
+    .service-row:hover::before {
+        transform: scaleX(1);
+    }
+    
+    .service-content {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .service-content {
+        padding: 25px 20px;
+    }
+    
+    .service-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .service-content p {
+        font-size: 1rem;
+    }
+}
+    
 /* Responsive layout */
 @media (max-width: 992px) {
     .stats-container {
