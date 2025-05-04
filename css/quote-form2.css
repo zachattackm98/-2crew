@@ -1,0 +1,380 @@
+/* Quote Form Styles */
+.quote-section {
+    background-color: white;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid var(--secondary);
+    background-color: white;
+}
+
+.form-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.progress-step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--gray-light);
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+.progress-step.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.progress-step.completed {
+    background-color: var(--success);
+    color: white;
+}
+
+.progress-line {
+    flex: 1;
+    height: 3px;
+    background-color: var(--gray-light);
+    z-index: 1;
+}
+
+.progress-line.active {
+    background-color: var(--primary);
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--gray-light);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.25);
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group.half {
+    width: 50%;
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.next-btn, .back-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.next-btn {
+    background-color: var(--primary);
+    color: white;
+}
+
+.next-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.back-btn {
+    background-color: var(--gray-light);
+    color: var(--dark);
+}
+
+.back-btn:hover {
+    background-color: var(--gray);
+    color: white;
+}
+
+.submit-btn {
+    background-color: var(--success);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #146c43;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Plan cards */
+.plan-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.plan-card {
+    position: relative;
+    cursor: pointer;
+    background-color: var(--light);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.plan-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.plan-card-content {
+    padding: 20px;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+.plan-card input[type="radio"]:checked + .plan-card-content {
+    border-color: var(--primary);
+    background-color: rgba(0, 121, 107, 0.05);
+}
+
+.plan-card h4 {
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.plan-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.plan-desc {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* Yard & Trash diagrams */
+.diagram-with-image {
+    width: 300px;
+    height: 200px;
+    border: 2px solid var(--gray-light);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.diagram-with-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Summary */
+.summary-container {
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.summary-content {
+    margin-top: 15px;
+}
+
+.summary-content ul {
+    list-style: none;
+}
+
+.summary-content li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.payment-section {
+    margin-top: 30px;
+    border-top: 1px solid var(--gray-light);
+    padding-top: 20px;
+}
+
+.payment-section h4 {
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+/* Hidden element */
+.hidden {
+    display: none;
+}
+
+/* Highlight option when selected */
+.radio-option input[type="radio"]:checked + label {
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* Additional cost display */
+.additional-cost {
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+    transition: all 0.3s ease;
+}
+
+.additional-cost.hidden {
+    display: none;
+}
+
+.additional-cost p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+#additionalCost {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+/* Styling for radio options */
+.radio-options {
+    margin: 20px 0;
+}
+
+.radio-option {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 10px;
+    margin-top: 3px; /* Align with text */
+}
+
+.radio-option label {
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+/* Payment section styling */
+.payment-note {
+    color: var(--gray);
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Stripe container styling */
+.stripe-container {
+    padding: 15px;
+    border: 1px solid var(--gray-light);
+    border-radius: 5px;
+    background-color: white;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+/* Error message styling */
+.payment-error {
+    color: var(--danger);
+    font-size: 0.9rem;
+    margin-top: 10px;
+    min-height: 20px;
+}
+
+/* Processing state */
+.submit-btn.processing {
+    background-color: var(--gray);
+    cursor: not-allowed;
+}
+
+/* Price breakdown in summary - simplified version */
+.price-breakdown {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.price-breakdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.price-breakdown li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #dee2e6;
+}
+
+.price-breakdown li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-weight: 600;
+}
