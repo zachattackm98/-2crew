@@ -1,0 +1,343 @@
+/* Stats Section */
+.stats {
+    background-color: var(--primary);
+    color: white;
+    position: relative;
+}
+
+.stats:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background-color: var(--primary);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    transform: translateY(-50%);
+}
+
+.stats:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background-color: var(--primary);
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    transform: translateY(50%);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stat-item:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 70%);
+    top: -50%;
+    left: -50%;
+    transform: scale(3);
+}
+
+.stat-item h3 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.stat-item p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--secondary);
+}
+
+/* Circular Paw Print Divider */
+.section-divider {
+    position: relative;
+    padding: 0;
+    background-color: var(--light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1px; /* just enough for the line */
+    overflow: visible;
+    z-index: 1;
+}
+
+.section-divider:before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background-color: var(--gray-light); /* Changed from #ddd to your primary color */
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.section-divider-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Perfectly centers icon on the line */
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light);
+    border: 2px solid var(--gray-light);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.section-divider-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Add a subtle animation */
+@keyframes pawWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+.section-divider-icon:hover {
+    animation: pawWiggle 0.5s ease;
+    cursor: default;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-divider-content {
+        width: 3rem;
+        height: 3rem;
+    }
+    
+    .section-divider-icon {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-divider-content {
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+    
+    .section-divider-icon {
+        font-size: 1.2rem;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #features:before,
+    #features:after,
+    #features .container:before,
+    #features .container:after,
+    #features .accordion-container:before,
+    #features .accordion-container:after,
+    #features .section-title:before,
+    #features .features-summary:before,
+    #features .features-summary:after {
+        font-size: 50px;
+        opacity: 0.08;
+    }
+    
+    #features .section-title:after,
+    #features .accordion-item:first-child:before {
+        font-size: 20px;
+    }
+}
+
+/* Styles for the light bulb in the Did You Know section */
+.stats {
+    position: relative;
+    overflow: visible;
+    padding-top: 80px; /* Extra padding to accommodate the bulb */
+}
+
+.stats .light-bulb {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    transition: transform 0.3s ease;
+    border: 5px solid var(--primary); /* Add border to match site's color scheme */
+}
+
+.stats .light-bulb:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* Ensure the section's top pseudo-element doesn't cut off the bulb */
+.stats:before {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stats {
+        padding-top: 60px;
+    }
+    .stats .light-bulb {
+        top: -40px;
+        width: 80px;
+        height: 80px;
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats {
+        padding-top: 50px;
+    }
+    .stats .light-bulb {
+        top: -30px;
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+    }
+}
+
+/* Enhanced Did You Know Section - Add to your existing styles.css */
+.stats {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    position: relative;
+    overflow: visible;
+    padding: 80px 0 60px;
+}
+
+/* Update the lightbulb icon */
+.stats .light-bulb {
+    background: linear-gradient(to bottom, #f9d423, var(--secondary));
+    box-shadow: 0 0 30px rgba(249, 212, 35, 0.5);
+    border: 5px solid white;
+}
+
+/* Update the stats container layout to 3-column grid */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* Enhanced stat item styling */
+.stat-item {
+    text-align: center;
+    border-radius: 15px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Add top border accent */
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--secondary), #ffa64d);
+    border-radius: 15px 15px 0 0;
+}
+
+/* Enhance the stat icons */
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Add stat titles */
+.stat-title {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* Style the paragraph text */
+.stat-item p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Add a highlight element for key statistics */
+.stat-highlight {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    margin-top: auto;
+}
+    
+/* Responsive layout */
+@media (max-width: 992px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+}
