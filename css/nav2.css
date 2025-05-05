@@ -21,7 +21,7 @@
 }
 
 .logo img {
-    height: 40px;
+    height: 64px;
     width: auto;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .nav-link:hover {
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 .nav-link.cta {
@@ -55,6 +55,7 @@
 
 .nav-link.cta:hover {
     background-color: var(--primary-dark);
+    color: var(--secondary);
 }
 
 .hamburger {

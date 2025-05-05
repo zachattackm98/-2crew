@@ -133,12 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click event listener to each header
     accordionHeaders.forEach(header => {
         header.addEventListener('click', function() {
-            // Toggle active class on the parent accordion item
-            const accordionItem = this.parentElement;
+            // Toggle active class on the closest accordion item
+            const accordionItem = this.closest('.accordion-item');
             accordionItem.classList.toggle('active');
             
             // Optional: Close other accordion items when one is opened
-            // Comment this section out if you want multiple items to be open at once
             const allAccordionItems = document.querySelectorAll('.accordion-item');
             allAccordionItems.forEach(item => {
                 if (item !== accordionItem) {
@@ -174,3 +173,58 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial setup
     setupDatePicker();
 });
+
+// Restore the missing validateDateSelection function
+function validateDateSelection(event) {
+    // Prevent selecting past dates (should already be handled by min, but double-check)
+    const selectedDate = new Date(event.target.value);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    if (selectedDate < today) {
+        alert("Please select a valid date (today or later).");
+        event.target.value = '';
+        return;
+    }
+
+    // Example: Prevent weekends (optional, uncomment if needed)
+    // const day = selectedDate.getDay();
+    // if (day === 0 || day === 6) {
+    //     alert("Please select a weekday for your service.");
+    //     event.target.value = '';
+    // }
+}
+
+// Highlight 'What Should You Expect?' title when in view
+const expectSection = document.getElementById('features');
+const expectTitle = expectSection ? expectSection.querySelector('.section-title') : null;
+
+if (expectSection && expectTitle) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                expectTitle.classList.add('active-section');
+            } else {
+                expectTitle.classList.remove('active-section');
+            }
+        });
+    }, { threshold: 0.3 });
+    sectionObserver.observe(expectSection);
+}
+
+// Highlight 'How It Works' title when in view
+const howSection = document.querySelector('.features.section');
+const howTitle = howSection ? howSection.querySelector('.section-title') : null;
+
+if (howSection && howTitle) {
+    const howSectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                howTitle.classList.add('active-section');
+            } else {
+                howTitle.classList.remove('active-section');
+            }
+        });
+    }, { threshold: 0.3 });
+    howSectionObserver.observe(howSection);
+}

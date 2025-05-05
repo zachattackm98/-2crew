@@ -45,18 +45,26 @@
     </nav>
 
  <!-- Hero Section -->
-<section class="hero">
-    <div class="container hero-content">
-        <div class="hero-image">
-            <img src="pictures/hero.jpg" alt="Happy dog in clean yard">
-        </div>
-        <div class="hero-text">
-            <h1>Want a POOP FREE Yard?</h1>
-            <p>We're two brothers born and raised in Colorado, turning poop into purpose. #2Crew Pet Cleanup is your trusted local service for keeping your yard clean, safe, and stink-free.</p>
-            <a href="quote.html" class="btn">Get an Instant Quote</a>
-        </div>
+<section class="hero hero-bg-full">
+    <div class="hero-gradient-overlay new-hero-bg"></div>
+    <div class="hero-headline-topright">
+        We handle your dog's business
     </div>
+    <div class="container hero-content hero-content-right">
+        <!-- Move .hero-text to the bottom and update for horizontal layout -->
+    </div>
+    <!-- Removed .hero-bottom-content to eliminate duplicate hero card -->
 </section>
+<!-- Standalone hero card under hero image -->
+<div class="hero-card-below">
+    <div class="hero-text fade-in-up">
+        <h1><span class="highlight">Want a <span class="highlight-green">POOP FREE Yard?</span></span></h1>
+        <div class="hero-description">
+            <span class="highlight">#2Crew</span> Pet Cleanup is your trusted local service for keeping your yard clean, safe, and stink-free.
+        </div>
+        <a href="quote.html" class="btn pulse">Get an Instant Quote</a>
+    </div>
+</div>
         
     <!-- Updated Service Rows with Learn More links -->
     <!-- Enhanced Services Section -->
@@ -75,7 +83,7 @@
             <div class="content">
                 <h1>America's Most Trusted Pooper Scooper Service</h1>
                 <h2>Pet Waste Removal Services</h2>
-                <p>From reliable residential and commercial pet waste removal to effective yard deodorizing, our flexible solutions cater to your specific needs.</p>
+                <p>We're two brothers born and raised in Colorado, turning poop into purpose. #2Crew Pet Cleanup is your trusted local service for keeping your yard clean, safe, and stink-free.</p>
                 
                 <!-- Trust badges -->
                 <div class="trust-badges">
@@ -138,108 +146,128 @@
         </div>
     </div>
 </section>
-   
-    <!-- Reliable Paw Print Divider with Circle and Multiple Paws -->
-<div class="section-divider">
-    <div class="section-divider-content">
-        <span class="section-divider-icon">🐾</span>
-    </div>
-</div>
 
     <!-- Features Section -->
-<section id="features" class="section">
+<section id="features" class="section features-expect">
+    <div class="section-divider">
+        <div class="section-divider-content">
+            <span class="section-divider-icon">🐾</span>
+        </div>
+    </div>
     <div class="container">
-        <div class="section-title-container">
-            <h2 class="section-title">What Should You Expect?</h2>
-            <img src="pictures/cool-dog-sunglasses.png" alt="Cool dog with sunglasses" class="section-title-image">
+        <div class="section-title-container animate">
+            <h2 class="section-title animate">What Should You Expect?</h2>
+            <img src="pictures/cool-dog-sunglasses.png" alt="Cool dog with sunglasses" class="section-title-image paw-animated">
         </div>
-        
-        <div class="accordion-container">
-            <!-- Item 2 -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span class="check-icon">✓</span>
-                    <h3>Satisfaction is 100% Guaranteed!</h3>
-                    <span class="arrow">▼</span>
+        <div class="accordion-scaler">
+            <div class="accordion-container">
+                <div class="accordion-item animate">
+                    <div class="accordion-content-wrap">
+                        <div class="accordion-header">
+                            <span class="accordion-title">Satisfaction is 100% Guaranteed!</span>
+                            <span class="chevron">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Our service is 100% satisfaction guaranteed. If you're not completely satisfied, we'll make it right.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="accordion-content">
-                    <p>Our service is 100% satisfaction guaranteed. If you're not completely satisfied, we'll make it right.</p>
+                <div class="accordion-item animate">
+                    <div class="accordion-content-wrap">
+                        <div class="accordion-header">
+                            <span class="accordion-title">On the Way Message</span>
+                            <span class="chevron">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>You'll receive a notification when our team is on the way to your property, so you'll always know when to expect us.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Item 3 -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span class="check-icon">✓</span>
-                    <h3>On the Way Message</h3>
-                    <span class="arrow">▼</span>
+                <div class="accordion-item animate">
+                    <div class="accordion-content-wrap">
+                        <div class="accordion-header">
+                            <span class="accordion-title">Picture of Secured Gate</span>
+                            <span class="chevron">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>We'll send you a picture of your secured gate after service, giving you peace of mind that your property is secure.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="accordion-content">
-                    <p>You'll receive a notification when our team is on the way to your property, so you'll always know when to expect us.</p>
+                <div class="accordion-item animate">
+                    <div class="accordion-content-wrap">
+                        <div class="accordion-header">
+                            <span class="accordion-title">No Contracts, No Commitments</span>
+                            <span class="chevron">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>There is no contract, no commitment, and there is never a cancellation fee. Put simply, you can expect a carefree experience from beginning to end.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Item 4 -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span class="check-icon">✓</span>
-                    <h3>Picture of Secured Gate</h3>
-                    <span class="arrow">▼</span>
+                <div class="accordion-item animate">
+                    <div class="accordion-content-wrap">
+                        <div class="accordion-header">
+                            <span class="accordion-title">Flexible Scheduling Options</span>
+                            <span class="chevron">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>We offer flexible scheduling options including weekly, bi-weekly, or monthly service, so we've got you covered no matter your needs.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="accordion-content">
-                    <p>We'll send you a picture of your secured gate after service, giving you peace of mind that your property is secure.</p>
+                <div class="accordion-item animate">
+                    <div class="accordion-content-wrap">
+                        <div class="accordion-header">
+                            <span class="accordion-title">Completed Job Message</span>
+                            <span class="chevron">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>You'll receive a notification when the job is complete, with details about the service performed.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Item 5 -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span class="check-icon">✓</span>
-                    <h3>No Contracts, No Commitments</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>There is no contract, no commitment, and there is never a cancellation fee. Put simply, you can expect a carefree experience from beginning to end.</p>
-                </div>
-            </div>
-            
-            <!-- Item 6 -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span class="check-icon">✓</span>
-                    <h3>Flexible Scheduling Options</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>We offer flexible scheduling options including weekly, bi-weekly, or monthly service, so we've got you covered no matter your needs.</p>
-                </div>
-            </div>
-            
-            <!-- Item 8 -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span class="check-icon">✓</span>
-                    <h3>Completed Job Message</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>You'll receive a notification when the job is complete, with details about the service performed.</p>
-                </div>
-            </div>
-            
-            <!-- Item 9 -->
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span class="check-icon">✓</span>
-                    <h3>#2Crew Marked Vehicles</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>Our technicians arrive in clearly marked, professional vehicles, so you'll always know it's us.</p>
+                <div class="accordion-item animate">
+                    <div class="accordion-content-wrap">
+                        <div class="accordion-header">
+                            <span class="accordion-title">#2Crew Marked Vehicles</span>
+                            <span class="chevron">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Our technicians arrive in clearly marked, professional vehicles, so you'll always know it's us.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
         <div class="features-summary">
             <p>Our dog-loving, friendly, and professionally trained technicians will arrive on schedule, thoroughly clean up all pet waste from your yard, and ensure the area is spotless.</p>
             <p>We take pride in our attention to detail and commitment to customer satisfaction. So what should you expect? Well, sit back, relax, and enjoy a clean, green, footloose and poop-free yard for you and your pets!</p>
@@ -259,7 +287,7 @@
     <div class="container">
         <div class="section-title-container">
             <h2 class="section-title">How It Works</h2>
-            <img src="pictures/poopguy.png" alt="poopguy.png" class="section-title-image">
+            <img src="pictures/poopguy.png" alt="poopguy.png" class="section-title-image paw-animated">
         </div>
         <ul class="feature-list">
             <li class="feature-item animate">
