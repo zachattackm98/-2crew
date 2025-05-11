@@ -490,27 +490,3 @@
         padding: 0.5rem 1rem;
     }
 }
-
-@media (max-width: 576px) {
-    .hero-headline-topright {
-        font-size: 1.2rem;
-        top: 1rem;
-        right: 1rem;
-        max-width: 80vw;
-        padding: 0.4rem 0.8rem;
-        border-radius: 0.8rem;
-    }
-    
-    .hero-card-below .hero-text {
-        padding: 1rem;
-        width: 95%;
-    }
-    
-    .hero-card-below .hero-text h1 {
-        font-size: 1.3rem;
-    }
-    
-    .hero-description {
-        font-size: 0.9rem;
-    }
-}
