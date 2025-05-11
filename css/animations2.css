@@ -124,3 +124,28 @@
     pointer-events: none;
   }
 }
+
+/* Additional fix for "How It Works" section */
+@media (max-width: 700px) {
+  /* Ensure items don't overflow their container */
+  .feature-list {
+    overflow: visible;
+    width: auto;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .feature-item {
+    overflow: visible;
+    width: auto !important;
+    box-sizing: border-box;
+    margin: 0 0 1rem 0;
+    transform: none !important;
+  }
+  
+  /* Ensure no extra padding/margins that could cause overflow */
+  .features {
+    overflow: hidden;
+    padding-bottom: 2rem !important;
+  }
+}
