@@ -54,3 +54,18 @@
         width: 100%; /* Full width on smaller screens */
     }
 }
+
+@media (max-width: 576px) {
+    html, body {
+        overflow-x: hidden;
+        position: relative;
+        width: 100%;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        box-sizing: border-box;
+    }
+}
