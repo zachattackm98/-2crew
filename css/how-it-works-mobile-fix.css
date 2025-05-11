@@ -1,0 +1,131 @@
+/* How It Works Section Mobile Fix */
+
+/* Base improvements for mobile */
+@media (max-width: 768px) {
+  .features {
+    padding: 2rem 0 3rem 0;
+  }
+  
+  .section-title-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .section-title-image {
+    height: 40px;
+  }
+  
+  .feature-list {
+    gap: 1.5rem;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+/* Specific fixes for smaller mobile screens */
+@media (max-width: 576px) {
+  .features {
+    padding: 1.5rem 0 2rem 0;
+  }
+  
+  .feature-item {
+    padding: 1.2rem;
+    border-radius: 15px;
+    min-height: auto;
+  }
+  
+  .feature-icon {
+    min-width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+  
+  .feature-text h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  
+  .feature-text p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  /* Fix layout of feature items to be horizontal on mobile */
+  .feature-item {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  /* Disable hover effects on mobile for better performance */
+  .feature-item:hover {
+    transform: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    border: 1.5px solid rgba(0,121,107,0.10);
+  }
+  
+  .feature-item:hover::before {
+    width: 0;
+    box-shadow: none;
+  }
+  
+  .feature-item:hover .feature-icon {
+    color: var(--primary);
+    border-color: rgba(0,121,107,0.18);
+    background: rgba(255,255,255,0.25);
+    box-shadow: 0 2px 16px 0 rgba(0,121,107,0.10);
+    animation: iconPulse 2.2s cubic-bezier(.23,1.02,.32,1) infinite alternate;
+    transform: scale(1);
+  }
+  
+  .feature-item:hover .feature-text h3 {
+    color: var(--primary);
+  }
+  
+  /* Fix animation scaling */
+  @keyframes iconPulse {
+    0% { box-shadow: 0 2px 8px 0 rgba(0,121,107,0.10); transform: scale(1); }
+    100% { box-shadow: 0 4px 16px 0 rgba(0,121,107,0.18); transform: scale(1.03); }
+  }
+}
+
+/* Fix for very small screens */
+@media (max-width: 375px) {
+  .feature-item {
+    padding: 1rem 0.8rem;
+  }
+  
+  .feature-icon {
+    min-width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    margin-right: 0.8rem;
+  }
+  
+  .feature-text h3 {
+    font-size: 1rem;
+  }
+  
+  .feature-text p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Fix for the conflict between howitworks.css and features2.css */
+@media (max-width: 700px) {
+  .feature-item {
+    flex-direction: row; /* Override the column direction in the original media query */
+    align-items: center;
+    width: auto; /* Remove fixed width that causes overflow */
+    box-sizing: border-box;
+  }
+  
+  .feature-icon {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+}
