@@ -1,131 +1,164 @@
-/* How It Works Section Mobile Fix */
+/* Critical Mobile Fixes - Add this as your last CSS file */
 
-/* Base improvements for mobile */
+/* Fix 1: "How It Works" section (most important fix) */
 @media (max-width: 768px) {
-  .features {
-    padding: 2rem 0 3rem 0;
-  }
-  
-  .section-title-container {
-    margin-bottom: 1.5rem;
-  }
-  
-  .section-title {
-    font-size: 1.8rem;
-  }
-  
-  .section-title-image {
-    height: 40px;
-  }
-  
-  .feature-list {
-    gap: 1.5rem;
-    max-width: 100%;
-    padding: 0 1rem;
-  }
-}
-
-/* Specific fixes for smaller mobile screens */
-@media (max-width: 576px) {
-  .features {
-    padding: 1.5rem 0 2rem 0;
-  }
-  
+  /* Keep feature items in horizontal layout with proper spacing */
   .feature-item {
-    padding: 1.2rem;
-    border-radius: 15px;
-    min-height: auto;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 1.2rem !important;
+    border-radius: 15px !important;
+    min-height: auto !important;
+    width: auto !important;
+    box-sizing: border-box !important;
+    margin: 0 0.5rem 0.8rem 0.5rem !important;
   }
   
   .feature-icon {
-    min-width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
-    margin-right: 1rem;
-    margin-bottom: 0;
+    min-width: 45px !important;
+    height: 45px !important;
+    font-size: 1.2rem !important;
+    margin-right: 1rem !important;
+    margin-bottom: 0 !important;
   }
   
   .feature-text h3 {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
+    font-size: 1.1rem !important;
+    margin-bottom: 6px !important;
   }
   
   .feature-text p {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
   }
   
-  /* Fix layout of feature items to be horizontal on mobile */
-  .feature-item {
-    flex-direction: row;
-    align-items: center;
-  }
-  
-  /* Disable hover effects on mobile for better performance */
+  /* Disable hover transforms on mobile to prevent layout shifts */
   .feature-item:hover {
-    transform: none;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-    border: 1.5px solid rgba(0,121,107,0.10);
-  }
-  
-  .feature-item:hover::before {
-    width: 0;
-    box-shadow: none;
-  }
-  
-  .feature-item:hover .feature-icon {
-    color: var(--primary);
-    border-color: rgba(0,121,107,0.18);
-    background: rgba(255,255,255,0.25);
-    box-shadow: 0 2px 16px 0 rgba(0,121,107,0.10);
-    animation: iconPulse 2.2s cubic-bezier(.23,1.02,.32,1) infinite alternate;
-    transform: scale(1);
-  }
-  
-  .feature-item:hover .feature-text h3 {
-    color: var(--primary);
-  }
-  
-  /* Fix animation scaling */
-  @keyframes iconPulse {
-    0% { box-shadow: 0 2px 8px 0 rgba(0,121,107,0.10); transform: scale(1); }
-    100% { box-shadow: 0 4px 16px 0 rgba(0,121,107,0.18); transform: scale(1.03); }
+    transform: none !important;
   }
 }
 
-/* Fix for very small screens */
-@media (max-width: 375px) {
-  .feature-item {
-    padding: 1rem 0.8rem;
+/* Fix 2: Remove accordion scaling which causes overflow */
+@media (max-width: 768px) {
+  .accordion-scaler {
+    transform: none !important;
+    padding-bottom: 2rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    max-width: 100% !important;
   }
   
-  .feature-icon {
-    min-width: 40px;
-    height: 40px;
-    font-size: 1rem;
-    margin-right: 0.8rem;
-  }
-  
-  .feature-text h3 {
-    font-size: 1rem;
-  }
-  
-  .feature-text p {
-    font-size: 0.85rem;
+  #features .accordion-container {
+    max-width: 98% !important;
+    padding: 0.7rem !important;
   }
 }
 
-/* Fix for the conflict between howitworks.css and features2.css */
-@media (max-width: 700px) {
-  .feature-item {
-    flex-direction: row; /* Override the column direction in the original media query */
-    align-items: center;
-    width: auto; /* Remove fixed width that causes overflow */
-    box-sizing: border-box;
+/* Fix 3: Improve hero headline for mobile */
+@media (max-width: 768px) {
+  .hero-headline-topright {
+    font-size: 1.8rem !important;
+    top: 1.5rem !important;
+    right: 1.5rem !important;
+    max-width: 60vw !important;
+    padding: 0.5rem 1rem !important;
   }
   
-  .feature-icon {
-    margin-right: 1rem;
-    margin-bottom: 0;
+  .hero-card-below .hero-text {
+    padding: 1.5rem !important;
+    width: 95% !important;
+  }
+}
+
+/* Additional fix for very small screens */
+@media (max-width: 576px) {
+  .hero-headline-topright {
+    font-size: 1.2rem !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    max-width: 80vw !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 0.8rem !important;
+  }
+  
+  .hero-card-below .hero-text h1 {
+    font-size: 1.3rem !important;
+  }
+  
+  .hero-description {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Fix 4: Improve service section spacing */
+@media (max-width: 768px) {
+  .service-row {
+    margin: 0 0.5rem 1.5rem 0.5rem !important;
+  }
+  
+  .service-content {
+    padding: 1.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .service-content {
+    padding: 1.2rem !important;
+  }
+  
+  .service-image {
+    height: 200px !important;
+  }
+  
+  .service-content h3 {
+    font-size: 1.2rem !important;
+  }
+  
+  .service-content p {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* Fix 5: Mobile nav adjustments */
+@media (max-width: 992px) {
+  .nav-menu {
+    max-height: calc(100vh - 70px) !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Fix 6: Prevent content overflow on all elements */
+@media (max-width: 576px) {
+  /* Global fix to prevent overflow and ensure proper box sizing */
+  *, *::before, *::after {
+    box-sizing: border-box !important;
+  }
+  
+  body, html {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+  
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Add safe minimum heights for interactive elements */
+  a, button, .btn, .nav-link, .accordion-header {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  /* Ensure buttons and links have proper touch targets */
+  .btn {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    justify-content: center !important;
   }
 }
