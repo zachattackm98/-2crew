@@ -192,16 +192,6 @@
     justify-content: center;
     padding-bottom: 9rem;
 }
-
-@media (max-width: 768px) {
-    .accordion-scaler {
-        transform: none;
-        margin-top: 1.5rem;
-        margin-bottom: 2rem;
-        padding-bottom: 3rem;
-    }
-}
-
 #features .accordion-container {
     width: 100% !important;
     max-width: 630px !important;
