@@ -723,3 +723,786 @@ footer {
   margin-top: 0 !important;
   padding: 2rem 0 !important;
 }
+
+/* Comprehensive Element-by-Element Mobile Fixes for #2Crew Website
+ * Add this to the end of your existing mobile-fix.css file
+ */
+
+/* ===== GLOBAL FIXES ===== */
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  overflow-x: visible !important;
+  box-sizing: border-box !important;
+}
+
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* ===== 1. NAVBAR ELEMENT FIXES ===== */
+.navbar {
+  width: 100% !important;
+  padding: 10px 0 !important;
+}
+
+.logo img {
+  height: 50px !important;
+  width: auto !important;
+}
+
+@media (max-width: 992px) {
+  .navbar .container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  
+  .nav-menu {
+    width: 100% !important;
+    left: -100% !important;
+  }
+  
+  .hamburger {
+    margin-right: 10px !important;
+  }
+}
+
+/* ===== 2. HERO SECTION ELEMENT FIXES ===== */
+.hero-bg-full {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  position: relative !important;
+  min-height: 50vh !important;
+}
+
+.hero-gradient-overlay {
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  border-radius: 0 !important;
+}
+
+.hero-headline-topright {
+  top: 20px !important;
+  right: 20px !important;
+  font-size: calc(1.3rem + 1vw) !important;
+  max-width: 60% !important;
+  padding: 0.5rem 1rem !important;
+  z-index: 5 !important;
+}
+
+.hero-card-below {
+  width: 90% !important;
+  max-width: 800px !important;
+  margin: -2rem auto 2rem auto !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+.hero-card-below .hero-text {
+  width: 100% !important;
+  padding: 1.5rem !important;
+}
+
+.hero-text h1 {
+  font-size: 1.8rem !important;
+  line-height: 1.3 !important;
+}
+
+.hero-description {
+  font-size: 1rem !important;
+  margin-bottom: 1.2rem !important;
+}
+
+.highlight, .highlight-green {
+  padding: 0.2em 0.4em !important;
+  display: inline-block !important;
+}
+
+@media (max-width: 576px) {
+  .hero-headline-topright {
+    font-size: 1.2rem !important;
+    top: 15px !important;
+    right: 15px !important;
+    max-width: 70% !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 0.8rem !important;
+  }
+  
+  .hero-card-below {
+    margin-top: 1rem !important;
+  }
+  
+  .hero-text h1 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ===== 3. SERVICES SECTION ELEMENT FIXES ===== */
+.services.section {
+  padding: 2rem 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.services-header {
+  padding: 2rem 1.5rem !important;
+  margin-bottom: 2rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+}
+
+.services-header h1 {
+  font-size: 2rem !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.services-header h2 {
+  font-size: 1.3rem !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.services-header p {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+.services-header .trust-badges {
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+
+.services-header .badge {
+  font-size: 0.9rem !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.services-layout {
+  gap: 1.5rem !important;
+  width: 100% !important;
+}
+
+.service-row {
+  margin-bottom: 0 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  flex-direction: row !important;
+  border-radius: 10px !important;
+}
+
+.service-image {
+  width: 40% !important;
+  flex: 0 0 40% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.service-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.service-content {
+  width: 60% !important;
+  padding: 1.5rem !important;
+}
+
+.service-content h3 {
+  font-size: 1.3rem !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.service-content p {
+  font-size: 0.95rem !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+.service-link {
+  font-size: 0.95rem !important;
+}
+
+@media (max-width: 768px) {
+  .services-header h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .services-header .trust-badges {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .service-row {
+    flex-direction: column !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .service-image {
+    width: 100% !important;
+    min-height: 200px !important;
+    max-height: 250px !important;
+  }
+  
+  .service-content {
+    width: 100% !important;
+  }
+  
+  .service-row::before {
+    width: 100% !important;
+    height: 4px !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+/* ===== 4. FEATURES SECTION (WHAT SHOULD YOU EXPECT?) ELEMENT FIXES ===== */
+#features {
+  padding: 2rem 0 !important;
+  position: relative !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.features-expect {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  padding: 3rem 0 !important;
+  border-radius: 15px !important;
+}
+
+.features-expect::before {
+  width: 100% !important;
+  left: 0 !important;
+  transform: none !important;
+  top: -2rem !important;
+  height: calc(100% + 4rem) !important;
+}
+
+#features .section-title-container {
+  margin-bottom: 1.5rem !important;
+}
+
+#features .section-title {
+  font-size: 2rem !important;
+}
+
+#features .section-title-image {
+  height: 50px !important;
+  width: auto !important;
+}
+
+.accordion-scaler {
+  transform: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 1rem auto !important;
+  padding: 0 !important;
+  padding-bottom: 2rem !important;
+}
+
+#features .accordion-container {
+  width: 100% !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  padding: 1rem !important;
+  border-radius: 10px !important;
+}
+
+#features .accordion-item {
+  width: 100% !important;
+  margin-bottom: 0.8rem !important;
+  border-radius: 10px !important;
+}
+
+#features .accordion-header {
+  padding: 1rem !important;
+  min-height: 44px !important;
+}
+
+#features .accordion-title {
+  font-size: 1rem !important;
+}
+
+#features .accordion-content {
+  padding: 1rem !important;
+  font-size: 0.9rem !important;
+}
+
+.features-summary {
+  width: 100% !important;
+  max-width: 600px !important;
+  margin: 1.5rem auto 0 !important;
+  padding: 1.2rem !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 576px) {
+  #features .section-title {
+    font-size: 1.5rem !important;
+  }
+  
+  #features .section-title-image {
+    height: 40px !important;
+  }
+  
+  #features .accordion-container {
+    padding: 0.8rem !important;
+  }
+  
+  #features .accordion-header {
+    padding: 0.8rem !important;
+  }
+  
+  .features-summary {
+    padding: 1rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* ===== 5. SECTION DIVIDER ELEMENT FIXES ===== */
+.section-divider {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  margin: 1.5rem 0 !important;
+  position: relative !important;
+  height: 1px !important;
+}
+
+.section-divider:before {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.section-divider-content {
+  z-index: 10 !important;
+  width: 3rem !important;
+  height: 3rem !important;
+}
+
+.section-divider-icon {
+  font-size: 1.2rem !important;
+}
+
+/* ===== 6. HOW IT WORKS SECTION ELEMENT FIXES ===== */
+.section.features {
+  width: 100% !important;
+  overflow: hidden !important;
+  padding: 3rem 0 !important;
+}
+
+.feature-list {
+  width: 100% !important;
+  max-width: 700px !important;
+  margin: 2rem auto !important;
+  padding: 0 1rem !important;
+  gap: 1.5rem !important;
+}
+
+.feature-item {
+  width: 100% !important;
+  padding: 1.5rem !important;
+  border-radius: 15px !important;
+  margin: 0 0 1.2rem 0 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+}
+
+.feature-icon {
+  min-width: 50px !important;
+  height: 50px !important;
+  margin-right: 0 !important;
+  font-size: 1.5rem !important;
+}
+
+.feature-text {
+  flex: 1 !important;
+}
+
+.feature-text h3 {
+  font-size: 1.2rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.feature-text p {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 768px) {
+  .feature-item {
+    padding: 1.2rem !important;
+    gap: 1rem !important;
+  }
+  
+  .feature-icon {
+    min-width: 45px !important;
+    height: 45px !important;
+    font-size: 1.2rem !important;
+  }
+  
+  .feature-text h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  .feature-text p {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-item {
+    padding: 1rem !important;
+  }
+  
+  .feature-icon {
+    min-width: 40px !important;
+    height: 40px !important;
+    font-size: 1.1rem !important;
+  }
+}
+
+/* ===== 7. STATS SECTION (DID YOU KNOW?) ELEMENT FIXES ===== */
+.section.stats {
+  width: 100% !important;
+  overflow: visible !important;
+  position: relative !important;
+  padding: 4rem 0 2rem 0 !important;
+  margin-top: -30px !important;
+}
+
+.stats .light-bulb {
+  top: -35px !important;
+  width: 70px !important;
+  height: 70px !important;
+  font-size: 35px !important;
+  z-index: 10 !important;
+}
+
+.stats .container {
+  padding-top: 2rem !important;
+}
+
+.stats-container {
+  width: 100% !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 1.5rem !important;
+  padding: 0 0.5rem 1rem !important;
+}
+
+.stat-item {
+  width: 100% !important;
+  padding: 1.5rem !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+}
+
+.stat-item .stat-icon {
+  font-size: 2rem !important;
+  margin-bottom: 1rem !important;
+  width: 60px !important;
+  height: 60px !important;
+}
+
+.stat-item .stat-title {
+  font-size: 1.2rem !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.stat-item p {
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 1rem !important;
+}
+
+.stat-item .stat-highlight {
+  font-size: 0.85rem !important;
+  padding: 0.5rem 1rem !important;
+}
+
+@media (max-width: 768px) {
+  .stats .light-bulb {
+    top: -30px !important;
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 30px !important;
+  }
+  
+  .stat-item {
+    padding: 1.2rem !important;
+  }
+  
+  .stat-item .stat-icon {
+    font-size: 1.8rem !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-container {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===== 8. TESTIMONIALS SECTION ELEMENT FIXES ===== */
+.section.testimonials {
+  padding: 3rem 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.testimonial-container {
+  width: 100% !important;
+  padding: 0.5rem 0.5rem 1.5rem 0.5rem !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  gap: 1.2rem !important;
+  margin: 0 auto !important;
+}
+
+.testimonial-item {
+  min-width: 280px !important;
+  flex: 0 0 85% !important;
+  max-width: 350px !important;
+  padding: 1.5rem !important;
+  border-radius: 10px !important;
+}
+
+.testimonial-text {
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+}
+
+.testimonial-author {
+  font-size: 0.9rem !important;
+}
+
+@media (min-width: 768px) {
+  .testimonial-item {
+    flex: 0 0 40% !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .testimonial-item {
+    flex: 1 !important;
+    min-width: 300px !important;
+  }
+}
+
+/* ===== 9. CTA SECTION ELEMENT FIXES ===== */
+.cta-section {
+  width: 100% !important;
+  padding: 3rem 1rem !important;
+  overflow: hidden !important;
+}
+
+.cta-section h2 {
+  font-size: 1.8rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.cta-section p {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.warning-badge {
+  font-size: 0.9rem !important;
+  padding: 0.5rem 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.cta-section .btn {
+  padding: 0.8rem 1.5rem !important;
+  font-size: 1rem !important;
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 576px) {
+  .cta-section h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .cta-section p {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ===== 10. FOOTER ELEMENT FIXES ===== */
+.footer {
+  width: 100% !important;
+  overflow: hidden !important;
+  padding: 3rem 0 1.5rem 0 !important;
+}
+
+.footer-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  gap: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.footer-section h3 {
+  font-size: 1.1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem !important;
+}
+
+.footer-links a {
+  font-size: 0.9rem !important;
+  display: inline-block !important;
+  padding: 0.3rem 0 !important;
+}
+
+.copy {
+  padding-top: 1rem !important;
+  font-size: 0.85rem !important;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+  }
+  
+  .footer-section h3 {
+    margin-bottom: 0.8rem !important;
+  }
+  
+  .footer-links li {
+    margin-bottom: 0.3rem !important;
+  }
+}
+
+/* ===== 11. BUTTON AND INTERACTIVE ELEMENT FIXES ===== */
+.btn, 
+.nav-link,
+.accordion-header,
+.service-link {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  touch-action: manipulation !important;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem !important;
+  justify-content: center !important;
+}
+
+/* ===== 12. ANIMATION PERFORMANCE FIXES ===== */
+@media (max-width: 768px) {
+  /* Disable animations on mobile for better performance */
+  .feature-item:hover,
+  .service-row:hover,
+  .card:hover,
+  .stat-item:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  .feature-item:hover .feature-icon,
+  .service-row:hover .service-image img,
+  .service-row:hover h3::after {
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .feature-icon, .paw-animated, .chevron {
+    animation: none !important;
+  }
+  
+  .fade-in-up, .animate {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .pulse {
+    animation: none !important;
+  }
+  
+  .service-row::before,
+  .service-row:hover::before {
+    transform: none !important;
+  }
+  
+  #features .accordion-header:hover .chevron,
+  #features .accordion-item.active .chevron {
+    animation: none !important;
+  }
+  
+  .services-header .paw {
+    animation: none !important;
+  }
+}
+
+/* ===== 13. ENSURE CONTAINERS HAVE PROPER MARGINS ===== */
+/* This ensures all sections align properly */
+.section > .container,
+.footer > .container,
+.cta-section > .container,
+.navbar > .container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ===== 14. ENSURE PROPER PADDING FOR ALL SECTIONS ===== */
+.section {
+  padding: 3rem 0 !important;
+}
+
+@media (max-width: 576px) {
+  .section {
+    padding: 2rem 0 !important;
+  }
+}
