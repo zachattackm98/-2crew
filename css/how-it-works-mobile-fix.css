@@ -162,3 +162,132 @@
     justify-content: center !important;
   }
 }
+/* Critical Mobile Fixes - Add these to your existing mobile-fix.css file */
+
+/* Fix 1: Ensure all width calculations include padding and borders */
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+/* Fix 2: Address potential container overflow issues */
+.container {
+  width: 100% !important;
+  max-width: 1140px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  overflow-x: hidden !important;
+}
+
+/* Fix 3: Specifically target the hero section which often causes overflow */
+.hero-bg-full, 
+.hero-gradient-overlay,
+.hero-headline-topright,
+.hero-card-below {
+  max-width: 100vw !important;
+  overflow: hidden !important;
+}
+
+/* Fix 4: Fix the "How It Works" section for mobile */
+@media (max-width: 768px) {
+  /* Keep feature items in horizontal layout with proper spacing */
+  .feature-item {
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 1.2rem !important;
+    border-radius: 15px !important;
+    min-height: auto !important;
+    width: auto !important;
+    box-sizing: border-box !important;
+    margin: 0 0.5rem 0.8rem 0.5rem !important;
+  }
+  
+  .feature-icon {
+    min-width: 45px !important;
+    height: 45px !important;
+    font-size: 1.2rem !important;
+    margin-right: 1rem !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+/* Fix 5: Remove accordion scaling which causes overflow */
+@media (max-width: 768px) {
+  .accordion-scaler {
+    transform: none !important;
+    padding-bottom: 2rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    max-width: 100% !important;
+  }
+  
+  #features .accordion-container {
+    max-width: 98% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0.7rem !important;
+  }
+}
+
+/* Fix 6: Disable hover animations on mobile */
+@media (max-width: 768px) {
+  .feature-item:hover,
+  .service-row:hover,
+  .card:hover,
+  .stat-item:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  .feature-item:hover .feature-icon,
+  .service-row:hover .service-image img,
+  .service-row:hover .service-content h3::after {
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* Fix 7: Prevent content overflow on all elements */
+@media (max-width: 576px) {
+  /* Global fix to prevent overflow and ensure proper box sizing */
+  *, *::before, *::after {
+    box-sizing: border-box !important;
+  }
+  
+  body, html {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+  
+  /* Add safe minimum heights for interactive elements */
+  a, button, .btn, .nav-link, .accordion-header {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  /* Ensure buttons and links have proper touch targets */
+  .btn {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    justify-content: center !important;
+  }
+}
+
+/* Fix 8: Ensure features section doesn't overflow */
+.features-expect::before {
+  width: 100% !important;
+  left: 0 !important;
+  transform: none !important;
+}
+
+/* Fix 9: Correctly position the section divider */
+.section-divider {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  position: relative !important;
+  margin-bottom: 1.5rem !important;
+}
