@@ -1,6 +1,8 @@
-/* ESSENTIAL FIXES ONLY - OPTIMIZED FOR PERFORMANCE */
+/* MINIMAL HORIZONTAL SCROLL FIX
+ * Contains only the essential fixes for horizontal scrolling
+ */
 
-/* === CORE OVERFLOW PREVENTION === */
+/* Core overflow prevention */
 html, body {
   overflow-x: hidden !important;
   width: 100% !important;
@@ -8,35 +10,31 @@ html, body {
   position: relative !important;
 }
 
-/* === PRIMARY HORIZONTAL SCROLL CULPRITS === */
-
-/* Fix 1: Accordion scaling - #1 cause of horizontal overflow */
+/* Fix 1: Primary culprit - Accordion scaling */
 .accordion-scaler {
-  transform: none !important;
+  transform: none !important; /* Remove scale(1.25) */
   width: 100% !important;
   max-width: 630px !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
-/* Fix 2: Features expect pseudo element - major cause of overflow */
+/* Fix 2: Secondary culprit - Features expect pseudo element */
 .features-expect::before {
-  width: 100% !important;
-  left: 0 !important;
-  transform: none !important;
+  width: 100% !important; /* Change from 180% */
+  left: 0 !important; /* Change from 50% */
+  transform: none !important; /* Remove translateX(-50%) */
 }
 
-/* === HERO SECTION CRITICAL FIXES === */
+/* Fix 3: Hero section critical fixes */
 .hero-bg-full {
   position: relative !important;
   width: 100% !important;
   overflow: hidden !important;
-  padding: 2rem 0 !important;
   box-sizing: border-box !important;
 }
 
 .hero-gradient-overlay {
-  position: absolute !important;
   width: 100% !important;
   height: 100% !important;
   border-radius: 0 !important;
@@ -44,100 +42,24 @@ html, body {
 
 .hero-headline-topright {
   position: absolute !important;
-  top: 2rem !important;
-  right: 15px !important;
-  font-size: min(2.5rem, 8vw) !important;
   max-width: 60% !important;
   word-wrap: break-word !important;
 }
 
 .hero-card-below {
   width: 100% !important;
-  padding: 0 15px !important;
   box-sizing: border-box !important;
 }
 
-.hero-card-below .hero-text {
-  max-width: 800px !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-/* === FEATURES SECTION MINIMAL FIXES === */
+/* Fix 4: Feature section overflow */
 .section.features {
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden !important;
 }
 
-.feature-list {
-  max-width: 800px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-.feature-item {
-  width: 100% !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-
-/* === SECTION TITLES === */
-.section-title-container {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  width: 100% !important;
-  justify-content: center !important;
-}
-
-.section-title-image {
+/* Make sure images don't cause overflow */
+img {
+  max-width: 100% !important;
   height: auto !important;
-  max-height: 60px !important;
-  width: auto !important;
-}
-
-/* === ONLY ESSENTIAL MOBILE ADJUSTMENTS === */
-@media (max-width: 768px) {
-  /* Disable problematic transforms on mobile */
-  .feature-item:hover,
-  .service-row:hover,
-  .card:hover,
-  .stat-item:hover {
-    transform: none !important;
-  }
-  
-  /* Feature items on mobile */
-  .feature-item {
-    flex-direction: row !important;
-    align-items: center !important;
-  }
-  
-  .feature-icon {
-    margin-right: 1rem !important;
-    margin-bottom: 0 !important;
-  }
-  
-  /* Hero section mobile fixes */
-  .hero-headline-topright {
-    font-size: 1.5rem !important;
-    max-width: 70% !important;
-  }
-  
-  /* Titles on mobile */
-  .section-title-container {
-    flex-direction: column !important;
-  }
-}
-
-/* === ESSENTIAL SMALL SCREEN FIXES === */
-@media (max-width: 576px) {
-  .hero-headline-topright {
-    font-size: 1.2rem !important;
-  }
-  
-  img {
-    max-width: 100% !important;
-    height: auto !important;
-  }
 }
