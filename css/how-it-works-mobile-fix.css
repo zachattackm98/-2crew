@@ -1,65 +1,122 @@
-/* MINIMAL HORIZONTAL SCROLL FIX
- * Contains only the essential fixes for horizontal scrolling
+
+/* PERFORMANCE OPTIMIZED FIX
+ * Addresses both horizontal scrolling and vertical scrolling performance
  */
 
-/* Core overflow prevention */
+/* === CORE FIXES === */
 html, body {
-  overflow-x: hidden !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  position: relative !important;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
-/* Fix 1: Primary culprit - Accordion scaling */
+/* === PRIMARY HORIZONTAL SCROLL CULPRITS === */
+
+/* Fix 1: Accordion scaling */
 .accordion-scaler {
-  transform: none !important; /* Remove scale(1.25) */
-  width: 100% !important;
-  max-width: 630px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  transform: none !important;
+  width: 100%;
+  max-width: 630px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Fix 2: Secondary culprit - Features expect pseudo element */
+/* Fix 2: Features expect pseudo element */
 .features-expect::before {
-  width: 100% !important; /* Change from 180% */
-  left: 0 !important; /* Change from 50% */
-  transform: none !important; /* Remove translateX(-50%) */
+  width: 100% !important;
+  left: 0 !important;
+  transform: none !important;
 }
 
-/* Fix 3: Hero section critical fixes */
+/* Fix 3: Hero section */
 .hero-bg-full {
-  position: relative !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .hero-gradient-overlay {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 0 !important;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
 }
 
 .hero-headline-topright {
-  position: absolute !important;
-  max-width: 60% !important;
-  word-wrap: break-word !important;
+  max-width: 60%;
+  word-wrap: break-word;
 }
 
-.hero-card-below {
-  width: 100% !important;
-  box-sizing: border-box !important;
+/* === PERFORMANCE OPTIMIZATIONS === */
+
+/* Prevent repaints/reflows for service rows */
+.service-row {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  overflow: hidden;
 }
 
-/* Fix 4: Feature section overflow */
-.section.features {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow: hidden !important;
+/* Disable costly hover transforms on mobile */
+@media (max-width: 768px) {
+  .feature-item:hover,
+  .service-row:hover,
+  .card:hover,
+  .stat-item:hover {
+    transform: none !important;
+  }
+  
+  .feature-item:hover .feature-icon,
+  .service-row:hover .service-image img,
+  .service-row:hover .service-content h3::after {
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Disable animations */
+  .fade-in-up,
+  .animate,
+  .pulse,
+  .paw-animated,
+  .single-paw,
+  .chevron {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
-/* Make sure images don't cause overflow */
+/* Optimize animations by using hardware acceleration for specific elements */
+.feature-icon,
+.service-image img,
+.accordion-item,
+.feature-item {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Remove costly backdrop filters on mobile */
+@media (max-width: 768px) {
+  .feature-item,
+  .stat-item {
+    backdrop-filter: none !important;
+  }
+}
+
+/* Simplify box shadows on mobile */
+@media (max-width: 768px) {
+  .service-row,
+  .feature-item,
+  .accordion-item,
+  .stat-item {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+  }
+}
+
+/* Ensure images don't cause layout shifts */
 img {
-  max-width: 100% !important;
-  height: auto !important;
+  max-width: 100%;
+  height: auto;
 }
