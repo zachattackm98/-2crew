@@ -1,8 +1,8 @@
-/* Simple Targeted Horizontal Scroll Fix
- * Building on how-it-works-mobile-fix.css with minimal changes
+/* TARGETED HORIZONTAL SCROLL FIX FOR INDEX PAGE 
+ * Based on comparison with working pages (about.html, pricing.html)
  */
 
-/* Core Overflow Prevention - This is critical */
+/* Core prevention */
 html, body {
   overflow-x: hidden !important;
   width: 100% !important;
@@ -10,140 +10,109 @@ html, body {
   position: relative !important;
 }
 
-/* Ensure proper box-sizing everywhere */
-*, *::before, *::after {
-  box-sizing: border-box !important;
+/* Fix 1: Primary culprit - Accordion scaling */
+.accordion-scaler {
+  transform: none !important; /* Remove scale(1.25) */
+  width: 100% !important;
+  max-width: 630px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-bottom: 3rem !important;
 }
 
-/* Fix 1: The Two MAIN Culprits */
+/* Fix 2: Secondary culprit - Features expect pseudo element */
+.features-expect::before {
+  width: 100% !important; /* Change from 180% */
+  left: 0 !important; /* Change from 50% */
+  transform: none !important; /* Remove translateX(-50%) */
+}
 
-/* 1A: Stop accordion scaling - This is the #1 cause of horizontal overflow */
-.accordion-scaler {
-  transform: none !important;
+/* Fix 3: Hero section positioning */
+.hero-bg-full {
+  position: relative !important;
   width: 100% !important;
   max-width: 100% !important;
+  overflow: hidden !important;
 }
 
-/* 1B: Fix the features-expect pseudo element - Another major cause */
-.features-expect::before {
+.hero-gradient-overlay {
   width: 100% !important;
-  left: 0 !important;
-  transform: none !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
 }
 
-/* Fix 2: Simple container width constraints */
+.hero-headline-topright {
+  max-width: 60% !important;
+  right: 20px !important;
+  word-wrap: break-word !important;
+}
+
+.hero-card-below {
+  width: 90% !important;
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Fix 4: Container constraints */
 .container {
   width: 100% !important;
   max-width: 1200px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
   padding-left: 15px !important;
   padding-right: 15px !important;
+  overflow: visible !important;
 }
 
-/* Fix 3: Mobile-specific adjustments - Using existing code */
+/* Fix 5: Service rows */
+.service-row {
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+.service-image {
+  overflow: hidden !important;
+}
+
+/* Media query fixes for very small screens */
 @media (max-width: 768px) {
-  /* Keep feature items in horizontal layout with proper spacing */
-  .feature-item {
-    flex-direction: row !important;
-    align-items: center !important;
-    padding: 1.2rem !important;
-    border-radius: 15px !important;
-    min-height: auto !important;
-    width: auto !important;
-    box-sizing: border-box !important;
-    margin: 0 0.5rem 0.8rem 0.5rem !important;
-  }
-  
-  .feature-icon {
-    min-width: 45px !important;
-    height: 45px !important;
-    font-size: 1.2rem !important;
-    margin-right: 1rem !important;
-    margin-bottom: 0 !important;
-  }
-  
-  .feature-text h3 {
-    font-size: 1.1rem !important;
-    margin-bottom: 6px !important;
-  }
-  
-  .feature-text p {
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-  }
-  
-  /* Accordion tweaks */
-  #features .accordion-container {
-    max-width: 98% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 0.7rem !important;
-  }
-  
-  /* Hero headline tweaks */
-  .hero-headline-topright {
-    font-size: 1.8rem !important;
-    top: 1.5rem !important;
-    right: 1.5rem !important;
-    max-width: 60vw !important;
-    padding: 0.5rem 1rem !important;
-  }
-  
-  .hero-card-below .hero-text {
-    padding: 1.5rem !important;
-    width: 95% !important;
-  }
-  
-  /* Disable animations on mobile */
+  /* Disable transforms on mobile */
   .feature-item:hover,
   .service-row:hover,
   .card:hover,
   .stat-item:hover {
     transform: none !important;
-    box-shadow: none !important;
+  }
+  
+  /* Adjust feature items layout */
+  .feature-item {
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 1.2rem !important;
+  }
+  
+  .feature-icon {
+    margin-right: 1rem !important;
+    margin-bottom: 0 !important;
+  }
+  
+  /* Adjust hero headline on mobile */
+  .hero-headline-topright {
+    font-size: 1.5rem !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    max-width: 70% !important;
   }
 }
 
-/* Fix 4: Very small screens */
+/* Extra small screens */
 @media (max-width: 576px) {
   .hero-headline-topright {
     font-size: 1.2rem !important;
-    top: 1rem !important;
-    right: 1rem !important;
-    max-width: 80vw !important;
-    padding: 0.4rem 0.8rem !important;
-    border-radius: 0.8rem !important;
   }
   
-  .hero-card-below .hero-text h1 {
-    font-size: 1.3rem !important;
-  }
-  
-  .hero-description {
-    font-size: 0.9rem !important;
-  }
-  
-  /* Add safe minimum heights for interactive elements */
-  a, button, .btn, .nav-link, .accordion-header {
-    min-height: 44px !important;
-    display: flex !important;
-    align-items: center !important;
+  /* Ensure image constraints */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
   }
 }
-
-/* Fix 5: Specific section width constraints */
-.section,
-.hero-bg-full,
-.hero-gradient-overlay,
-.services-header,
-.features-expect {
-  max-width: 100% !important;
-  width: 100% !important;
-  overflow: hidden !important;
-}
-
-/* Fix 6: Images safety */
-img {
-  max-width: 100% !important;
-  height: auto !important;
