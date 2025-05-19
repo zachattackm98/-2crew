@@ -65,20 +65,16 @@
 }
 
 .accordion-content {
-    padding: 0;
+    padding: 0 !important;
     max-height: 0;
-    opacity: 0;
     overflow: hidden;
     transition: all 0.3s ease;
     background: white;
-    visibility: hidden;
 }
 
 .accordion-item.active .accordion-content {
-    padding: 20px;
+    padding: 20px !important;
     max-height: 200px;
-    opacity: 1;
-    visibility: visible;
 }
 
 .accordion-content p {
@@ -97,7 +93,11 @@
         padding: 15px;
     }
 
+    /* Remove default padding from .accordion-content on mobile too */
     .accordion-content {
-        padding: 15px;
+        padding: 0 !important;
+    }
+    .accordion-item.active .accordion-content {
+        padding: 15px !important;
     }
 } 
