@@ -124,26 +124,23 @@ if (testimonialContainer) {
     testimonialContainer.addEventListener('mouseleave', startAutoScroll);
 }
 
-// Add this to your existing script.js file
-
+// Accordion Functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all accordion headers
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    const accordionItems = document.querySelectorAll('.accordion-item');
     
-    // Add click event listener to each header
-    accordionHeaders.forEach(header => {
-        header.addEventListener('click', function() {
-            // Toggle active class on the closest accordion item
-            const accordionItem = this.closest('.accordion-item');
-            accordionItem.classList.toggle('active');
-            
-            // Optional: Close other accordion items when one is opened
-            const allAccordionItems = document.querySelectorAll('.accordion-item');
-            allAccordionItems.forEach(item => {
-                if (item !== accordionItem) {
-                    item.classList.remove('active');
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        
+        header.addEventListener('click', () => {
+            // Close all other items
+            accordionItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
                 }
             });
+            
+            // Toggle current item
+            item.classList.toggle('active');
         });
     });
 });
@@ -186,13 +183,6 @@ function validateDateSelection(event) {
         event.target.value = '';
         return;
     }
-
-    // Example: Prevent weekends (optional, uncomment if needed)
-    // const day = selectedDate.getDay();
-    // if (day === 0 || day === 6) {
-    //     alert("Please select a weekday for your service.");
-    //     event.target.value = '';
-    // }
 }
 
 // Highlight 'What Should You Expect?' title when in view
@@ -228,24 +218,3 @@ if (howSection && howTitle) {
     }, { threshold: 0.3 });
     howSectionObserver.observe(howSection);
 }
-
-// FAQ Accordion Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const accordionItems = document.querySelectorAll('.accordion-item');
-    
-    accordionItems.forEach(item => {
-        const header = item.querySelector('.accordion-header');
-        
-        header.addEventListener('click', () => {
-            // Close all other items
-            accordionItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Toggle current item
-            item.classList.toggle('active');
-        });
-    });
-});
