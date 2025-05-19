@@ -1,12 +1,8 @@
-/* CONSOLIDATED MOBILE FIXES FOR #2CREW WEBSITE
- * This should REPLACE all existing mobile fix files
+/* COMPREHENSIVE HORIZONTAL SCROLL FIX FOR INDEX PAGE
+ * Final version after multiple audits
  */
 
-/* ===== GLOBAL FIXES ===== */
-*, *::before, *::after {
-  box-sizing: border-box !important;
-}
-
+/* ===== CORE GLOBAL FIXES ===== */
 html, body {
   overflow-x: hidden !important;
   width: 100% !important;
@@ -16,68 +12,91 @@ html, body {
   padding: 0 !important;
 }
 
-.container {
+/* Ensure proper box-sizing everywhere */
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+
+/* ===== MAJOR CONTAINER FIXES ===== */
+.container,
+section > .container,
+.footer > .container,
+.cta-section > .container,
+.navbar > .container {
   width: 100% !important;
   max-width: 1200px !important;
   margin-left: auto !important;
   margin-right: auto !important;
   padding-left: 15px !important;
   padding-right: 15px !important;
-  overflow-x: hidden !important;
+  overflow-x: visible !important;
 }
 
-img {
+/* ===== SECTION OVERFLOWS ===== */
+section,
+.section,
+.section.services,
+.section.features,
+.section.stats,
+.section.testimonials,
+.cta-section,
+.footer,
+.services-header,
+.services-layout,
+.service-row,
+.features-expect,
+#features,
+.feature-list {
   max-width: 100% !important;
-  height: auto !important;
-  display: block !important;
-}
-
-/* Fix all sections to prevent independent scrolling */
-.section {
-  position: relative !important;
+  width: 100% !important;
   overflow: hidden !important;
+}
+
+/* ===== PRIMARY CULPRIT #1: ACCORDION SCALING ===== */
+.accordion-scaler {
+  transform: none !important; /* Critical fix - remove scale(1.25) */
+  transform-origin: top center !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   width: 100% !important;
-  height: auto !important;
-  padding: 3rem 0 !important;
+  max-width: 100% !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  padding-bottom: 2rem !important;
+  display: flex !important;
+  justify-content: center !important;
 }
 
-@media (max-width: 576px) {
-  .section {
-    padding: 2rem 0 !important;
-  }
-}
-
-/* ===== 1. NAVBAR FIXES ===== */
-.navbar {
+#features .accordion-container {
   width: 100% !important;
-  padding: 10px 0 !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  overflow: hidden !important;
 }
 
-.logo img {
-  height: 50px !important;
-  width: auto !important;
+/* ===== PRIMARY CULPRIT #2: FEATURES EXPECT PSEUDO ELEMENT ===== */
+.features-expect::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -3.5rem !important;
+  left: 0 !important; /* Changed from 50% */
+  transform: none !important; /* Removed translateX(-50%) */
+  width: 100% !important; /* Changed from 180% */
+  height: calc(110% + 3.5rem) !important;
+  background: radial-gradient(circle, rgba(0,121,107,0.13) 0%, rgba(0,121,107,0.06) 40%, rgba(0,121,107,0.00) 80%) !important;
+  border-radius: 30px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
 }
 
-@media (max-width: 992px) {
-  .nav-menu {
-    position: fixed !important;
-    left: -100% !important;
-    top: 70px !important;
-    width: 100% !important;
-    max-height: calc(100vh - 70px) !important;
-    overflow-y: auto !important;
-  }
-  
-  .hamburger {
-    margin-right: 10px !important;
-  }
-}
-
-/* ===== 2. HERO SECTION FIXES ===== */
+/* ===== HERO SECTION FIXES ===== */
 .hero-bg-full {
   width: 100% !important;
-  max-width: 100vw !important;
+  max-width: 100% !important;
   overflow: hidden !important;
+  position: relative !important;
 }
 
 .hero-gradient-overlay {
@@ -87,12 +106,16 @@ img {
   right: 0 !important;
   top: 0 !important;
   bottom: 0 !important;
-  border-radius: 0 !important;
+  border-radius: 0 !important; /* Remove rounded corners that can overflow */
 }
 
 .hero-headline-topright {
-  max-width: 70% !important;
+  position: absolute !important;
+  top: 2rem !important;
+  right: 15px !important;
   z-index: 5 !important;
+  max-width: 70% !important;
+  word-wrap: break-word !important;
 }
 
 .hero-card-below {
@@ -101,186 +124,89 @@ img {
   margin-left: auto !important;
   margin-right: auto !important;
   z-index: 5 !important;
+  box-sizing: border-box !important;
 }
 
-.highlight, .highlight-green {
-  display: inline-block !important;
-  box-decoration-break: clone !important;
-  -webkit-box-decoration-break: clone !important;
-}
-
-@media (max-width: 768px) {
-  .hero-headline-topright {
-    font-size: 1.8rem !important;
-    top: 1.5rem !important;
-    right: 1.5rem !important;
-    max-width: 60vw !important;
-    padding: 0.5rem 1rem !important;
-  }
-  
-  .hero-card-below .hero-text {
-    padding: 1.5rem !important;
-    width: 95% !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero-headline-topright {
-    font-size: 1.2rem !important;
-    top: 1rem !important;
-    right: 1rem !important;
-    max-width: 80vw !important;
-    padding: 0.4rem 0.8rem !important;
-    border-radius: 0.8rem !important;
-  }
-  
-  .hero-card-below .hero-text h1 {
-    font-size: 1.3rem !important;
-  }
-  
-  .hero-description {
-    font-size: 0.9rem !important;
-  }
-}
-
-/* ===== 3. SERVICES SECTION FIXES ===== */
-.services-header {
+.hero-card-below .hero-text {
   width: 100% !important;
   max-width: 100% !important;
-  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
-.services-header::before,
-.services-header::after {
-  content: '' !important;
-  position: absolute !important;
-  border-radius: 50% !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-  z-index: 0 !important;
-  pointer-events: none !important;
-}
-
+/* ===== SERVICE SECTION FIXES ===== */
 .service-row {
-  width: 100% !important;
+  display: flex !important;
+  align-items: stretch !important;
   margin-bottom: 1.5rem !important;
+  border-radius: 10px !important;
   overflow: hidden !important;
 }
 
-@media (max-width: 768px) {
-  .service-row {
-    flex-direction: column !important;
-    margin: 0 0.5rem 1.5rem 0.5rem !important;
-  }
-
-  .service-image {
-    width: 100% !important;
-    min-height: 200px !important;
-    max-height: 250px !important;
-  }
-
-  .service-content {
-    width: 100% !important;
-    padding: 1.5rem !important;
-  }
-  
-  .services-header .trust-badges {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 10px !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .service-content {
-    padding: 1.2rem !important;
-  }
-  
-  .service-image {
-    height: 200px !important;
-  }
-  
-  .service-content h3 {
-    font-size: 1.2rem !important;
-  }
-  
-  .service-content p {
-    font-size: 0.95rem !important;
-  }
-}
-
-/* ===== 4. FEATURES SECTION (WHAT SHOULD YOU EXPECT?) FIXES ===== */
-#features {
-  position: relative !important;
-  width: 100% !important;
+.service-image {
   overflow: hidden !important;
 }
 
-.features-expect {
-  position: relative !important;
-  overflow: hidden !important;
-  height: auto !important;
-  width: 100% !important;
-}
-
-/* Fix specifically for .features-expect::before */
-.features-expect::before {
-  width: 100% !important; /* Changed from 180% */
-  left: 0 !important;
-  transform: none !important;
-}
-
-/* Handle accordion scaling which causes overflow */
-.accordion-scaler {
-  transform: none !important; /* This removes the transform: scale(1.25) */
-  width: 100% !important;
+.service-image img {
   max-width: 100% !important;
-  padding: 0 15px !important;
-}
-
-/* Fix accordion container */
-#features .accordion-container {
   width: 100% !important;
-  max-width: 100% !important;
-  overflow: hidden !important;
-  padding: 15px !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
-/* Fix all features section elements */
-.features-expect,
-.features,
-#features,
-.feature-list,
+/* ===== FEATURE ITEMS FIXES ===== */
 .feature-item {
-  max-width: 100% !important;
   width: 100% !important;
+  max-width: 100% !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
-  height: auto !important;
 }
 
+/* ===== SECTION DIVIDER FIXES ===== */
+.section-divider {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+
+/* ===== STATS SECTION FIXES ===== */
+.stats-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 1.5rem !important;
+  box-sizing: border-box !important;
+  padding: 0 15px !important;
+  overflow: visible !important;
+}
+
+.stat-item {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* ===== TESTIMONIALS SECTION FIXES ===== */
+.testimonial-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  gap: 1.5rem !important;
+  padding: 0 0 30px 0 !important;
+}
+
+/* ===== MOBILE-SPECIFIC ADJUSTMENTS ===== */
 @media (max-width: 768px) {
-  .accordion-scaler {
-    transform: none !important;
-    padding-bottom: 2rem !important;
-    margin-top: 1rem !important;
-    margin-bottom: 1.5rem !important;
-    max-width: 100% !important;
-  }
-  
-  #features .accordion-container {
-    max-width: 98% !important;
-    padding: 0.7rem !important;
-  }
-  
+  /* Ensure features section works properly on mobile */
   .feature-item {
     flex-direction: row !important;
     align-items: center !important;
     padding: 1.2rem !important;
     border-radius: 15px !important;
     min-height: auto !important;
-    width: auto !important;
-    box-sizing: border-box !important;
-    margin: 0 0.5rem 0.8rem 0.5rem !important;
+    width: 100% !important;
   }
   
   .feature-icon {
@@ -291,217 +217,36 @@ img {
     margin-bottom: 0 !important;
   }
   
-  .feature-text h3 {
-    font-size: 1.1rem !important;
-    margin-bottom: 6px !important;
+  /* Service rows on mobile */
+  .service-row {
+    flex-direction: column !important;
   }
   
-  .feature-text p {
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-  }
-}
-
-/* ===== 5. SECTION DIVIDER FIXES ===== */
-.section-divider {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow: visible !important;
-  position: relative !important;
-  margin-bottom: 1.5rem !important;
-}
-
-/* ===== 6. HOW IT WORKS SECTION FIXES ===== */
-.section.features {
-  padding: 3rem 0 !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  position: relative !important;
-}
-
-.feature-list {
-  width: 100% !important;
-  max-width: 800px !important;
-  margin: 2rem auto !important;
-  padding: 0 1rem !important;
-}
-
-@media (max-width: 768px) {
-  .feature-item {
-    flex-direction: row !important; /* Override default column direction */
-    align-items: center !important;
-    padding: 1.2rem !important;
-    border-radius: 15px !important;
-    min-height: auto !important;
-    width: auto !important;
-    box-sizing: border-box !important;
-    margin: 0 0.5rem 0.8rem 0.5rem !important;
+  .service-image,
+  .service-content {
+    width: 100% !important;
   }
   
-  .feature-icon {
-    min-width: 45px !important;
-    height: 45px !important;
-    font-size: 1.2rem !important;
-    margin-right: 1rem !important;
-    margin-bottom: 0 !important;
+  /* Hero section on mobile */
+  .hero-headline-topright {
+    font-size: 1.5rem !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    max-width: 70% !important;
+    padding: 0.5rem 1rem !important;
   }
   
-  /* Disable hover transforms on mobile to prevent layout shifts */
-  .feature-item:hover {
-    transform: none !important;
-  }
-}
-
-/* ===== 7. STATS SECTION (DID YOU KNOW?) FIXES ===== */
-.section.stats {
-  position: relative !important;
-  overflow: visible !important;
-  padding: 0 !important;
-  margin-top: -50px !important;
-  border-radius: 0 !important;
-  width: 100% !important;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
-  z-index: 1 !important;
-}
-
-.section.stats:before,
-.section.stats:after {
-  display: none !important;
-}
-
-.section.stats .container {
-  padding-top: 4rem !important;
-  border-radius: 0 !important;
-  position: relative !important;
-  overflow: visible !important;
-}
-
-.stats-container {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-  gap: 1.5rem !important;
-  padding: 0 1rem 2rem !important;
-  border-radius: 0 !important;
-  overflow: visible !important;
-}
-
-/* Light bulb styling */
-.section.stats .light-bulb {
-  position: absolute !important;
-  top: -40px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  background: linear-gradient(to bottom, #f9d423, var(--secondary)) !important;
-  box-shadow: 0 0 30px rgba(249, 212, 35, 0.5) !important;
-  border: 5px solid white !important;
-  border-radius: 50% !important;
-  width: 80px !important;
-  height: 80px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 40px !important;
-  z-index: 3 !important;
-}
-
-@media (max-width: 768px) {
-  .section.stats {
-    margin-top: -40px !important;
-  }
-
-  .section.stats .container {
-    padding-top: 3rem !important;
-  }
-
-  .section.stats .section-title {
-    margin-bottom: 1.5rem !important;
-    color: white !important;
-  }
-
+  /* Stats container on mobile */
   .stats-container {
-    gap: 1rem !important;
-    padding: 0 0.5rem 1.5rem !important;
+    grid-template-columns: 1fr !important;
   }
-
-  .stat-item {
-    padding: 1rem !important;
-  }
-
-  .stat-item h3 {
-    font-size: 1.5rem !important;
-  }
-
-  .stat-item p {
-    font-size: 1rem !important;
-  }
-
-  .stat-item .stat-icon {
-    font-size: 1.5rem !important;
-    margin-bottom: 0.75rem !important;
-  }
-
-  .stat-item .stat-highlight {
-    font-size: 0.8rem !important;
-    margin-top: 0.75rem !important;
-  }
-
-  .section.stats .light-bulb {
-    top: -30px !important;
-    width: 60px !important;
-    height: 60px !important;
-    font-size: 30px !important;
-  }
-}
-
-/* ===== 8. TESTIMONIALS SECTION FIXES ===== */
-.testimonial-container {
-  width: 100% !important;
-  max-width: 100% !important;
-  padding: 0 0.5rem 1.5rem !important;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-}
-
-.testimonial-item {
-  min-width: 280px !important;
-  flex: 0 0 85% !important;
-  margin-right: 1rem !important;
-}
-
-@media (min-width: 768px) {
-  .testimonial-item {
-    flex: 0 0 40% !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .testimonial-item {
-    flex: 1 !important;
-  }
-}
-
-/* ===== 9. CTA SECTION FIXES ===== */
-.cta-section {
-  width: 100% !important;
-  padding: 3rem 1rem !important;
-  overflow: hidden !important;
-}
-
-/* ===== 10. FOOTER FIXES ===== */
-.footer {
-  width: 100% !important;
-  overflow: hidden !important;
-}
-
-/* ===== 11. DISABLE ANIMATIONS ON MOBILE ===== */
-@media (max-width: 768px) {
-  /* Disable hover transforms on mobile */
+  
+  /* Disable problematic animations and transforms on mobile */
   .feature-item:hover,
   .service-row:hover,
   .card:hover,
   .stat-item:hover {
     transform: none !important;
-    box-shadow: none !important;
   }
   
   .feature-item:hover .feature-icon,
@@ -510,48 +255,42 @@ img {
     transform: none !important;
     animation: none !important;
   }
-  
-  .feature-icon, 
-  .paw-animated,
-  .single-paw,
-  .chevron {
-    animation: none !important;
-  }
-  
-  .fade-in-up, 
-  .animate {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  
-  .pulse {
-    animation: none !important;
-  }
-  
-  #features .accordion-header:hover .chevron,
-  #features .accordion-item.active .chevron {
-    animation: none !important;
-  }
-  
-  .services-header .paw {
-    animation: none !important;
-  }
 }
 
-/* ===== 12. IMPROVE ACCESSIBILITY ON MOBILE ===== */
+/* ===== EXTREMELY SMALL SCREENS ===== */
 @media (max-width: 576px) {
-  /* Add safe minimum heights for interactive elements */
+  .hero-headline-topright {
+    font-size: 1.2rem !important;
+    top: 0.5rem !important;
+    right: 0.5rem !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+  
+  /* Improve accessibility for touch targets */
   a, button, .btn, .nav-link, .accordion-header {
     min-height: 44px !important;
     display: flex !important;
     align-items: center !important;
   }
-  
-  /* Ensure buttons and links have proper touch targets */
-  .btn {
-    padding: 0.8rem 1.5rem !important;
-    font-size: 0.9rem !important;
-    justify-content: center !important;
+}
+
+/* ===== FINAL GUARANTEES ===== */
+/* Make sure images don't cause overflow */
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Disable animation-related classes on mobile */
+@media (max-width: 768px) {
+  .fade-in-up,
+  .animate,
+  .pulse,
+  .paw-animated,
+  .single-paw,
+  .chevron {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
