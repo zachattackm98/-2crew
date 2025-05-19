@@ -236,3 +236,167 @@ html, body {
     margin-right: 0.8rem !important;
   }
 }
+
+
+/* Comprehensive Hero Section Fixes */
+
+/* Core hero container fixes */
+.hero-bg-full {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  padding: 2rem 0 !important; /* Remove horizontal padding */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important; /* Center content instead of flex-end */
+  box-sizing: border-box !important;
+}
+
+/* Hero gradient overlay */
+.hero-gradient-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important; /* Remove border radius that can cause issues */
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Fix headline position */
+.hero-headline-topright {
+  position: absolute !important;
+  top: 2rem !important;
+  right: 15px !important; /* Use fixed pixel value instead of rem */
+  z-index: 5 !important;
+  font-size: min(2.5rem, 8vw) !important; /* Responsive font size */
+  max-width: 60% !important;
+  word-wrap: break-word !important;
+  padding: 0.6rem 1.2rem !important;
+  border-radius: 1rem !important;
+  text-align: right !important;
+  box-sizing: border-box !important;
+}
+
+/* Hero content container */
+.container.hero-content {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 15px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  box-sizing: border-box !important;
+}
+
+/* Hero card below fixes */
+.hero-card-below {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-top: -2.5rem !important;
+  margin-bottom: 2.5rem !important;
+  position: relative !important;
+  z-index: 2 !important;
+  padding: 0 15px !important;
+  box-sizing: border-box !important;
+}
+
+.hero-card-below .hero-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1.1rem !important;
+  background: rgba(255,255,255,0.92) !important;
+  padding: 1.5rem 2rem !important; /* Reduced horizontal padding */
+  border-radius: 16px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10) !important;
+  max-width: 800px !important;
+  width: 100% !important; /* Changed from 90% to 100% */
+  min-height: unset !important;
+  margin: 0 !important;
+  pointer-events: auto !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+/* Hero text content */
+.hero-card-below .hero-text h1 {
+  font-size: min(2rem, 7vw) !important; /* Responsive font size */
+  margin-bottom: 0 !important;
+  margin-right: 0 !important;
+  white-space: normal !important;
+  line-height: 1.3 !important;
+  width: 100% !important;
+}
+
+.hero-card-below .hero-description {
+  font-size: min(1.1rem, 5vw) !important; /* Responsive font size */
+  margin-bottom: 0 !important;
+  color: #444 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+}
+
+.hero-card-below .btn {
+  margin-bottom: 0 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+
+/* Specific mobile adjustments for hero section */
+@media (max-width: 768px) {
+  .hero-bg-full {
+    min-height: 40vh !important; /* Reduce height on mobile */
+    padding: 1rem 0 !important;
+  }
+  
+  .hero-headline-topright {
+    font-size: 1.5rem !important;
+    top: 1rem !important;
+    right: 10px !important;
+    max-width: 70% !important;
+    padding: 0.5rem 1rem !important;
+  }
+  
+  .hero-card-below {
+    margin-top: 1rem !important; /* Positive margin on mobile */
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .hero-card-below .hero-text {
+    padding: 1.2rem !important;
+  }
+  
+  .hero-card-below .hero-text h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .hero-card-below .hero-description {
+    font-size: 1rem !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 576px) {
+  .hero-headline-topright {
+    font-size: 1.2rem !important;
+    top: 0.5rem !important;
+    right: 8px !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 0.8rem !important;
+  }
+  
+  .hero-card-below .btn {
+    width: 100% !important; /* Full width button on very small screens */
+    padding: 0.8rem 1.5rem !important;
+  }
+}
