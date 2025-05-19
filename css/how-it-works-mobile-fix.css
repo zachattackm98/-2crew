@@ -116,3 +116,123 @@ html, body {
     height: auto !important;
   }
 }
+
+/* Additional fixes for the How It Works section */
+
+/* Fix 6: How It Works section */
+.section.features {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.feature-list {
+  max-width: 800px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 15px !important;
+}
+
+.feature-item {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+.feature-item:hover {
+  transform: translateY(-8px) !important; /* Allow vertical movement but no scaling */
+  box-shadow: 0 16px 48px 0 rgba(0,121,107,0.13), 0 2px 24px 0 rgba(255,119,0,0.10) !important;
+}
+
+.feature-icon {
+  min-width: 45px !important;
+  max-width: 64px !important;
+}
+
+/* Fix 7: Ensure section-title-container stays within bounds */
+.section-title-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important; /* Allow wrapping on small screens */
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+.section-title {
+  font-size: 2.2rem !important;
+  max-width: 100% !important;
+  text-align: center !important;
+}
+
+.section-title-image {
+  height: auto !important;
+  max-height: 60px !important;
+  width: auto !important;
+  margin-left: 15px !important;
+}
+
+/* Additional mobile-specific fixes for very small screens */
+@media (max-width: 700px) {
+  .feature-item {
+    flex-direction: row !important; /* Keep horizontal layout on mobile */
+    align-items: center !important;
+    padding: 1.2rem !important;
+    border-radius: 15px !important;
+    min-height: auto !important;
+  }
+  
+  .feature-icon {
+    min-width: 45px !important;
+    height: 45px !important;
+    font-size: 1.2rem !important;
+    margin-right: 1rem !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .feature-text h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 5px !important;
+  }
+  
+  .feature-text p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .section-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .section-title-image {
+    max-height: 40px !important;
+    margin-left: 10px !important;
+  }
+  
+  .section-title-container {
+    flex-direction: column !important;
+    margin-bottom: 20px !important;
+  }
+}
+
+/* Final guarantees for extra small devices */
+@media (max-width: 375px) {
+  .feature-item {
+    padding: 1rem 0.8rem !important;
+  }
+  
+  .feature-icon {
+    min-width: 40px !important;
+    height: 40px !important;
+    font-size: 1rem !important;
+    margin-right: 0.8rem !important;
+  }
+}
